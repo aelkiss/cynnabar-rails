@@ -1,0 +1,23 @@
+<h1>Pages</h1>
+
+<table>
+<tr>
+<th>Title</th>
+<th>Slug</th>
+<th></th>
+</tr>
+
+<% @pages.each do |page| %>
+<tr>
+<td>
+  <%= link_to page.title, page %>
+</td>
+<td>
+  <%= link_to page.slug, page %>
+</td>
+<td> 
+<td>
+      <%= link_to 'Edit', edit_page_path(page) %>
+      <%= link_to 'Delete', page, method: :delete, data: { confirm: 'Are you sure?' } %>
+</td>
+<% end %>

@@ -6,6 +6,10 @@ class PagesController < ApplicationController
   def edit
   end
 
+  def index
+    @pages = Page.all
+  end
+
   def update
     if params[:commit] == 'Save' and @page.update(page_params) 
       redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
@@ -18,13 +22,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def check_page_not_found
-    if @page == nil
-      render :not_found, :status => :not_found
-      # raise ActionController::RoutingError.new('Not Found')
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
@@ -34,7 +31,6 @@ class PagesController < ApplicationController
         render :not_found, :status => :not_found
         # raise ActionController::RoutingError.new('Not Found')
       end
-
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
