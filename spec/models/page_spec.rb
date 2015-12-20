@@ -37,7 +37,7 @@ RSpec.describe Page, type: :model do
   end
 
   it "does not allow two pages with the same slug" do
-    page = build(:page, slug: 'slug')
+    page = create(:page, slug: 'slug')
     anotherpage = build(:page, slug: 'slug')
     # should it be invalid or raise an error??
     expect(anotherpage).not_to be_valid
