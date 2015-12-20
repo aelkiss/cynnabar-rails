@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151219160127) do
+ActiveRecord::Schema.define(version: 20151220133339) do
 
   create_table "pages", force: :cascade do |t|
     t.string   "body"
@@ -20,5 +20,7 @@ ActiveRecord::Schema.define(version: 20151219160127) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true
 
 end
