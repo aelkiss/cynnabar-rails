@@ -21,6 +21,11 @@ RSpec.describe Page, type: :model do
     expect(page).not_to be_valid
   end
 
+  it "does not allow leading / in the slug" do
+    page = build(:page, slug: '/leadingslash')
+    expect(page).not_to be_valid
+  end
+
   it "requires a slug" do
     page = build(:page, slug: nil)
     expect(page).not_to be_valid
