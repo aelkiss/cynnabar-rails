@@ -47,4 +47,9 @@ RSpec.describe Page, type: :model do
     # should it be invalid or raise an error??
     expect(anotherpage).not_to be_valid
   end
+
+  it "returns the slug as the url" do
+    page = create(:page)
+    expect(page.to_param).to eq("#{page.slug}")
+  end
 end

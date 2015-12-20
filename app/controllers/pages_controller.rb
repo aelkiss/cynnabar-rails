@@ -4,21 +4,17 @@ class PagesController < ApplicationController
   end
 
   def edit
-    # WARNING XSS VULNERABILITY
-    if params[:page] and params[:page][:body]
-      @body = params[:page][:body]
-    end
   end
 
   def update
-    respond_to do |format|
-      if @page.update(page_params)
-        format.html { redirect_to @page, notice: 'Award was successfully updated.' }
-        format.json { render :show, status: :ok, location: @page }
-      else
-        format.html { render :edit }
-        format.json { render json: @page.errors, status: :unprocessable_entity }
+    if params[:commit] == 'Save' and @page.update(page_params) 
+      redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
+    else
+      # WARNING XSS VULNERABILITY
+      if params[:page] and params[:page][:body]
+        @body = params[:page][:body]
       end
+      render :edit
     end
   end
 
@@ -32,13 +28,7 @@ class PagesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_page
-      @page = nil
-
-      if params[:slug]  
-        @page = Page.find_by_slug(params[:slug])
-      elsif params[:id] 
-        @page = Page.find(params[:id])
-      end
+      @page = Page.find(params[:slug])
 
       if @page == nil
         render :not_found, :status => :not_found

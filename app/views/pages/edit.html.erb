@@ -1,11 +1,5 @@
 <h1>Edit Page</h1>
 
-<% if @body %>
-  <h3>Page Preview</h3>
-  <%== @body %>
-<% end %>
-
-<%= form_for(@page) do |f| %>
   <% if @page.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
@@ -18,6 +12,13 @@
     </div>
   <% end %>
 
+
+<% if @body %>
+  <h3>Page Preview</h3>
+  <%== @body %>
+<% end %>
+
+<%= form_for(@page) do |f| %>
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>

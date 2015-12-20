@@ -4,4 +4,12 @@ class Page < ActiveRecord::Base
   validates :slug, format: { with: /\A[a-z0-9].*\z/, message: "The slug should begin with a lowercase letter or a number." }
   validates_uniqueness_of :slug
   validates :title, presence: true
+
+  def to_param
+    slug
+  end 
+
+  def self.find(input)
+    find_by_slug(input)
+  end
 end
