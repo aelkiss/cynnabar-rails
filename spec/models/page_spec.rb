@@ -52,4 +52,9 @@ RSpec.describe Page, type: :model do
     page = create(:page)
     expect(page.to_param).to eq("#{page.slug}")
   end
+
+  it "raises an ActiveRecord::RecordNotFound for a nonexistent page" do
+    expect { Page.find("nonexistent") }.to raise_error(ActiveRecord::RecordNotFound)
+  
+  end
 end

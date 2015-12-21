@@ -80,6 +80,7 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
+    interception (0.5)
     jbuilder (2.3.2)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -110,6 +111,9 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
+    pry-rescue (1.4.2)
+      interception (>= 0.5)
+      pry
     puma (2.15.3)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -220,6 +224,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-rails
+  pry-rescue
   puma
   rails (= 4.2.5)
   rspec-rails (~> 3.0)
