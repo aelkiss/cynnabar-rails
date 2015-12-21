@@ -1,25 +1,32 @@
 <h1>Pages</h1>
 
-<table>
-<tr>
-<th>Title</th>
-<th>Slug</th>
-<th></th>
-</tr>
+<span id="new-div" data-no-turbolink>
+  <%= link_to 'New Page', new_page_path %>
+</span>
 
-<% @pages.each do |page| %>
-<tr>
-<td>
-  <%= link_to page.title, page %>
-</td>
-<td>
-  <%= link_to page.slug, page %>
-</td>
-<td> 
-<td>
-  <span id="edit-div" data-no-turbolink>
-      <%= link_to 'Edit', edit_page_path(page) %>
-  </span>
-      <%= link_to 'Delete', page, method: :delete, data: { confirm: 'Are you sure?' } %>
-</td>
-<% end %>
+<table>
+
+  <tr>
+    <th>Title</th>
+    <th>Path</th>
+    <th></th>
+  </tr>
+
+  <% @pages.each do |page| %>
+    <tr>
+      <td>
+        <%= page.title %>
+      </td>
+      <td>
+        <%= link_to "/#{page.slug}", page %>
+      </td>
+      <td> 
+        <span id="edit-div" data-no-turbolink>
+          <%= link_to 'Edit', edit_page_path(page) %>
+        </span>
+        <%= link_to 'Delete', page, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+
+</table>

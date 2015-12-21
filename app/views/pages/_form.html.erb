@@ -1,0 +1,38 @@
+<% if @body %>
+  <h3>Page Preview</h3>
+  <%== @body %>
+<% end %>
+
+<%= form_for(@page) do |f| %>
+  <% if @page.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page.errors.count, "error") %> prohibited this page from being saved:</h2>
+
+      <ul>
+      <% @page.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :slug %><br>
+    <%= f.text_field :slug %>
+  </div>
+  <div class="field">
+    <% if @body %>
+      <%= f.text_area :body, :class => 'ckeditor', :value => @body %>
+    <% else %>
+      <%= f.text_area :body, :class => 'ckeditor' %>
+    <% end %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Preview' %>
+    <%= f.submit 'Save' %>
+  </div>
+<% end %>

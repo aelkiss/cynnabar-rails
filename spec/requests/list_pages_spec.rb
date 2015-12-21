@@ -8,9 +8,9 @@ describe "When getting a list of pages" do
 
     get "/pages"
     expect(response.status).to eq(200)
-    expect(response.body).to include("<a href=\"/#{page1.slug}\">#{page1.title}</a>")
-    expect(response.body).to include("<a href=\"/#{page1.slug}\">#{page1.slug}</a>")
-    expect(response.body).to include("<a href=\"/#{page2.slug}\">#{page2.title}</a>")
-    expect(response.body).to include("<a href=\"/#{page2.slug}\">#{page2.slug}</a>")
+    expect(response.body).to include(page1.title)
+    expect(response.body).to include("<a href=\"/#{page1.slug}\">/#{page1.slug}</a>")
+    expect(response.body).to include(page2.title)
+    expect(response.body).to include("<a href=\"/#{page2.slug}\">/#{page2.slug}</a>")
   end
 end

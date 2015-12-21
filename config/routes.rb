@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   get '/pages' => 'pages#index' #, as: :pages_path - unused?
+  get '/pages/new' => 'pages#new', as: :new_page
+  post '/pages' => 'pages#create'
   get '/:slug/edit' => 'pages#edit' , as: :edit_page
   get '/:slug' => 'pages#show', as: :page
   patch '/:slug' => 'pages#update'

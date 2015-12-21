@@ -6,23 +6,44 @@ class PagesController < ApplicationController
   def edit
   end
 
+  def create
+  end
+
+  def new
+    @page = Page.new
+  end
+
   def index
     @pages = Page.all
+  end
+
+  def create
+    @page = Page.new(page_params)
+    if params[:commit] == 'Save' and @page.save
+      redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
+    else
+      show_preview
+      render :new
+    end
   end
 
   def update
     if params[:commit] == 'Save' and @page.update(page_params) 
       redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
     else
-      # WARNING XSS VULNERABILITY
-      if params[:page] and params[:page][:body]
-        @body = params[:page][:body]
-      end
+      show_preview
       render :edit
     end
   end
 
   private
+    def show_preview
+      # WARNING XSS VULNERABILITY
+      if params[:page] and params[:page][:body]
+        @body = params[:page][:body]
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_page
       @page = Page.find(params[:slug])
