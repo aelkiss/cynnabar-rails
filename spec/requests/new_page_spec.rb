@@ -7,14 +7,14 @@ describe "POST /pages" do
     it "allows creating pages" do
       sign_in(create(:user, :admin))
       page = attributes_for(:page)
-      slug = page['slug']
 
+      post "/pages", page: page, commit: 'Save'
 
-      edited_page = Page.find_by_slug(page['slug'])
+      edited_page = Page.find_by_slug(page[:slug])
       expect(response.status).to eq(302)
-      expect(response.redirect_url).to include(page['slug'])
-      expect(edited_page.body).to eq(page['body'])
-      expect(edited_page.title).to eq(page['title'])
+      expect(response.redirect_url).to include(page[:slug])
+      expect(edited_page.body).to eq(page[:body])
+      expect(edited_page.title).to eq(page[:title])
     end
   end
 
