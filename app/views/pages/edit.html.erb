@@ -28,7 +28,11 @@
     <%= f.text_field :slug %>
   </div>
   <div class="field">
-    <%= f.text_area :body, :class => 'ckeditor' %>
+    <% if @body %>
+      <%= f.text_area :body, :class => 'ckeditor', :value => @body %>
+    <% else %>
+      <%= f.text_area :body, :class => 'ckeditor' %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit 'Preview' %>

@@ -1,6 +1,8 @@
 require 'rails_helper'
 require 'pry'
 
+include ERB::Util
+
 RSpec.feature "Page preview" do
   scenario "does not save the page" do
     newpage = create(:page)
@@ -16,7 +18,7 @@ RSpec.feature "Page preview" do
   end
 
 
-  scenario "shows the new content as a preview" do
+  scenario "shows the new content as a preview + in ckeditor" do
     newpage = create(:page)
     newbody = "Some replacement text"
 
@@ -26,6 +28,8 @@ RSpec.feature "Page preview" do
     click_on "Preview"
 
     expect(page.html).to include(newbody)
+
+    expect(find('#page_body')).to have_content(html_escape(newbody))
   end
 
 end
