@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'pry'
 
-describe "When visiting a page by alias" do
+describe "GET /:slug" do
   it "gets the right page" do
     newpage = create(:page)
 

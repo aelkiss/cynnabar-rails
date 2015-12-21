@@ -7,6 +7,7 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rails'
+require 'devise'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -55,4 +56,26 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  #
+  config.include Devise::TestHelpers, :type => :controller
+  config.include Warden::Test::Helpers, type: :request
+
+end
+
+RSpec.shared_context "when using devise/warden auth" do
+  before(:each) do
+    Warden.test_mode!
+  end
+
+  after(:each) do
+    Warden.test_reset!
+  end
+
+  def sign_in(user)
+    login_as(user, scope: :user)
+  end
+
+  def sign_out
+    logout(:user)
+  end
 end

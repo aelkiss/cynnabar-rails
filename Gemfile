@@ -32,6 +32,9 @@ gem 'puma'
 
 gem 'ckeditor_rails'
 
+gem 'devise'
+gem 'cancancan', '~> 1.10'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

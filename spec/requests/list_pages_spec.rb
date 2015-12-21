@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'pry'
 
-describe "When getting a list of pages" do
+describe "GET /pages" do
   it "shows all the pages with title and slug" do
     page1 = create(:page)
     page2 = create(:page)
