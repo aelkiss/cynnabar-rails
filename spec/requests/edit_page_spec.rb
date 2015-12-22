@@ -59,7 +59,6 @@ describe "PATCH /:slug" do
       page = create(:page)
       newbody = "<h3>new body</h3>"
 
-      binding.pry
       sign_in(user)
       patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
 
