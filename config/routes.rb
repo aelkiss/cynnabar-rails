@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   patch '/:slug' => 'pages#update'
   put '/:slug' => 'pages#update'
 
-  root 'pages#index'
+  root 'pages#show', defaults: { slug: 'home' }
 
 
   # You can have the root of your site routed with "root"

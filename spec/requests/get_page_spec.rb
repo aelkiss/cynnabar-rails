@@ -11,3 +11,14 @@ describe "GET /:slug" do
     expect(response.body).to include("<title>#{newpage.title}</title>")
   end
 end
+
+describe "GET /" do
+  it "shows the page with slug 'home'" do
+    home = Page.find_by_slug('home')
+    expect(home).not_to be(nil)
+
+    get "/"
+    expect(response.status).to eq(200)
+    expect(response.body).to include(home.body)
+  end
+end

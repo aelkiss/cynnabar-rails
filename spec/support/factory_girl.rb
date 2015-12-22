@@ -7,6 +7,7 @@ RSpec.configure do |config|
       FactoryGirl.lint 
     ensure
       DatabaseCleaner.clean 
+      Rails.application.load_seed
     end
   end 
 end
