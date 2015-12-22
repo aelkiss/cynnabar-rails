@@ -7,7 +7,7 @@ FactoryGirl.define do
   end
 
   factory :user do
-    sequence(:email) { "user#{n}@example.com" }
+    sequence(:email) { |n| "user#{n}@example.com" }
     role :normal
     password "password"
 
