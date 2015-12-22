@@ -14,7 +14,7 @@ describe "PATCH /:slug" do
 
       patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
 
-      edited_page = Page.find_by_slug(page.slug)
+      edited_page = Page.find(page.slug)
       expect(response.status).to eq(302)
       expect(response.redirect_url).to include(page.slug)
       expect(edited_page.body).to eq(newbody)
@@ -38,6 +38,18 @@ describe "PATCH /:slug" do
 
       expect(response.status).to eq(200)
       expect(response.body).to include('ckeditor')
+    end
+
+    it "can change the owner" do
+      user1 = create(:user)
+      user2 = create(:user)
+
+      page = create(:page, user: user1)
+
+      patch "/#{page.slug}", page: {user_email: user2.email}, commit: 'Save'
+
+      edited_page = Page.find(page.slug)
+      expect(edited_page.user).to eq(user2)
     end
   end
 
@@ -63,6 +75,19 @@ describe "PATCH /:slug" do
       patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
 
       expect(response.status).to eq(403)
+    end
+
+    it "cannot change the owner" do
+      user1 = create(:user)
+      user2 = create(:user)
+      page = create(:page, user: user1)
+
+      sign_in(user1)
+      patch "/#{page.slug}", page: {user_email: user2.email}, commit: 'Save'
+
+      expect(response.status).to eq(403)
+      edited_page = Page.find(page.slug)
+      expect(edited_page.user).to eq(user1)
     end
   end
 end

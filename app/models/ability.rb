@@ -6,6 +6,7 @@ class Ability
 
     if user.admin?
       can :manage, :all
+      can :set_owner, Page
     else
       can :read, Page
 #      can :update, Page do |page|

@@ -2,14 +2,14 @@
 
 <div class="admin_links">
   <% if can? :edit, @page %>
-    <div class="page_edit"
-      <%= link_to edit_page_path %>
+    <div class="page_edit">
+      <%= link_to "Edit", edit_page_path %>
     </div>
   <% end %>
 
   <% if can? :index, Page %>
-    <div class="page_index"
-      <%= link_to pages_path %>
+    <div class="page_index">
+      <%= link_to "List Pages", pages_path %>
     </div>
   <% end %>
 </div>

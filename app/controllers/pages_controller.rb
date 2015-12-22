@@ -16,7 +16,9 @@ class PagesController < ApplicationController
   end
 
   def create
-    if params[:commit] == 'Save' and @page.save
+    if params[:commit] == 'Save' 
+      check_set_owner
+      @page.save
       redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
     else
       show_preview
@@ -25,7 +27,9 @@ class PagesController < ApplicationController
   end
 
   def update
-    if params[:commit] == 'Save' and @page.update(page_params) 
+    if params[:commit] == 'Save'
+      check_set_owner
+      @page.update(page_params) 
       redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
     else
       show_preview
@@ -34,9 +38,20 @@ class PagesController < ApplicationController
   end
 
   private
+
+    def check_set_owner
+      params.require(:page)
+      if params[:page][:user_email] 
+        binding.pry
+        authorize! :set_owner, @page
+        @page.user = User.find_by_email!(params[:page][:user_email])
+      end
+    end
+
     def show_preview
       # WARNING XSS VULNERABILITY
-      if params[:page] and params[:page][:body]
+      params.require(:page)
+      if params[:page][:body]
         @body = params[:page][:body]
       end
     end
