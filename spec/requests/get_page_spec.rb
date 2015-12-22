@@ -34,6 +34,16 @@ describe "GET /:slug" do
 
       expect(response.body).not_to include("/#{page.slug}/edit")
     end
+
+    it "does not show an index link" do
+      user = create(:user)
+      page = create(:page)
+
+      sign_in(user)
+      get "/#{page.slug}"
+
+      expect(response.body).not_to include("/pages")
+    end
   end
 
   context 'when logged in as an admin' do
@@ -47,6 +57,16 @@ describe "GET /:slug" do
       get "/#{page.slug}"
 
       expect(response.body).to include("/#{page.slug}/edit")
+    end
+
+    it "shows a list pages link" do
+      user = create(:user, :admin)
+      page = create(:page)
+
+      sign_in(user)
+      get "/#{page.slug}"
+
+      expect(response.body).to include("/pages")
     end
   end
 

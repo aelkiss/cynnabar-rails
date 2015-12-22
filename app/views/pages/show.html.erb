@@ -1,7 +1,19 @@
 <% content_for :title, @page.title %>
-<div class="page_edit"
-  <%= link_to edit_page_path %>
+
+<div class="admin_links">
+  <% if can? :edit, @page %>
+    <div class="page_edit"
+      <%= link_to edit_page_path %>
+    </div>
+  <% end %>
+
+  <% if can? :index, Page %>
+    <div class="page_index"
+      <%= link_to pages_path %>
+    </div>
+  <% end %>
 </div>
+
 <div class="page_body">
   <%== @page.body %>
 </div>
