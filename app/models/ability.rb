@@ -8,7 +8,7 @@ class Ability
       can :manage, :all
     else
       can :read, Page
-      can :update, Page, :user => user
+      cannot :index, Page
     end
   end
 end
