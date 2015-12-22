@@ -4,7 +4,10 @@ require 'pry'
 include ERB::Util
 
 RSpec.feature "Page preview" do
+  include_context "when signed in through capybara"
+
   scenario "does not save the page" do
+    sign_in(create(:user, :admin))
     newpage = create(:page)
     newbody = "Some replacement text"
 
@@ -19,6 +22,7 @@ RSpec.feature "Page preview" do
 
 
   scenario "shows the new content as a preview + in ckeditor" do
+    sign_in(create(:user, :admin))
     newpage = create(:page)
     newbody = "Some replacement text"
 

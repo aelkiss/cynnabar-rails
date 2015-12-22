@@ -4,7 +4,10 @@ require 'pry'
 include ERB::Util
 
 RSpec.feature "Page creation" do
+  include_context "when signed in through capybara"
+
   scenario "saves the page" do
+    sign_in(create(:user, :admin))
     newpage = build(:page)
 
     visit "/pages"
