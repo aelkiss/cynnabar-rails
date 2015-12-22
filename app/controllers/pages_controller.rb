@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
-  before_action :set_page, only: [:show, :edit, :update, :destroy]
-  authorize_resource
+  load_and_authorize_resource id_param: 'slug'
 
   def show
   end
@@ -17,7 +16,6 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = Page.new(page_params)
     if params[:commit] == 'Save' and @page.save
       redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
     else
@@ -41,11 +39,6 @@ class PagesController < ApplicationController
       if params[:page] and params[:page][:body]
         @body = params[:page][:body]
       end
-    end
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_page
-      @page = Page.find(params[:slug])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

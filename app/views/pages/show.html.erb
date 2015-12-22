@@ -1,4 +1,7 @@
 <% content_for :title, @page.title %>
+<div class="page_edit"
+  <%= link_to edit_page_path %>
+</div>
 <div class="page_body">
   <%== @page.body %>
 </div>

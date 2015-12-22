@@ -5,6 +5,8 @@ class Page < ActiveRecord::Base
   validates_uniqueness_of :slug
   validates :title, presence: true
 
+  belongs_to :user
+
   def to_param
     slug
   end 
