@@ -10,11 +10,24 @@ describe "POST /pages" do
 
       post "/pages", page: page, commit: 'Save'
 
-      edited_page = Page.find_by_slug(page[:slug])
       expect(response.status).to eq(302)
       expect(response.redirect_url).to include(page[:slug])
-      expect(edited_page.body).to eq(page[:body])
-      expect(edited_page.title).to eq(page[:title])
+
+      saved_page = Page.find(page[:slug])
+      expect(saved_page.body).to eq(page[:body])
+      expect(saved_page.title).to eq(page[:title])
+    end
+
+    it "allows creating owned pages" do
+      sign_in(create(:user, :admin))
+      user = create(:user)
+      page = attributes_for(:page)
+      page[:user_email] = user.email
+
+      post "/pages", page: page, commit: 'Save'
+
+      saved_page = Page.find(page[:slug])
+      expect(saved_page.user).to eq(user)
     end
   end
 

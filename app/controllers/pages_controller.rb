@@ -42,7 +42,6 @@ class PagesController < ApplicationController
     def check_set_owner
       params.require(:page)
       if params[:page][:user_email] 
-        binding.pry
         authorize! :set_owner, @page
         @page.user = User.find_by_email!(params[:page][:user_email])
       end
