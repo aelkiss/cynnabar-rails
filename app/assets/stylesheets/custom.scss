@@ -71,7 +71,6 @@ $main-background-color: #FFFFCC;
 
 $bgDefault      : maroon;
 $bgHighlight    : maroon;
-$dropDownBg     : maroon;
 $colDefault     : white;
 $colHighlight   : lighten(maroon, 60%);
 $dropDown       : true;
@@ -92,7 +91,7 @@ $dropDown       : true;
           color: $colHighlight; }}
       @if $dropDown {
         > .dropdown-menu {
-          background-color: $dropDownBg;
+          background-color: $bgDefault;
           > li > a {
             color: $colDefault;
             &:hover,  &:focus {
