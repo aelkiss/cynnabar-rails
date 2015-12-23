@@ -4,6 +4,7 @@ class Page < ActiveRecord::Base
   validates :slug, format: { with: /\A[a-z0-9].*\z/, message: "must begin with a lowercase letter or a number" }
   validates_uniqueness_of :slug
   validates :title, presence: true
+  validates :user, presence: true
 
   belongs_to :user
 

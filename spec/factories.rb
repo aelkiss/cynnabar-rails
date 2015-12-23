@@ -1,11 +1,5 @@
 FactoryGirl.define do
 
-  factory :page do
-    sequence(:slug) { |n| "slug#{n}" }
-    title { "title for #{slug}" }
-    body { "<h1>This is some html markup for #{slug}</h1>" }
-  end
-
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
     role :normal
@@ -15,5 +9,13 @@ FactoryGirl.define do
       role :admin
     end
   end
+
+  factory :page do
+    sequence(:slug) { |n| "slug#{n}" }
+    title { "title for #{slug}" }
+    body { "<h1>This is some html markup for #{slug}</h1>" }
+    association :user, :admin
+  end
+
 
 end

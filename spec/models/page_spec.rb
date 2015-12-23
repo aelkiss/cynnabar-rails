@@ -6,6 +6,11 @@ RSpec.describe Page, type: :model do
     expect(page).to be_valid
   end
 
+  it "is owned by an admin by default" do
+    page = create(:page)
+    expect(page.user.admin?).to be true
+  end
+
   it "does not allow spaces in slug" do
     page = build(:page, slug: 'invalid slug')
     expect(page).not_to be_valid

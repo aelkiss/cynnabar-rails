@@ -90,4 +90,24 @@ describe "PATCH /:slug" do
       expect(edited_page.user).to eq(user1)
     end
   end
+
+  context 'when not logged in' do
+    it "cannot edit unowned pages" do
+      page = create(:page)
+      newbody = "<h3>new body</h3>"
+
+      patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
+
+      expect(response.status).to eq(403)
+    end
+
+    it "cannot edit owned pages" do
+      page = create(:page, user: create(:user))
+      newbody = "<h3>new body</h3>"
+
+      patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
+
+      expect(response.status).to eq(403)
+    end
+  end
 end

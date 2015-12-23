@@ -44,6 +44,9 @@ class PagesController < ApplicationController
       if params[:page][:user_email] 
         authorize! :set_owner, @page
         @page.user = User.find_by_email!(params[:page][:user_email])
+      elsif @page.user == nil
+        authorize! :set_owner, @page
+        @page.user = current_user
       end
     end
 
