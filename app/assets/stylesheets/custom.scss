@@ -1,0 +1,135 @@
+$brand-primary: #CC0000;
+$screen-sm-min: 915px;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+//@media (min-width: 915px);
+$main-background-color: #FFFFCC;
+.main-body{
+  background-image: url("fonds.jpg");
+}
+.mobile-main{
+  background-color: $main-background-color;
+  padding: 15px;
+  
+}
+.brand-img{
+  height: 50px;
+}
+.navbar-brand-img{
+  padding: 0px;
+}
+.navbar-brand{
+  height: 35px;
+}
+.mobile-nav{
+  min-height:0px;
+  margin:0px;
+  border-radius:0px;
+}
+.main-box{
+  border: 5px black solid;
+  margin-top: 20px;
+  background-color: $main-background-color;
+  padding-left: 0px;
+  padding-right:0px;
+}
+.container{
+  width: 900px;
+}
+#header-region{
+  height: 112px;
+  width: 684px;
+  background-image: url("cynnabar_logo.gif");
+}
+#menu-region{
+  margin-top: 25px;
+  //background-color: maroon;
+  border-color: maroon;
+  border-radius:0px;
+  min-height: 0px;
+}
+#main-region{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.nav{
+  li{
+    a{
+      padding: 10px 5px;
+      //line-height: 35px;
+    }
+  }
+}
+.flash{
+  .alert{
+    padding:0px;
+    margin-bottom:0px;
+    border:none;
+  }
+}
+
+$bgDefault      : maroon;
+$bgHighlight    : maroon;
+$dropDownBg     : maroon;
+$colDefault     : white;
+$colHighlight   : lighten(maroon, 60%);
+$dropDown       : true;
+.navbar-default {
+  background-color: $bgDefault;
+  border-color: $bgHighlight;
+  .navbar-brand {
+    color: $colDefault;
+    &:hover, &:focus { 
+      color: $colHighlight; }}
+  .navbar-text {
+    color: $colDefault; }
+  .navbar-nav {
+    > li {
+      > a {
+        color: $colDefault;
+        &:hover,  &:focus {
+          color: $colHighlight; }}
+      @if $dropDown {
+        > .dropdown-menu {
+          background-color: $dropDownBg;
+          > li > a {
+            color: $colDefault;
+            &:hover,  &:focus {
+              color: $colHighlight;
+              background-color: $bgHighlight; }}
+          .divider {
+            background-color: $bgHighlight;}}}
+    }
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+  .navbar-toggle {
+    border-color: $bgHighlight;
+    &:hover, &:focus {
+      background-color: $bgHighlight; }
+    .icon-bar {
+      background-color: $colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: $colDefault; }
+  .navbar-link {
+    color: $colDefault;
+    &:hover {
+      color: $colHighlight; }}}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    > li > a {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight; }}
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: $colHighlight;
+        background-color: $bgHighlight; }}}
+}

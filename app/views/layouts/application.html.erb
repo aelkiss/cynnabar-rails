@@ -6,13 +6,48 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
-
-    <div class="flash">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+  <body class="main-body">
+<nav class="navbar navbar-default hidden-sm hidden-lg hidden-md mobile-nav">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu-items">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+    <a href="#"><span class="navbar-brand navbar-brand-img"><%= image_tag("cynnabar_arms.svg", :class=>'brand-img') %></span>
+    <span class="navbar-toggle collapsed navbar-brand pull-left">Barony of Cynnabar</span></a>
     </div>
-    <%= yield %>
-
+    <div class="collapse navbar-collapse" id="menu-items">
+          <%= render 'layouts/menu' %>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid mobile-main hidden-sm hidden-lg hidden-md">
+        <%= yield %>
+</div>
+<div class="container hidden-xs">
+  <div class="row">
+    <div class="col-md-12 main-box">
+      <div id="header-region" class="center-block">
+      </div>
+      <nav class="navbar navbar-default" id="menu-region">
+        <div class="container">
+          <div class="collapse navbar-collapse">
+        <%= render 'layouts/menu' %>
+          </div>
+        </div>
+      </nav>
+      <div id="main-region">
+        <div class="flash">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </div>
+        <%= yield %>
+      <div>
+    </div>
+  </div>
+</div>
   </body>
 </html>

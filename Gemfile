@@ -35,6 +35,8 @@ gem 'ckeditor_rails'
 gem 'devise'
 gem 'cancancan', '~> 1.10'
 
+gem 'bootstrap-sass'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
