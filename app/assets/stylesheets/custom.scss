@@ -28,11 +28,20 @@ $main-background-color: #FFFFCC;
   border-radius:0px;
 }
 .main-box{
-  border: 5px black solid;
   margin-top: 20px;
+  border: 5px black solid;
   background-color: $main-background-color;
   padding-left: 0px;
   padding-right:0px;
+}
+@media(max-width: $screen-xs-max){
+  
+  .main-box{
+    display: flex;
+    margin-top: 0px;
+    border: none;
+  }
+
 }
 .container{
   width: 900px;
@@ -121,8 +130,8 @@ $dropDown       : true;
     color: $colDefault;
     &:hover {
       color: $colHighlight; }}}
-@media (max-width: 767px) {
-  .navbar-default .navbar-nav .open .dropdown-menu {
+@media (max-width: 914px) {
+  .navbar-default .navbar-nav .open .dropdown-menu { 
     > li > a {
       color: $colDefault;
       &:hover, &:focus {
