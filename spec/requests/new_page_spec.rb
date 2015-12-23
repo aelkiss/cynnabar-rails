@@ -18,7 +18,7 @@ describe "POST /pages" do
       expect(saved_page.title).to eq(page[:title])
     end
 
-    it "allows creating owned pages" do
+    it "allows creating pages owned by normal users" do
       sign_in(create(:user, :admin))
       user = create(:user)
       page = attributes_for(:page)

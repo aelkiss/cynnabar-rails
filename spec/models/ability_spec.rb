@@ -21,30 +21,12 @@ describe "Ability" do
     expect(ability).not_to be_able_to(:update, page)
   end
 
-  it "allows admins to edit unowned pages" do
-    admin = create(:user, :admin)
-    page = create(:page)
-    ability = Ability.new(admin)
-
-    expect(ability).to be_able_to(:edit, page)
-    expect(ability).to be_able_to(:update, page)
-  end
-
-  it "allows admins to edit owned pages" do
+  it "allows admins to edit other user's pages" do
     admin = create(:user, :admin)
     page = create(:page, user: create(:user))
     ability = Ability.new(admin)
 
     expect(ability).to be_able_to(:edit, page)
     expect(ability).to be_able_to(:update, page)
-  end
-
-  it "does not allow users to edit unowned pages" do
-    user = create(:user)
-    page = create(:page)
-    ability = Ability.new(user)
-
-    expect(ability).not_to be_able_to(:edit, page)
-    expect(ability).not_to be_able_to(:update, page)
   end
 end

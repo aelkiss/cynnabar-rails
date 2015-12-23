@@ -66,17 +66,6 @@ describe "PATCH /:slug" do
       expect(edited_page.body).to eq(newbody)
     end
 
-    it "cannot edit unowned pages" do
-      user = create(:user)
-      page = create(:page)
-      newbody = "<h3>new body</h3>"
-
-      sign_in(user)
-      patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
-
-      expect(response.status).to eq(403)
-    end
-
     it "cannot change the owner" do
       user1 = create(:user)
       user2 = create(:user)
@@ -92,17 +81,8 @@ describe "PATCH /:slug" do
   end
 
   context 'when not logged in' do
-    it "cannot edit unowned pages" do
+    it "cannot edit pages" do
       page = create(:page)
-      newbody = "<h3>new body</h3>"
-
-      patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
-
-      expect(response.status).to eq(403)
-    end
-
-    it "cannot edit owned pages" do
-      page = create(:page, user: create(:user))
       newbody = "<h3>new body</h3>"
 
       patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
