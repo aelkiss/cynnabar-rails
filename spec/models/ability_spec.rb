@@ -29,4 +29,27 @@ describe "Ability" do
     expect(ability).to be_able_to(:edit, page)
     expect(ability).to be_able_to(:update, page)
   end
+
+  it "allows admins to edit offices" do
+    ability = Ability.new(create(:user, :admin))
+    office = create(:office)
+    expect(ability).to be_able_to(:edit, office)
+  end
+
+  it "allows anyone to list offices" do
+    ability = Ability.new(nil)
+    expect(ability).to be_able_to(:index, Office)
+  end
+
+  it "does not allow regular users to edit offices" do
+    ability = Ability.new(create(:user))
+    office = create(:office)
+    expect(ability).not_to be_able_to(:edit, office)
+  end
+
+  it "does not allow regular users to render offices directly" do
+    ability = Ability.new(create(:user))
+    office = create(:office)
+    expect(ability).not_to be_able_to(:show, office)
+  end
 end

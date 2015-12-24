@@ -11,6 +11,8 @@ class Ability
       can :read, Page
       can :update, Page, :user_id => user.id
       cannot :index, Page
+
+      can :index, Office
     end
   end
 end

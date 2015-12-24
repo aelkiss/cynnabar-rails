@@ -35,6 +35,4 @@ RSpec.describe Office, type: :model do
       expect(office.officer_name).to eq(officer.name)
     end
   end
-
-  pending "add some examples to (or delete) #{__FILE__}"
 end

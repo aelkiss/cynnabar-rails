@@ -19,6 +19,7 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe OfficesController, type: :controller do
+  before(:each) { sign_in(create(:user, :admin)) }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -91,15 +92,15 @@ RSpec.describe OfficesController, type: :controller do
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
       it "updates the requested office" do
         office = create(:office)
-        put :update, {:id => office.to_param, :office => attributes_for(:office)}, valid_session
+        updates = attributes_for(:office)
+        put :update, {:id => office.to_param, :office => updates}, valid_session
         office.reload
-        skip("Add assertions for updated state")
+
+        expect(office.name).to eq(updates[:name])
+        expect(office.email).to eq(updates[:email])
+        expect(office.image).to eq(updates[:image])
       end
 
       it "assigns the requested office as @office" do
