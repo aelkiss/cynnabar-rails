@@ -7,6 +7,7 @@ class Page < ActiveRecord::Base
   validates :user, presence: true
 
   belongs_to :user
+  has_one :office
 
   def to_param
     slug

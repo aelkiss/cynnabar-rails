@@ -46,6 +46,11 @@ RSpec.describe Page, type: :model do
     expect(page).not_to be_valid
   end
 
+  it "requires a user" do
+    page = build(:page, user: nil)
+    expect(page).not_to be_valid
+  end
+
   it "does not allow two pages with the same slug" do
     page = create(:page, slug: 'slug')
     anotherpage = build(:page, slug: 'slug')
@@ -60,6 +65,10 @@ RSpec.describe Page, type: :model do
 
   it "raises an ActiveRecord::RecordNotFound for a nonexistent page" do
     expect { Page.find("nonexistent") }.to raise_error(ActiveRecord::RecordNotFound)
-  
+  end
+
+  it "can have an associated office" do
+    page = build(:page, :office_page)
+    expect(page).to be_valid
   end
 end
