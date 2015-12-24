@@ -37,6 +37,17 @@
           </div>
         </div>
       </nav>
+
+      <% if user_signed_in? %>
+        <nav class="navbar navbar-default hidden-xs" id="submenu-region">
+          <div class="container">
+            <div class="collapse navbar-collapse">
+          <%= render 'layouts/submenu' %>
+            </div>
+          </div>
+        </nav>
+      <% end %>
+
       <div id="main-region">
         <div class="flash">
           <p class="notice"><%= notice %></p>
