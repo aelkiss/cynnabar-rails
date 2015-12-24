@@ -1,35 +1,39 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Offices</h1>
+<h3>Barony of Cynnabar Officers</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Image</th>
-      <th>Page</th>
-      <th>Officer</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @offices.each do |office| %>
+  <div class="office_listed" id="office<%= office.id %>">
+    <a href=<%= url_for(office.page) %>>
+      <img src="<%= office.image %>" class="office_icon_small">
+    </a>
 
-  <tbody>
-    <% @offices.each do |office| %>
-      <tr>
-        <td><%= office.name %></td>
-        <td><%= office.email %></td>
-        <td><%= office.image %></td>
-        <td><%= office.page %></td>
-        <td><%= office.officer %></td>
-        <td><%= link_to 'Show', office %></td>
-        <td><%= link_to 'Edit', edit_office_path(office) %></td>
-        <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="office_info">
+      <span class="office_name">
+        <% if office.page %>
+          <%= link_to office.name, url_for(office.page) %>
+        <% else %>
+          <%= office.name %>
+        <% end %>
+      </span>
 
-<br>
+      <br />
 
-<%= link_to 'New Office', new_office_path %>
+      <span class="officer_name">
+        <%= link_to office.officer_name, office.email %>
+      </span>
+
+      <% if can? :edit, office %>
+        <br />
+        <%= link_to edit_office_path(office) %>
+      <% end %>
+    </div>
+
+  </div>
+<% end %>
+
+<br />
+
+<% if can? :create, Office %>
+  <%= link_to 'New Office', new_office_path %>
+<% end %>
