@@ -11,7 +11,7 @@
     <div class="office_info">
       <span class="office_name">
         <% if office.page %>
-          <%= link_to office.name, url_for(office.page) %>
+          <b><%= link_to office.name, url_for(office.page) %></b>
         <% else %>
           <%= office.name %>
         <% end %>

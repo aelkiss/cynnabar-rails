@@ -36,6 +36,9 @@ $main-background-color: #FFFFCC;
 }
 @media(max-width: $screen-xs-max){
   
+  .wrapper{
+    width: 100% !important;
+  }
   .main-box{
     display: flex;
     margin-top: 0px;
