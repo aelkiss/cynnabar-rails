@@ -10,28 +10,34 @@ $main-background-color: #FFFFCC;
 img, iframe {
   max-width: 100%;
 }
+
 .main-body{
   background-image: url("fonds.jpg");
 }
+
 .mobile-main{
   background-color: $main-background-color;
   padding: 15px;
-  
 }
+
 .brand-img{
   height: 50px;
 }
+
 .navbar-brand-img{
   padding: 0px;
 }
+
 .navbar-brand{
   height: 35px;
 }
+
 .mobile-nav{
   min-height:0px;
   margin:0px;
   border-radius:0px;
 }
+
 .main-box{
   margin-top: 20px;
   border: 5px black solid;
@@ -39,26 +45,32 @@ img, iframe {
   padding-left: 0px;
   padding-right:0px;
 }
+
 @media(max-width: $screen-sm-max){
-  
+
   .wrapper{
     width: 100% !important;
   }
+
   .main-box{
     display: flex;
     margin-top: 0px;
     border: none;
   }
 
+
 }
+
 .container{
   width: 900px;
 }
+
 #header-region{
   height: 112px;
   width: 684px;
   background-image: url("cynnabar_logo.gif");
 }
+
 #menu-region, #submenu-region{
   margin-top: 25px;
   //background-color: maroon;
@@ -66,10 +78,12 @@ img, iframe {
   border-radius:0px;
   min-height: 0px;
 }
+
 #main-region{
   padding-left: 15px;
   padding-right: 15px;
 }
+
 .nav{
   li{
     a{
@@ -78,6 +92,7 @@ img, iframe {
     }
   }
 }
+
 .flash{
   .alert{
     padding:0px;
@@ -85,6 +100,7 @@ img, iframe {
     border:none;
   }
 }
+
 
 $bgDefault      : maroon;
 $bgHighlight    : maroon;
@@ -97,15 +113,21 @@ $dropDown       : true;
   .navbar-brand {
     color: $colDefault;
     &:hover, &:focus { 
-      color: $colHighlight; }}
+    color: $colHighlight; }
+  }
+
   .navbar-text {
-    color: $colDefault; }
+    color: $colDefault; 
+  }
+
   .navbar-nav {
     > li {
       > a {
         color: $colDefault;
         &:hover,  &:focus {
-          color: $colHighlight; }}
+        color: $colHighlight; }
+      }
+
       @if $dropDown {
         > .dropdown-menu {
           background-color: $bgDefault;
@@ -113,39 +135,73 @@ $dropDown       : true;
             color: $colDefault;
             &:hover,  &:focus {
               color: $colHighlight;
-              background-color: $bgHighlight; }}
+              background-color: $bgHighlight; 
+            }
+          }
+
           .divider {
-            background-color: $bgHighlight;}}}
+            background-color: $bgHighlight;
+          }
+        }
+      }
+
     }
+
     > .active {
       > a, > a:hover, > a:focus {
         color: $colHighlight;
-        background-color: $bgHighlight; }}
+        background-color: $bgHighlight; 
+      }
+    }
+
     > .open {
       > a, > a:hover, > a:focus {
         color: $colHighlight;
-        background-color: $bgHighlight; }}}
+        background-color: $bgHighlight; 
+      }
+    }
+  }
+
   .navbar-toggle {
     border-color: $bgHighlight;
     &:hover, &:focus {
-      background-color: $bgHighlight; }
+      background-color: $bgHighlight; 
+    }
+
     .icon-bar {
-      background-color: $colDefault; }}
+      background-color: $colDefault; 
+    }
+  }
+
   .navbar-collapse,
   .navbar-form {
-    border-color: $colDefault; }
+    border-color: $colDefault; 
+  }
+
   .navbar-link {
     color: $colDefault;
     &:hover {
-      color: $colHighlight; }}}
+      color: $colHighlight; 
+    }
+  }
+}
+
 @media (max-width: 914px) {
   .navbar-default .navbar-nav .open .dropdown-menu { 
     > li > a {
       color: $colDefault;
       &:hover, &:focus {
-        color: $colHighlight; }}
+        color: $colHighlight; 
+      }
+    }
+
     > .active {
       > a, > a:hover, > a:focus {
         color: $colHighlight;
-        background-color: $bgHighlight; }}}
+        background-color: $bgHighlight; 
+      }
+    }
+  }
+
 }
+
