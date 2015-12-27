@@ -1,5 +1,7 @@
 $brand-primary: #CC0000;
-$screen-sm-min: 915px;
+$screen-md-min:915px;
+$screen-sm-min: 504px;
+$grid-float-breakpoint: $screen-md-min;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -34,7 +36,7 @@ $main-background-color: #FFFFCC;
   padding-left: 0px;
   padding-right:0px;
 }
-@media(max-width: $screen-xs-max){
+@media(max-width: $screen-sm-max){
   
   .wrapper{
     width: 100% !important;
