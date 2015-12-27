@@ -15,14 +15,13 @@ RSpec.feature "Users" do
     fill_in "user_password", with: user.password
     click_on "Log in"
 
-    click_on "User"
-    click_on "Change Password"
+    click_on('User', match: :first)
+    click_on('Change Password', match: :first)
     fill_in "user_current_password", with: user.password
     fill_in "user_password", with: newpass
     fill_in "user_password_confirmation", with: newpass
-
-    click_on "Update"
-    click_on "Logout"
+    click_on('Update')
+    click_on('Logout', match: :first)
 
     visit new_user_session_path
     fill_in "user_email", with: user.email
