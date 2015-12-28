@@ -1,5 +1,30 @@
 require 'rails_helper'
 
-RSpec.describe PagesController, type: :controller do
+describe PagesController, type: :controller do
+  describe "#page_path" do
+    it "is /:slug" do
+      page = create(:page)
+      expect(page_path(page)).to eq "/#{page.slug}"
+    end
+  end
+
+  describe "#page_edit_path" do
+    it "is /:slug/edit" do
+      page = create(:page)
+      expect(edit_page_path(page)).to eq "/#{page.slug}/edit"
+    end
+  end
+
+  describe "#new_page_path" do
+    it "is /pages/new" do
+      expect(new_page_path).to eq "/pages/new"
+    end
+  end
+
+  describe "#pages_path" do
+    it "is /pages" do
+      expect(pages_path).to eq "/pages"
+    end
+  end
 
 end

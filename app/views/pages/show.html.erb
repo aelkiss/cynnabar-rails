@@ -1,18 +1,20 @@
 <% content_for :title, @page.title %>
 
-<div class="admin_links">
-  <% if can? :edit, @page %>
-    <div class="page_edit">
-      <%= link_to "Edit", edit_page_path %>
-    </div>
+<% content_for :page_submenu do %>
+  <% if can? :edit, @page or can? :list, @page %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Page<span class="caret"></span></a>
+      <ul class="dropdown-menu admin-links">
+        <% if can? :edit, @page %>
+          <li class="page-edit"><%= link_to 'Edit', edit_page_path %></li>
+        <% end %>
+        <% if can? :index, Page %>
+          <li class="page-index"><%= link_to 'List Pages', pages_path %></li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
-
-  <% if can? :index, Page %>
-    <div class="page_index">
-      <%= link_to "List Pages", pages_path %>
-    </div>
-  <% end %>
-</div>
+<% end %>
 
 <% if @page.office %>
   <%= render partial: "office", locals: {office: @page.office} %>

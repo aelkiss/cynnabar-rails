@@ -23,7 +23,9 @@
         <div class="collapse navbar-collapse" id="menu-items">
           <ul class="nav navbar-nav">
             <%= render 'layouts/menu' %>
-            <%= render 'layouts/submenu' %>
+            <% if user_signed_in? %>
+              <%= render 'layouts/submenu' %>
+            <% end %>
           </ul>
         </div>
       </div>
