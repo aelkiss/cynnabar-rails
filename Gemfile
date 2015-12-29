@@ -37,6 +37,8 @@ gem 'cancancan', '~> 1.10'
 
 gem 'bootstrap-sass'
 
+gem 'actionview-encoded_mail_to'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

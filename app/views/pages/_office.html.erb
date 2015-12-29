@@ -10,7 +10,7 @@
     <div class="col-sm-6" style="text-align:right;">
       <b><%= office.officer_name %></b>
       <br>
-      <b> <a href="mailto:<%= office.email%>"><%= office.email%></a> </b>
+      <b> <%= mail_to office.email, "Contact", encode: 'javascript' %> </b>
 
     </div>
   </div>
