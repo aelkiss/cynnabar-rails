@@ -26,9 +26,9 @@
   </div>
   <div class="field">
     <% if @body %>
-      <%= f.text_area :body, :class => 'ckeditor', :value => @body %>
+      <%= f.cktext_area :body, :value => @body %>
     <% else %>
-      <%= f.text_area :body, :class => 'ckeditor' %>
+      <%= f.cktext_area :body %>
     <% end %>
   </div>
   <div class="actions">

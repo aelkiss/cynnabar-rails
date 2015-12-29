@@ -37,7 +37,7 @@ describe "PATCH /:slug" do
       get "/#{page.slug}/edit"
 
       expect(response.status).to eq(200)
-      expect(response.body).to include('ckeditor')
+      expect(response.body).to include('CKEDITOR')
     end
 
     it "can change the owner" do

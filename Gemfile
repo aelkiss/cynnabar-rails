@@ -30,7 +30,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'unicorn'
 gem 'puma'
 
-gem 'ckeditor_rails'
+gem 'ckeditor'
 
 gem 'devise'
 gem 'cancancan', '~> 1.10'
