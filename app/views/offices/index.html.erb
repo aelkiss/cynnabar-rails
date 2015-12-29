@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h3>Barony of Cynnabar Officers</h3>
+<h3>Cynnabar Baronial Officers</h3>
 
 <% @offices.each do |office| %>
   <div class="office_listed" id="office<%= office.id %>">
@@ -20,7 +20,7 @@
       <br />
 
       <span class="officer_name">
-        <%= link_to office.officer_name, office.email %>
+        <%= mail_to office.email, office.officer_name, encode: 'javascript' %>
       </span>
 
       <% if can? :edit, office %>
