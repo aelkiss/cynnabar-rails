@@ -16,6 +16,8 @@ class PagesController < ApplicationController
   end
 
   def create
+    # required for what ckeditor sends
+    response.headers["X-XSS-Protection"] = 0
     if params[:commit] == 'Save' 
       check_set_owner
       @page.save
@@ -27,6 +29,8 @@ class PagesController < ApplicationController
   end
 
   def update
+    # required for what ckeditor sends
+    response.headers["X-XSS-Protection"] = 0
     if params[:commit] == 'Save'
       check_set_owner
       @page.update(page_params) 
@@ -51,7 +55,6 @@ class PagesController < ApplicationController
     end
 
     def show_preview
-      # WARNING XSS VULNERABILITY
       params.require(:page)
       if params[:page][:body]
         @body = params[:page][:body]
