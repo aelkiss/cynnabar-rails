@@ -46,6 +46,11 @@ img, iframe {
   padding-right:0px;
 }
 
+img.officer-menu-image {
+  height: 2em;
+  width: 2em;
+}
+
 @media(max-width: $screen-sm-max){
 
   .wrapper{

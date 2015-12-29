@@ -1,38 +1,64 @@
-  <li ><a href="#">Events & Demos</a></li>
+  <li ><a href="/events">Events & Demos</a></li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Cynnabar<span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Link</a></li>
+      <!--    <li><a href="/calendar">Calendar</a></li> -->
+      <li><a href="/baron_baroness">Baron & Baroness</a></li>
+      <li><a href="/awards">Awards</a></li>
+      <li><a href="/cynnabar-oop">Order of Precedence</a></li>
+      <li><a href="/citadel">Newsletter</a></li>
+      <li><a href="/history">History</a></li>
     </ul>
   </li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >For Newcomers<span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Link</a></li>
+      <li><a href="/chatelaine">Newcomer Info</a></li>
+      <li><a href="/goldkey">Loaner Garb (Gold Key)</a></li>
+      <li><a href="/sca_2004">What is the SCA?</a></li>
     </ul>
   </li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Martial Arts<span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Link</a></li>
+      <li><a href="/martial-arts">Calendar</a></li>
+      <li><a href="/marshal">Armored Combat</a></li>
+      <li><a href="/fencing-marshal">Rapier Combat</a></li>
+      <li><a href="/archery">Archery</a></li>
     </ul>
   </li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Arts & Sciences<span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Link</a></li>
-    </ul>
-  </li>
-  <li class="dropdown">
-    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >The Known World<span class="caret"></span></a>
-    <ul class="dropdown-menu">
-      <li><a href="#">Link</a></li>
+      <li><a href="/martial-arts">Calendar</a></li>
+      <!--      <li><a href="/workshops">Workshops</a></li> -->
+      <li><a href="/garb">Garb Workdays</a></li>
+      <li><a href="/eurodance">European Dance</a></li>
     </ul>
   </li>
   <li class="dropdown">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Officers<span class="caret"></span></a>
     <ul class="dropdown-menu">
-      <li><a href="#">Link</a></li>
+      <li><%= link_to "All Officers", offices_path %>
+      <% Office.all.each do |office| %>
+        <% if office.page %>
+          <li>
+            <!-- <img src="<%= office.image %>" class="officer-menu-image"> -->
+            <%= link_to office.page.title, page_path(office.page) %>
+          </li>
+        <% end %>
+      <% end %>
     </ul>
   </li>
-  <li ><a href="#">Mailing Lists</a></li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >The Known World<span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      <li><a href="/neighbors">Neighbors</a></li>
+      <li><a href="http://www.midrealm.org/pentamere">Pentamere</a></li>
+      <li><a href="http://www.midrealm.org">Midrealm</a></li>
+      <li><a href="http://www.sca.org">The SCA</a></li>
+      <li><a href="http://www.midrealm.org/calendar">Kingdom Calendar</a></li>
+      <li><a href="http://www.midrealm.org/op">Kingdom Order of Precedence</a></li>
+    </ul>
+  </li>
+  <li ><a href="/mailing-lists">Mailing Lists</a></li>
