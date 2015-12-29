@@ -46,9 +46,19 @@ img, iframe {
   padding-right:0px;
 }
 
+.officer-menu.dropdown{
+  position: static;
+}
+.officer-menu.dropdown > .dropdown-menu{
+  left:auto;
+}
+.officer-menu.dropdown > .dropdown-menu > li > a{
+  white-space: normal;
+}
 img.officer-menu-image {
   height: 2em;
   width: 2em;
+  margin-right:5px;
 }
 
 @media(max-width: $screen-sm-max){

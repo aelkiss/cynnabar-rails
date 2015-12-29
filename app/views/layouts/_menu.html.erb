@@ -37,15 +37,18 @@
       <li><a href="/brewer">Brewer's Guild</a></li>
     </ul>
   </li>
-  <li class="dropdown">
+  <li class="dropdown officer-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Officers<span class="caret"></span></a>
     <ul class="dropdown-menu">
       <li><%= link_to "All Officers", offices_path %>
       <% Office.all.each do |office| %>
         <% if office.page %>
-          <li>
-            <!-- <img src="<%= office.image %>" class="officer-menu-image"> -->
-            <%= link_to office.page.title, page_path(office.page) %>
+          <li >
+            <%= link_to page_path(office.page) do %>
+            <%= image_tag(office.image, :class => "officer-menu-image pull-left") %>
+            <%= office.page.title %>
+            <% end %>
+
           </li>
         <% end %>
       <% end %>
