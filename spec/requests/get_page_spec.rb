@@ -13,6 +13,16 @@ describe "GET /:slug" do
     expect(response.body).to include("<title>#{page.title}</title>")
   end
 
+  context 'when the slug includes a /' do
+    it "works" do
+      page = create(:page, slug: 'it/has/some/slashes')
+      get page_path(page)
+      expect(response.status).to eq(200)
+      expect(response.body).to include(page.body)
+      expect(response.body).to include("<title>#{page.title}</title>")
+    end
+  end
+
   # TODO: move to view tests?
   context 'when logged in as a regular user' do
     include_context "when using devise/warden auth"

@@ -31,6 +31,11 @@ RSpec.describe Page, type: :model do
     expect(page).not_to be_valid
   end
 
+  it "allows / in the slug" do
+    page = build(:page, slug: 'it/has/some/slashes')
+    expect(page).to be_valid
+  end
+
   it "requires a slug" do
     page = build(:page, slug: nil)
     expect(page).not_to be_valid

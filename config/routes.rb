@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   get '/pages' => 'pages#index'
   get '/pages/new' => 'pages#new', as: :new_page
   post '/pages' => 'pages#create'
-  get '/:slug/edit' => 'pages#edit' , as: :edit_page
-  get '/:slug' => 'pages#show', as: :page
-  patch '/:slug' => 'pages#update'
-  put '/:slug' => 'pages#update'
+  get '/*slug/edit' => 'pages#edit' , as: :edit_page
+  get '/*slug' => 'pages#show', as: :page
+  patch '/*slug' => 'pages#update'
+  put '/*slug' => 'pages#update'
 
   root 'pages#show', defaults: { slug: 'home' }
 
