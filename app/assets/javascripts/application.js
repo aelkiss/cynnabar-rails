@@ -11,8 +11,35 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery-ui/accordion
+//= require autocomplete-rails-uncompressed
 //= require ckeditor/init
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+// implement disclosure triangles for award / recipient lists.
+// by default, collapse all
+$( function() {
+  $(".collapsible").accordion({
+    collapsible: true,
+    active: 0
+  });
+
+  $('.datepicker').datepicker({
+    changeMonth: true,
+    changeYear: true,
+    dateFormat: "yy-mm-dd"
+
+  });
+});
+
+function expandAll() {
+  $(".collapsible").accordion("option","active",0);
+}
+
+function collapseAll() {
+  $(".collapsible").accordion("option","active",1);
+

@@ -1,0 +1,21 @@
+<h1>Listing awards</h1>
+
+<p><a href="javascript:expandAll()">Expand All</a> | <a href="javascript:collapseAll()">Collapse All</a></p>
+
+<% @awards.each do |award| %>
+    <h4><%= link_to award.name, award %></h4>
+  <% if user_signed_in? %>
+    <%= link_to 'Edit', edit_award_path(award) %>
+    <%= link_to 'Destroy', award, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+
+    <p> <i><%= award.description %></i> </p>
+
+    <%= render partial: 'recipients', locals: {award: award} %>
+<% end %>
+
+<br>
+
+<% if user_signed_in? %>
+  <%= link_to 'New Award', new_award_path %>
+<% end %>

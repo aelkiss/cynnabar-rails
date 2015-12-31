@@ -1,0 +1,18 @@
+<h1>Order of Precedence (By Name)</h1>
+
+<p><a href="javascript:expandAll()">Expand All</a> | <a href="javascript:collapseAll()">Collapse All</a></p>
+
+<% @recipients.each do |recipient| %>
+    <h4><%= link_to recipient, recipient %></h4>
+    <% if user_signed_in? %>
+      <%= link_to 'Edit', edit_recipient_path(recipient) %>
+      <%= link_to 'Destroy', recipient, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    <%= render partial: 'awards', locals: {recipient: recipient} %>
+<% end %>
+
+<br>
+
+<% if user_signed_in? %>
+  <%= link_to 'New Recipient', new_recipient_path %>
+<% end %>

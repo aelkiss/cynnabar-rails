@@ -1,0 +1,27 @@
+<% if award.recipients.any? %>
+
+    <div class="collapsible">
+        <h5>Recipients</h5>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Date Received</th>
+            </tr>
+            <% award.awardings.order(:received).each do |awarding| %>
+                <tr>
+                    <td><%= link_to awarding.recipient, awarding.recipient %></td>
+                    <td><%= awarding.received %></td>
+                    
+                    <% if user_signed_in? %>
+                      <td><%= link_to 'Edit', edit_awarding_path(awarding) %></td>
+                      <td><%= link_to 'Delete', awarding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <% end %>
+                </tr>
+            <% end %>
+
+        </table>
+    </div>
+<% else %>
+    <p><i>No recipients</i></p>
+<% end %>
+

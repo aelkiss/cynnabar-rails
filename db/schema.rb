@@ -11,7 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224012609) do
+ActiveRecord::Schema.define(version: 20151231190833) do
+
+  create_table "awardings", force: :cascade do |t|
+    t.integer  "award_id",     limit: 4
+    t.integer  "recipient_id", limit: 4
+    t.date     "received"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id",     limit: 4
+    t.string   "award_name",   limit: 255
+  end
+
+  add_index "awardings", ["award_id"], name: "index_awardings_on_award_id", using: :btree
+  add_index "awardings", ["group_id"], name: "index_awardings_on_group_id", using: :btree
+  add_index "awardings", ["recipient_id"], name: "index_awardings_on_recipient_id", using: :btree
+
+  create_table "awards", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.integer  "precedence",  limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id",    limit: 4
+    t.boolean  "other_award"
+  end
+
+  add_index "awards", ["group_id"], name: "index_awards_on_group_id", using: :btree
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "offices", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -37,6 +69,16 @@ ActiveRecord::Schema.define(version: 20151224012609) do
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
   add_index "pages", ["user_id"], name: "index_pages_on_user_id", using: :btree
+
+  create_table "recipients", force: :cascade do |t|
+    t.string   "sca_name",          limit: 255
+    t.string   "mundane_name",      limit: 255
+    t.boolean  "is_group"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "also_known_as",     limit: 255
+    t.string   "formerly_known_as", limit: 255
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false

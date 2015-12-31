@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<h3><%= @award %></h3>
+
+<p><i><%= @award.description %></i></p>
+
+<p>
+<strong>Precedence:</strong>
+<%= @award.precedence %>
+</p>
+
+<%= render partial: 'recipients', locals: {award: @award} %>
+
+<% if user_signed_in? %>
+  <%= link_to 'Add Recipient', new_awarding_path(award_id: @award) %> | 
+  <%= link_to 'Edit', edit_award_path(@award) %> |
+<% end %>
+<%= link_to 'Back', awards_path %>

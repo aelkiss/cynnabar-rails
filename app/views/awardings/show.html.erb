@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Award:</strong>
+  <%= @awarding.award %>
+</p>
+
+<p>
+  <strong>Recipient:</strong>
+  <%= @awarding.recipient %>
+</p>
+
+<p>
+  <strong>Granted by:</strong>
+  <%= @awarding.group %>
+</p>
+
+<p>
+  <strong>Received:</strong>
+  <%= @awarding.received %>
+</p>
+
+
+<% if user_signed_in? %>
+  <%= link_to 'Edit', edit_awarding_path(@awarding) %> |
+<% end %>
+<%= link_to 'Back', awardings_path %>

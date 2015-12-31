@@ -1,0 +1,11 @@
+<p id="notice"><%= notice %></p>
+
+<h3><%= @recipient %></h3>
+
+<%= render partial: 'awards', locals: {recipient: @recipient} %>
+
+<% if user_signed_in? %>
+  <%= link_to 'Add Award', new_awarding_path(recipient_id: @recipient) %> | 
+  <%= link_to 'Edit', edit_recipient_path(@recipient) %> |
+<% end %>
+<%= link_to 'Back', recipients_path %>

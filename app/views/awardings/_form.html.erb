@@ -1,0 +1,54 @@
+<%= form_for(@awarding) do |f| %>
+  <% if @awarding.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@awarding.errors.count, "error") %> prohibited this awarding from being saved:</h2>
+
+      <ul>
+        <% @awarding.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table>
+
+    <tr>
+      <td>
+        Recipient:
+      </td>
+      <td>
+        <%= f.hidden_field :recipient_id %>
+        <%= autocomplete_field_tag 'recipient_name', 
+          @awarding.recipient ? @awarding.recipient.to_s : nil, 
+          autocomplete_recipient_name_recipients_path, 
+          :id_element => '#awarding_recipient_id',
+          :"data-autocomplete-label" => "No matches - <a href=\"/recipients/new\">create new recipient?</a>",
+          :size => 75 %>
+    </td>
+    </tr>
+
+    <tr>
+      <td>
+        <%= f.label :award_id %>:
+      </td>
+      <td>
+        <%= f.hidden_field :award_id %>
+        <%= autocomplete_field_tag 'award_name', 
+          @awarding.award ? @awarding.award.name : nil, 
+          autocomplete_award_name_awards_path, 
+          :id_element => '#awarding_award_id',
+          :size => 75 %>
+    </td>
+    </tr>
+
+    <tr>
+      <td>    <%= f.label :received %></td>
+      <td>    <%= text_field_tag 'received', @awarding.received, class: 'datepicker' %></p>
+    </tr>
+
+  </table>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

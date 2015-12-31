@@ -6,6 +6,17 @@ Rails.application.routes.draw do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
     patch 'users' => 'devise/registrations#update', :as => 'user_registration'            
   end
+
+  resources :awardings 
+
+  resources :recipients do
+    get :autocomplete_recipient_name, :on => :collection
+  end
+
+  resources :awards do
+    get :autocomplete_award_name, :on => :collection
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   get '/pages' => 'pages#index'
