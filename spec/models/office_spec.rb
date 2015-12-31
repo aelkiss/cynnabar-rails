@@ -1,27 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Office, type: :model do
-  it "requires a name" do
-    office = build(:office, name: nil)
-    expect(office).not_to be_valid
-  end
-
-  it "requires an email address" do
-    office = build(:office, email: nil)
-    expect(office).not_to be_valid
-  end
-
-  it "requires an image" do
-    office = build(:office, image: nil)
-    expect(office).not_to be_valid
-  end
+  it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:email) }
+  it { is_expected.to validate_presence_of(:image) }
+  it { is_expected.not_to validate_presence_of(:officer) }
 
   context "when there is no officer" do
-    it "is valid" do
-      office = build(:office, officer: nil)
-      expect(office).to be_valid
-    end
-
     it "returns (Vacant) for the officer name" do
       office = build(:office, officer: nil)
       expect(office.officer_name).to eq("(Vacant)")
