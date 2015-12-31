@@ -7,5 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
-case Rails.env
 admin = User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Default Admin User')
