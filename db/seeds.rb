@@ -8,7 +8,4 @@
 #
 
 case Rails.env
-when "development"
-  # ensure there is an admin user
-  admin = User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Magister Administerio of Windfall Keep')
-end
+admin = User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Default Admin User')
