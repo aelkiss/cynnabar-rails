@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20151224012609) do
   add_index "offices", ["page_id"], name: "index_offices_on_page_id"
 
   create_table "pages", force: :cascade do |t|
-    t.string   "body"
+    t.text     "body", :limit => 4294967295
     t.string   "title"
     t.string   "slug"
     t.datetime "created_at", null: false
