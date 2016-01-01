@@ -1,5 +1,5 @@
 class RecipientsController < ApplicationController
-  before_action :set_recipient, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
   
   # override autocomplete from rails-autocomplete to search composite 
   def autocomplete_recipient_name
@@ -76,10 +76,6 @@ class RecipientsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_recipient
-      @recipient = Recipient.find(params[:id])
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipient_params

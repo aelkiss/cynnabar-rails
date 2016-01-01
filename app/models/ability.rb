@@ -8,11 +8,23 @@ class Ability
       can :manage, :all
       can :set_owner, Page
     else
+      # default permission for everyone
       can :read, Page
       can :update, Page, :user_id => user.id
       cannot :index, Page
 
       can :index, Office
+
+      can :read, Awarding
+      can :read, Award
+      can :read, Recipient
+    end
+
+    if user.herald?
+      # specific permissions for herald role
+      can :manage, Awarding
+      can :manage, Award
+      can :manage, Recipient
     end
   end
 end

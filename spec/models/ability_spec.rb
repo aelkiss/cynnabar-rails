@@ -2,54 +2,65 @@ require 'rails_helper'
 require 'cancan/matchers'
 
 describe "Ability" do
-  it "allows users to edit their own pages" do
-    user = create(:user)
-    page = create(:page, user: user)
-    ability = Ability.new(user)
+  context "when the user is a normal user" do
+    let(:user) { create(:user) }
+    subject { Ability.new(user) }
 
-    expect(ability).to be_able_to(:edit, page)
-    expect(ability).to be_able_to(:update, page)
+    context "when the user has a page they own" do
+      let(:page) { build(:page, user: user) }
+
+      it { is_expected.to be_able_to(:edit, page) }
+      it { is_expected.to be_able_to(:update, page) }
+    end
+
+    context "when there is a page owned by another user" do
+      let(:page) { build(:page, user: create(:user)) }
+      it { is_expected.not_to be_able_to(:edit, page) }
+      it { is_expected.not_to be_able_to(:update, page) }
+    end
+
+    it { is_expected.not_to be_able_to(:edit, build(:office)) }
+    it { is_expected.not_to be_able_to(:show, build(:office)) }
+
+    for operation in ([:edit, :create, :destroy]) do
+      for type in ([:award, :recipient, :awarding]) do
+        it "is not able to #{operation} #{type}s" do
+          is_expected.not_to be_able_to(operation, build(type))
+        end
+      end
+    end
   end
 
-  it "does not allow users to edit other user's pages" do
-    user1 = create(:user)
-    user2 = create(:user)
-    page = create(:page, user: user2)
-    ability = Ability.new(user1)
+  context "when the user is an admin" do
+    subject { Ability.new(create(:user, :admin)) }
 
-    expect(ability).not_to be_able_to(:edit, page)
-    expect(ability).not_to be_able_to(:update, page)
+    context "when there is a page owned by another user" do
+      let(:page) { build(:page, user: create(:user)) }
+
+      it { is_expected.to be_able_to(:edit, page) }
+      it { is_expected.to be_able_to(:update, page) }
+    end
+
+    it { is_expected.to be_able_to(:manage, build(:office)) }
+    it { is_expected.to be_able_to(:manage, build(:recipient)) }
+    it { is_expected.to be_able_to(:manage, build(:awarding)) }
+    it { is_expected.to be_able_to(:manage, build(:award)) }
   end
 
-  it "allows admins to edit other user's pages" do
-    admin = create(:user, :admin)
-    page = create(:page, user: create(:user))
-    ability = Ability.new(admin)
-
-    expect(ability).to be_able_to(:edit, page)
-    expect(ability).to be_able_to(:update, page)
+  context "when the user is anonymous" do
+    subject { Ability.new(nil) }
+    it { is_expected.to be_able_to(:index, Office) }
+    it { is_expected.to be_able_to(:show, build(:page)) }
   end
 
-  it "allows admins to edit offices" do
-    ability = Ability.new(create(:user, :admin))
-    office = create(:office)
-    expect(ability).to be_able_to(:edit, office)
+  context "when the user is a herald" do
+    subject { Ability.new(create(:user, :herald)) }
+
+    it { is_expected.to be_able_to(:manage, build(:recipient)) }
+    it { is_expected.to be_able_to(:manage, build(:awarding)) }
+    it { is_expected.to be_able_to(:manage, build(:award)) }
+    it { is_expected.not_to be_able_to(:manage, build(:page)) }
+    it { is_expected.not_to be_able_to(:manage, build(:office)) }
   end
 
-  it "allows anyone to list offices" do
-    ability = Ability.new(nil)
-    expect(ability).to be_able_to(:index, Office)
-  end
-
-  it "does not allow regular users to edit offices" do
-    ability = Ability.new(create(:user))
-    office = create(:office)
-    expect(ability).not_to be_able_to(:edit, office)
-  end
-
-  it "does not allow regular users to render offices directly" do
-    ability = Ability.new(create(:user))
-    office = create(:office)
-    expect(ability).not_to be_able_to(:show, office)
-  end
 end

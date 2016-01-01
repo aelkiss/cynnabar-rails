@@ -8,7 +8,7 @@ describe "GET /pages" do
     page1 = create(:page)
     page2 = create(:page)
 
-    get "/pages"
+    get pages_path
     expect(response.status).to eq(200)
     expect(response.body).to include(page1.title)
     expect(response.body).to include("<a href=\"/#{page1.slug}\">/#{page1.slug}</a>")
@@ -18,12 +18,12 @@ describe "GET /pages" do
 
   it "as a normal user, does not list pages" do
     sign_in(create(:user))
-    get "/pages"
+    get pages_path
     expect(response.status).to eq(403)
   end
 
   it "when not logged in, does not list pages" do
-    get "/pages"
+    get pages_path
     expect(response.status).to eq(403)
   end
 end

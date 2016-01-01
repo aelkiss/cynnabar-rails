@@ -13,6 +13,10 @@ FactoryGirl.define do
     trait :admin do
       role :admin
     end
+
+    trait :herald do
+      role :herald
+    end
   end
 
   factory :page do
