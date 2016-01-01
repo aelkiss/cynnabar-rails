@@ -59,6 +59,7 @@ FactoryGirl.define do
     end
 
     trait :group do
+      mundane_name nil
       sca_name 'group name'
       is_group true
     end

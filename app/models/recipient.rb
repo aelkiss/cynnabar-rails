@@ -22,6 +22,9 @@ class Recipient < ActiveRecord::Base
         display_name = "#{sca_name} #{display_inserts}(modernly known as #{mundane_name})"
       else
         display_name = (sca_name and sca_name != '') ? sca_name : mundane_name
+        if !display_inserts.empty?
+          display_name += " #{display_inserts}"
+        end
       end
 
       return display_name
