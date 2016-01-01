@@ -8,7 +8,7 @@ class Award < ActiveRecord::Base
     validates :description, presence: true,
         length: { minimum: 30 }
 
-    validates :precedence, numericality: { only_integer: true }
+    validates :precedence, presence: true
 
     def to_s
       name
