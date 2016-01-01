@@ -26,5 +26,52 @@ FactoryGirl.define do
     end
   end
 
+  factory :awarding do
+    association :award, :hasgroup
+    association :recipient
+
+    trait :other do
+      association :award, :other
+      association :group
+      award_name 'other award name'
+    end
+  end
+
+  factory :award do
+    name "test award"
+    precedence 0
+    description "this is a long description of what the test award is"
+
+    trait :hasgroup do
+      association :group
+    end
+
+    trait :other do
+      other_award true
+    end
+  end
+
+  factory :recipient do
+    mundane_name 'mundane name'
+
+    trait :sca do
+      sca_name 'sca name'
+    end
+
+    trait :group do
+      sca_name 'group name'
+      is_group true
+    end
+
+    trait :othernames do
+      also_known_as 'bob smith'
+      formerly_known_as 'carol jones'
+    end
+  end
+
+  factory :group do
+    name "group name"
+  end
+
 
 end
