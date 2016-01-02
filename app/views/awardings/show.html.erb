@@ -21,7 +21,6 @@
 </p>
 
 
-<% if user_signed_in? %>
+<% if can? :edit, @awarding %>
   <%= link_to 'Edit', edit_awarding_path(@awarding) %> |
 <% end %>
-<%= link_to 'Back', awardings_path %>

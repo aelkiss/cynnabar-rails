@@ -4,8 +4,10 @@
 
 <% @recipients.each do |recipient| %>
     <h4><%= link_to recipient, recipient %></h4>
-    <% if user_signed_in? %>
+    <% if can? :edit, recipient %>
       <%= link_to 'Edit', edit_recipient_path(recipient) %>
+    <% end %>
+    <% if can? :delete, recipient %>
       <%= link_to 'Destroy', recipient, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
     <%= render partial: 'awards', locals: {recipient: recipient} %>
@@ -13,6 +15,6 @@
 
 <br>
 
-<% if user_signed_in? %>
+<% if can? :create, Recipient %>
   <%= link_to 'New Recipient', new_recipient_path %>
 <% end %>

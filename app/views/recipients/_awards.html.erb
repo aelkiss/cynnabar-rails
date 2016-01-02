@@ -12,9 +12,11 @@
       <% recipient.awardings.order(:received).each do |awarding| %>
         <tr>
           <td><%= link_to awarding, awarding.award %></td>
-          <td><%= awarding.received %></td>
-          <% if user_signed_in? %>
+          <td class="date-cell"><%= awarding.received %></td>
+          <% if can? :edit, awarding %>
             <td><%= link_to 'Edit', edit_awarding_path(awarding) %></td>
+          <% end %>
+          <% if can? :delete, awarding %>
             <td><%= link_to 'Delete', awarding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <% end %>
         </tr>

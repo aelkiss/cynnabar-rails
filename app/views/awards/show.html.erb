@@ -4,15 +4,11 @@
 
 <p><i><%= @award.description %></i></p>
 
-<p>
-<strong>Precedence:</strong>
-<%= @award.precedence %>
-</p>
-
 <%= render partial: 'recipients', locals: {award: @award} %>
 
-<% if user_signed_in? %>
+<% if can? :create, Awarding %>
   <%= link_to 'Add Recipient', new_awarding_path(award_id: @award) %> | 
+<% end %>
+<% if can? :edit, @award %>
   <%= link_to 'Edit', edit_award_path(@award) %> |
 <% end %>
-<%= link_to 'Back', awards_path %>

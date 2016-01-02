@@ -16,6 +16,6 @@
 
 <br>
 
-<% if user_signed_in? %>
+<% if can? :create, Award %>
   <%= link_to 'New Award', new_award_path %>
 <% end %>

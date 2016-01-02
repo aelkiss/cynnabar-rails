@@ -4,8 +4,9 @@
 
 <%= render partial: 'awards', locals: {recipient: @recipient} %>
 
-<% if user_signed_in? %>
+<% if can? :create, Awarding  %>
   <%= link_to 'Add Award', new_awarding_path(recipient_id: @recipient) %> | 
+<% end %>
+<% if can? :edit, @recipient %>
   <%= link_to 'Edit', edit_recipient_path(@recipient) %> |
 <% end %>
-<%= link_to 'Back', recipients_path %>

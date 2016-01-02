@@ -32,8 +32,10 @@
         <td><%= link_to awarding.recipient, awarding.recipient %></td>
         <td><%= link_to awarding.award, awarding.award %></td>
         <td><%= awarding.received %></td>
-        <% if user_signed_in? %>
+        <% if can? :edit, awarding %>
           <td><%= link_to 'Edit', edit_awarding_path(awarding) %></td>
+        <% end %>
+        <% if can? :delete, awarding %>
           <td><%= link_to 'Delete', awarding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
       </tr>
@@ -46,6 +48,6 @@
 
 <br>
 
-<% if user_signed_in? %>
+<% if can? :create, Awarding %>
   <%= link_to 'New Awarding', new_awarding_path %>
 <% end %>
