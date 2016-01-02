@@ -42,4 +42,4 @@ function expandAll() {
 
 function collapseAll() {
   $(".collapsible").accordion("option","active",1);
-
+}
