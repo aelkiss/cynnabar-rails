@@ -27,7 +27,7 @@
 $( function() {
   $(".collapsible").accordion({
     collapsible: true,
-    active: 0
+    active: 1
   });
 
   $('.datepicker').datepicker({
