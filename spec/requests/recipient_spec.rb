@@ -66,9 +66,9 @@ end
 
 describe "DELETE /recipient/:id" do
   include_context "when using devise/warden auth"
-  it "as a herald, deletes recipient" do
+  it "as an admin, deletes recipient" do
     recipient = create(:recipient)
-    sign_in(create(:user, :herald))
+    sign_in(create(:user, :admin))
     expect { delete recipient_path(recipient) }.to change{Recipient.count}.by(-1)
     expect(response).to have_http_status(:redirect)
     expect(response.redirect_url).to match recipients_path

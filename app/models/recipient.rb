@@ -2,6 +2,29 @@ class Recipient < ActiveRecord::Base
     has_many :awardings
     has_many :awards, through: :awardings
 
+    def fix_empty(attr,value)
+      if value and value.match(/^\s*$/)
+        value = nil
+      end
+      write_attribute(attr,value)
+    end
+
+    def sca_name=(value)
+      fix_empty(:sca_name,value)
+    end
+
+    def mundane_name=(value)
+      fix_empty(:mundane_name,value)
+    end
+
+    def formerly_known_as=(value)
+      fix_empty(:formerly_known_as,value)
+    end
+
+    def also_known_as=(value)
+      fix_empty(:also_known_as,value)
+    end
+
     def to_s
       # if both SCA name and mundane name exist, return both. Otherwise, use
       # whichever is populated.
