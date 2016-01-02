@@ -19,3 +19,19 @@
     </ul>
   </li>
 <% end %>
+
+<% if can? :manage, Awarding %>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" >Precedence<span class="caret"></span></a>
+    <ul class="dropdown-menu admin-links">
+      <li><%= link_to 'Add Award Receipt', new_awarding_path %></li>
+      <li><%= link_to 'All Award Receipts By Date', awardings_path %></li>
+      <li><%= link_to 'OOP (By Name)', recipients_path %></li>
+      <li><%= link_to 'OOP (By Award) ', awards_path %></li>
+      <% if can? :create, Award %>
+        <li><%= link_to 'New Award Type', new_award_path %></li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
+

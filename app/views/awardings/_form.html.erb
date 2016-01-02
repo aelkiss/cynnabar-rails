@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
+  
   <table class="awards">
-
     <tr>
-      <th>
+      <th style="vertical-align: top">
         <%= f.label :recipient %>:
       </th>
       <td>
@@ -24,8 +24,8 @@
           autocomplete_recipient_name_recipients_path, 
           :id_element => '#awarding_recipient_id',
           :"data-autocomplete-label" => "No matches",
-          :size => 75 %>
-        <%= link_to 'Create new', new_recipient_path %>
+          :size => 75 %> <br />
+        <%= link_to 'Create new recipient', new_recipient_path %>
     </td>
     </tr>
 
@@ -50,6 +50,6 @@
 
   </table>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Submit' %>
   </div>
 <% end %>
