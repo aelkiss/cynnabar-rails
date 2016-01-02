@@ -40,7 +40,9 @@ class AwardingsController < ApplicationController
   # POST /awardings.json
   def create
     @awarding = Awarding.new(awarding_params)
-    @awarding.received = params[:received] ? Date.parse(params[:received]) : nil
+    if params[:received] and !params[:received].match(/unknown/i)
+      @awarding.received = params[:received] ? Date.parse(params[:received]) : nil
+    end
 
     respond_to do |format|
       if @awarding.save
@@ -57,7 +59,10 @@ class AwardingsController < ApplicationController
   # PATCH/PUT /awardings/1.json
   def update
     respond_to do |format|
-      @awarding.received = params[:received] ? Date.parse(params[:received]) : @awarding.received
+      if params[:received] and !params[:received].match(/unknown/i)
+        @awarding.received = params[:received] ? Date.parse(params[:received]) : @awarding.received
+      end
+
       if @awarding.update(awarding_params)
         format.html { redirect_to @awarding, notice: 'Awarding was successfully updated.' }
         format.json { render :show, status: :ok, location: @awarding }

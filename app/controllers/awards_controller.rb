@@ -7,7 +7,7 @@ class AwardsController < ApplicationController
   # GET /awards
   # GET /awards.json
   def index
-    @awards = Award.all
+    @awards = Award.order("name ASC")
   end
 
   # GET /awards/1
