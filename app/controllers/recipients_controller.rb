@@ -18,7 +18,7 @@ class RecipientsController < ApplicationController
   # GET /recipients
   # GET /recipients.json
   def index
-    @recipients = Recipient.all
+    @recipients = Recipient.order("coalesce(sca_name,mundane_name) ASC")
   end
 
   # GET /recipients/1
@@ -79,6 +79,6 @@ class RecipientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def recipient_params
-      params.require(:recipient).permit(:sca_name, :mundane_name, :is_group)
+      params.require(:recipient).permit(:sca_name, :mundane_name, :is_group, :also_known_as, :formerly_known_as)
     end
 end
