@@ -1,3 +1,5 @@
+require "rails_helper" 
+
 describe "GET /awardings" do
   it "gets the index" do
     awarding1 = create(:awarding)

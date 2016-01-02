@@ -1,3 +1,5 @@
+require "rails_helper"
+
 describe "GET /awards" do
   it "gets the index" do
     award1 = create(:award)
@@ -11,8 +13,8 @@ end
 
 describe "GET /awards/new" do
   include_context "when using devise/warden auth"
-  it "as a herald, gets a form for a new user" do
-    sign_in(create(:user, :herald))
+  it "as an admin, gets a form for a new award" do
+    sign_in(create(:user, :admin))
     get new_award_path
     expect(response).to have_http_status(:success)
   end
@@ -20,8 +22,8 @@ end
 
 describe "POST /awards" do
   include_context "when using devise/warden auth"
-  it "as a herald, allows creating award" do
-    sign_in(create(:user, :herald))
+  it "as an admin, allows creating award" do
+    sign_in(create(:user, :admin))
     expect { post awards_path, award: attributes_for(:award) }.to change{Award.count}.by(1)
     expect(response).to have_http_status(:redirect)
   end
@@ -44,8 +46,8 @@ end
 
 describe "GET /award/:id/edit" do
   include_context "when using devise/warden auth"
-  it "as a herald, shows edit form" do
-    sign_in(create(:user, :herald))
+  it "as an admin, shows edit form" do
+    sign_in(create(:user, :admin))
     award = create(:award)
     get edit_award_path(award)
     expect(response).to have_http_status(:success)
@@ -55,9 +57,9 @@ end
 
 describe "PATCH /award/:id" do
   include_context "when using devise/warden auth"
-  it "as a herald, updates award" do
+  it "as an admin, updates award" do
     award = create(:award)
-    sign_in(create(:user, :herald))
+    sign_in(create(:user, :admin))
     patch award_path(award), award: attributes_for(:award)
     expect(response).to have_http_status(:redirect)
     expect(response.redirect_url).to match award_path(award)
@@ -66,9 +68,9 @@ end
 
 describe "DELETE /award/:id" do
   include_context "when using devise/warden auth"
-  it "as a herald, deletes award" do
+  it "as an admin, deletes award" do
     award = create(:award)
-    sign_in(create(:user, :herald))
+    sign_in(create(:user, :admin))
     expect { delete award_path(award) }.to change{Award.count}.by(-1)
     expect(response).to have_http_status(:redirect)
     expect(response.redirect_url).to match awards_path
