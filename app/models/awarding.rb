@@ -38,4 +38,12 @@ class Awarding < ActiveRecord::Base
     return display_name
   end
 
+  def received
+    if super
+      return super
+    else
+      return "(Unknown)"
+    end
+  end
+
 end

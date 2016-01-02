@@ -17,6 +17,10 @@ describe Awarding, type: :model do
       awarding.award_name = 'override'
       expect(awarding).not_to be_valid
     end
+
+    it "returns (Uaknown) for the date" do
+      expect(awarding.received).to eq '(Unknown)'
+    end
   end
 
   it "must have a group if the award does not" do
@@ -46,6 +50,11 @@ describe Awarding, type: :model do
       groupname = 'different group'
       awarding = build(:awarding, group: create(:group, name: groupname)) 
       expect(awarding.to_s).to eq "#{awarding.award.name} (#{groupname})"
+    end
+
+    it "returns the date in YYYY-MM-DD format if given"do
+      awarding = build(:awarding, received: Date.new(1981,2,1))
+      expect(awarding.received.to_s).to eq "1981-02-01"
     end
   end
 
