@@ -68,5 +68,17 @@ describe Recipient, type: :model do
       recipient = build(:recipient)
       expect(recipient.to_s).not_to match(/ \(formerly known as /)
     end
+
+    it "nulls out mundane name if it is set to empty string" do
+      recipient = build(:recipient)
+      recipient.mundane_name = ""
+      expect(recipient.mundane_name).to be(nil)
+    end
+
+    it "nulls out sca name if it is set to empty string" do
+      recipient = build(:recipient)
+      recipient.sca_name = ""
+      expect(recipient.sca_name).to be(nil)
+    end
   end
 end
