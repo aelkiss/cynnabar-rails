@@ -56,9 +56,10 @@ describe "Ability" do
   context "when the user is a herald" do
     subject { Ability.new(create(:user, :herald)) }
 
-    it { is_expected.to be_able_to(:manage, build(:recipient)) }
+    it { is_expected.to be_able_to(:create, Recipient) }
+    it { is_expected.to be_able_to(:edit, build(:recipient)) }
     it { is_expected.to be_able_to(:manage, build(:awarding)) }
-    it { is_expected.to be_able_to(:manage, build(:award)) }
+    it { is_expected.not_to be_able_to(:manage, build(:award)) }
     it { is_expected.not_to be_able_to(:manage, build(:page)) }
     it { is_expected.not_to be_able_to(:manage, build(:office)) }
   end

@@ -23,8 +23,10 @@ class Ability
     if user.herald?
       # specific permissions for herald role
       can :manage, Awarding
-      can :manage, Award
-      can :manage, Recipient
+      can :create, Recipient
+      can :update, Recipient
+      can :autocomplete_award_name, Award
+      can :autocomplete_recipient_name, Recipient
     end
   end
 end
