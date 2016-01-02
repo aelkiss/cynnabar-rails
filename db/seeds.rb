@@ -8,3 +8,30 @@
 #
 
 admin = User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Default Admin User')
+
+cynnabar = Group.create(name: 'Barony of Cynnabar')
+midrealm = Group.create(name: 'Middle Kingdom')
+
+kingdoms = ['Kingdom of Æthelmearc',
+            'Kingdom of An Tir',
+            'Kingdom of Ansteorra',
+            'Kingdom of Artemisia',
+            'Kingdom of Atenveldt',
+            'Kingdom of Atlantia',
+            'Kingdom of Avacal',
+            'Kingdom of Caid',
+            'Kingdom of Calontir',
+            'Kingdom of Drachenwald',
+            'Kingdom of Ealdormere',
+            'East Kingdom',
+            'Kingdom of Gleann Abhann',
+            'Kingdom of Lochac',
+            'Kingdom of Meridies',
+            'Kingdom of Northshield',
+            'Kingdom of the Outlands',
+            'Kingdom of Trimaris',
+            'Kingdom of the West']
+
+kingdoms.each do |kingdom|
+    Group.create(name: kingdom)
+end

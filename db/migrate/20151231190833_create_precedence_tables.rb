@@ -2,7 +2,7 @@ class CreatePrecedenceTables < ActiveRecord::Migration
   def change
     create_table :awards do |t|
       t.string :name
-      t.string :description
+      t.string :text
       t.integer :precedence
 
       t.timestamps
