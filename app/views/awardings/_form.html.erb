@@ -11,27 +11,28 @@
     </div>
   <% end %>
 
-  <table>
+  <table class="awards">
 
     <tr>
-      <td>
-        Recipient:
-      </td>
+      <th>
+        <%= f.label :recipient %>:
+      </th>
       <td>
         <%= f.hidden_field :recipient_id %>
         <%= autocomplete_field_tag 'recipient_name', 
           @awarding.recipient ? @awarding.recipient.to_s : nil, 
           autocomplete_recipient_name_recipients_path, 
           :id_element => '#awarding_recipient_id',
-          :"data-autocomplete-label" => "No matches - <a href=\"/recipients/new\">create new recipient?</a>",
+          :"data-autocomplete-label" => "No matches",
           :size => 75 %>
+        <%= link_to 'Create new', new_recipient_path %>
     </td>
     </tr>
 
     <tr>
-      <td>
+      <th>
         <%= f.label :award_id %>:
-      </td>
+      </th>
       <td>
         <%= f.hidden_field :award_id %>
         <%= autocomplete_field_tag 'award_name', 
@@ -43,7 +44,7 @@
     </tr>
 
     <tr>
-      <td>    <%= f.label :received %></td>
+      <th>    <%= f.label :received %>: </th>
       <td>    <%= text_field_tag 'received', @awarding.received, class: 'datepicker' %></p>
     </tr>
 

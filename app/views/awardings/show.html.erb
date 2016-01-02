@@ -2,12 +2,12 @@
 
 <p>
   <strong>Award:</strong>
-  <%= @awarding.award %>
+  <%= link_to @awarding.award, award_path(@awarding.award) %>
 </p>
 
 <p>
   <strong>Recipient:</strong>
-  <%= @awarding.recipient %>
+  <%= link_to @awarding.recipient, recipient_path(@awarding.recipient) %>
 </p>
 
 <p>
@@ -22,5 +22,5 @@
 
 
 <% if can? :edit, @awarding %>
-  <%= link_to 'Edit', edit_awarding_path(@awarding) %> |
+  <%= link_to 'Edit', edit_awarding_path(@awarding) %>
 <% end %>
