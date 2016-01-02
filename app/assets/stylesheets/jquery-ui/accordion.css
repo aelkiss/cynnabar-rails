@@ -20,6 +20,9 @@
 	padding: .5em .5em .5em .7em;
 	min-height: 0; /* support: IE7 */
 	font-size: 100%;
+  background: none;
+  background-color: rgb(255,255,204);
+  border: none;
 }
 .ui-accordion .ui-accordion-icons {
 	padding-left: 2.2em;
@@ -36,6 +39,8 @@
 .ui-accordion .ui-accordion-content {
 	padding: 1em 2.2em;
 	overflow: auto;
+  background: none;
+  background-color: rgb(255,255,204)
 }
 .ui-accordion .ui-accordion-content tbody tr td {
 	padding: 2px 10px;

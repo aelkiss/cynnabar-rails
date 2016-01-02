@@ -7,6 +7,15 @@ $grid-float-breakpoint: $screen-md-min;
 @import "bootstrap";
 //@media (min-width: 915px);
 $main-background-color: #FFFFCC;
+
+.awards tr td {
+  padding: 5px;
+}
+
+.awards tr th {
+  text-align: right;
+}
+
 img, iframe {
   max-width: 100%;
   margin: auto;

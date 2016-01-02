@@ -13,4 +13,6 @@
  *= require_tree .
  *= require_self
  *= require jquery-ui/accordion
+ *= require jquery-ui/datepicker
+ *= require jquery-ui/autocomplete
  */
