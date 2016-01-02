@@ -14,7 +14,7 @@ describe "PATCH /:slug" do
       patch path, office: {name: newname}
 
       edited_office = Office.find(office.id)
-      expect(response.status).to eq(302)
+      expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to include(path)
       expect(edited_office.name).to eq(newname)
     end
@@ -33,6 +33,6 @@ end
 def cannot_edit_offices
   office = create(:office)
   patch url_for(office), office: {name: 'newname'}
-  expect(response.status).to eq(403)
+  expect(response).to have_http_status(:forbidden)
 end
 

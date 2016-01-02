@@ -15,7 +15,7 @@ describe "PATCH /:slug" do
       patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
 
       edited_page = Page.find(page.slug)
-      expect(response.status).to eq(302)
+      expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to include(page.slug)
       expect(edited_page.body).to eq(newbody)
       expect(edited_page.title).to eq(page.title)
@@ -27,7 +27,7 @@ describe "PATCH /:slug" do
 
       patch "/#{page.slug}", page: {slug: newslug}, commit: 'Save'
 
-      expect(response.status).to eq(302)
+      expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to include(newslug)
     end
 
@@ -36,7 +36,7 @@ describe "PATCH /:slug" do
 
       get "/#{page.slug}/edit"
 
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
       expect(response.body).to include('CKEDITOR')
     end
 
@@ -74,7 +74,7 @@ describe "PATCH /:slug" do
       sign_in(user1)
       patch "/#{page.slug}", page: {user_email: user2.email}, commit: 'Save'
 
-      expect(response.status).to eq(403)
+      expect(response).to have_http_status(:forbidden)
       edited_page = Page.find(page.slug)
       expect(edited_page.user).to eq(user1)
     end
@@ -87,7 +87,7 @@ describe "PATCH /:slug" do
 
       patch "/#{page.slug}", page: {body: newbody}, commit: 'Save'
 
-      expect(response.status).to eq(403)
+      expect(response).to have_http_status(:forbidden)
     end
   end
 end

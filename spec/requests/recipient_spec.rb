@@ -3,7 +3,7 @@ describe "GET /recipients" do
     recipient1 = create(:recipient)
     recipient2 = create(:recipient)
     get recipients_path
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:success)
     expect(response.body).to include(recipient1.to_s)
     expect(response.body).to include(recipient2.to_s)
   end
@@ -14,7 +14,7 @@ describe "GET /recipients/new" do
   it "as a herald, gets a form for a new user" do
     sign_in(create(:user, :herald))
     get new_recipient_path
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:success)
   end
 end
 
@@ -23,13 +23,13 @@ describe "POST /recipients" do
   it "as a herald, allows creating recipient" do
     sign_in(create(:user, :herald))
     expect { post recipients_path, recipient: attributes_for(:recipient) }.to change{Recipient.count}.by(1)
-    expect(response.status).to eq(302)
+    expect(response).to have_http_status(:redirect)
   end
 
   it "as a normal user, does not allow creating recipient" do
     sign_in(create(:user))
     expect { post recipients_path, recipient: attributes_for(:recipient) }.to change{Recipient.count}.by(0)
-    expect(response.status).to eq(403)
+    expect(response).to have_http_status(:forbidden)
   end
 end
 
@@ -37,7 +37,7 @@ describe "GET /recipient/:id" do
   it "shows recipient" do
     recipient = create(:recipient)
     get recipient_path(recipient)
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:success)
     expect(response.body).to include(recipient.to_s)
   end
 end
@@ -48,7 +48,7 @@ describe "GET /recipient/:id/edit" do
     sign_in(create(:user, :herald))
     recipient = create(:recipient)
     get edit_recipient_path(recipient)
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:success)
     expect(response.body).to include(recipient.to_s)
   end
 end
@@ -59,7 +59,7 @@ describe "PATCH /recipient/:id" do
     recipient = create(:recipient)
     sign_in(create(:user, :herald))
     patch recipient_path(recipient), recipient: attributes_for(:recipient)
-    expect(response.status).to eq(302)
+    expect(response).to have_http_status(:redirect)
     expect(response.redirect_url).to match recipient_path(recipient)
   end
 end
@@ -70,7 +70,7 @@ describe "DELETE /recipient/:id" do
     recipient = create(:recipient)
     sign_in(create(:user, :herald))
     expect { delete recipient_path(recipient) }.to change{Recipient.count}.by(-1)
-    expect(response.status).to eq(302)
+    expect(response).to have_http_status(:redirect)
     expect(response.redirect_url).to match recipients_path
   end
 end

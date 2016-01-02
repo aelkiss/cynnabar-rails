@@ -8,7 +8,7 @@ describe "GET /:slug" do
     page = create(:page)
 
     get page_path(page)
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:success)
     expect(response.body).to include(page.body)
     expect(response.body).to include("<title>#{page.title}</title>")
   end
@@ -17,7 +17,7 @@ describe "GET /:slug" do
     it "works" do
       page = create(:page, slug: 'it/has/some/slashes')
       get page_path(page)
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
       expect(response.body).to include(page.body)
       expect(response.body).to include("<title>#{page.title}</title>")
     end
@@ -89,7 +89,7 @@ describe "GET /" do
     page = create(:page, slug: 'home')
 
     get "/"
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:success)
     expect(response.body).to include(page.body)
   end
 end

@@ -9,7 +9,7 @@ describe "GET /pages" do
     page2 = create(:page)
 
     get pages_path
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:success)
     expect(response.body).to include(page1.title)
     expect(response.body).to include("<a href=\"/#{page1.slug}\">/#{page1.slug}</a>")
     expect(response.body).to include(page2.title)
@@ -19,11 +19,11 @@ describe "GET /pages" do
   it "as a normal user, does not list pages" do
     sign_in(create(:user))
     get pages_path
-    expect(response.status).to eq(403)
+    expect(response).to have_http_status(:forbidden)
   end
 
   it "when not logged in, does not list pages" do
     get pages_path
-    expect(response.status).to eq(403)
+    expect(response).to have_http_status(:forbidden)
   end
 end

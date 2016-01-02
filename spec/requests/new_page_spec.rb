@@ -10,7 +10,7 @@ describe "POST /pages" do
 
       post "/pages", page: page, commit: 'Save'
 
-      expect(response.status).to eq(302)
+      expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to include(page[:slug])
 
       saved_page = Page.find(page[:slug])
@@ -59,6 +59,6 @@ describe "POST /pages" do
     page = attributes_for(:page)
     post "/pages", page: page, commit: commit
 
-    expect(response.status).to eq(403)
+    expect(response).to have_http_status(:forbidden)
   end
 end
