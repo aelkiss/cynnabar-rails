@@ -1,0 +1,20 @@
+<table class="awards">
+<tr>
+  <th>Award Name</th>
+  <th>Date Received</th>
+</tr>
+
+<% recipient.awardings.order(:received).each do |awarding| %>
+  <tr>
+    <td><%= link_to awarding, awarding.award %></td>
+    <td class="date-cell"><%= awarding.received %></td>
+    <% if can? :edit, awarding %>
+      <td><%= link_to 'Edit', edit_awarding_path(awarding) %></td>
+    <% end %>
+    <% if can? :delete, awarding %>
+      <td><%= link_to 'Delete', awarding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <% end %>
+  </tr>
+<% end %>
+
+</table>

@@ -1,0 +1,10 @@
+<% if award.recipients.any? %>
+
+    <div class="collapsible">
+        <h5>Recipients</h5>
+        <%= render partial: 'recipients_table', locals: {award: award} %>
+    </div>
+<% else %>
+    <p><i>No recipients</i></p>
+<% end %>
+

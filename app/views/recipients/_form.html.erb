@@ -1,4 +1,5 @@
 <%= form_for(@recipient) do |f| %>
+
   <% if @recipient.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recipient.errors.count, "error") %> prohibited this recipient from being saved:</h2>
@@ -12,7 +13,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :sca_name %><br>
+    <%= f.label :sca_name, "SCA name" %><br>
     <%= f.text_field :sca_name %>
   </div>
   <div class="field">
@@ -20,7 +21,15 @@
     <%= f.text_field :mundane_name %>
   </div>
   <div class="field">
-    <%= f.label :is_group %><br>
+    <%= f.label :also_known_as %><br>
+    <%= f.text_field :also_known_as %>
+  </div>
+  <div class="field">
+    <%= f.label :formerly_known_as %><br>
+    <%= f.text_field :formerly_known_as %>
+  </div>
+  <div class="field">
+    <%= f.label :is_group, "Group?" %>
     <%= f.check_box :is_group %>
   </div>
   <div class="actions">

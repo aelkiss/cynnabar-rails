@@ -1,8 +1,6 @@
-<p id="notice"><%= notice %></p>
-
 <h3><%= @recipient %></h3>
 
-<%= render partial: 'awards', locals: {recipient: @recipient} %>
+<%= render partial: 'awards_table', locals: {recipient: @recipient} %>
 
 <% if can? :create, Awarding  %>
   <%= link_to 'Add Award', new_awarding_path(recipient_id: @recipient) %> | 
