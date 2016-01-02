@@ -35,6 +35,16 @@
 }
 .ui-accordion .ui-accordion-content {
 	padding: 1em 2.2em;
-	border-top: 0;
 	overflow: auto;
+}
+.ui-accordion .ui-accordion-content tbody tr td {
+	padding: 2px 10px;
+	overflow: auto;
+}
+.ui-accordion .ui-accordion-content tbody tr th {
+	padding: 2px 10px;
+	overflow: auto;
+}
+.ui-accordion .date-cell {
+  white-space: nowrap;
 }
