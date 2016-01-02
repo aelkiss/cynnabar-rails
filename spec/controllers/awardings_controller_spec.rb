@@ -6,7 +6,6 @@ describe AwardingsController, type: :controller do
     newaward = create(:awarding,received: '2015-01-01')
     oldaward = create(:awarding,received: '1970-01-01')
     get(:index, { start_date: '2010-01-01', end_date: '2019-01-01' })
-    binding.pry
     expect(response).to have_http_status(:success)
     expect(assigns(:awardings)).to include(newaward)
     expect(assigns(:awardings)).not_to include(oldaward)
