@@ -10,7 +10,6 @@ describe "GET /recipients" do
 end
 
 describe "GET /recipients/new" do
-  include_context "when using devise/warden auth"
   it "as a herald, gets a form for a new user" do
     sign_in(create(:user, :herald))
     get new_recipient_path
@@ -19,7 +18,6 @@ describe "GET /recipients/new" do
 end
 
 describe "POST /recipients" do
-  include_context "when using devise/warden auth"
   it "as a herald, allows creating recipient" do
     sign_in(create(:user, :herald))
     expect { post recipients_path, recipient: attributes_for(:recipient) }.to change{Recipient.count}.by(1)
@@ -43,7 +41,6 @@ describe "GET /recipient/:id" do
 end
 
 describe "GET /recipient/:id/edit" do
-  include_context "when using devise/warden auth"
   it "as a herald, shows edit form" do
     sign_in(create(:user, :herald))
     recipient = create(:recipient)
@@ -54,7 +51,6 @@ describe "GET /recipient/:id/edit" do
 end
 
 describe "PATCH /recipient/:id" do
-  include_context "when using devise/warden auth"
   it "as a herald, updates recipient" do
     recipient = create(:recipient)
     sign_in(create(:user, :herald))
@@ -65,7 +61,6 @@ describe "PATCH /recipient/:id" do
 end
 
 describe "DELETE /recipient/:id" do
-  include_context "when using devise/warden auth"
   it "as an admin, deletes recipient" do
     recipient = create(:recipient)
     sign_in(create(:user, :admin))
@@ -76,7 +71,6 @@ describe "DELETE /recipient/:id" do
 end
 
 describe "GET /recipients/autocomplete_recipient_name" do
-  include_context "when using devise/warden auth"
   context "when signed in as a herald" do
     before(:each) { sign_in create(:user,:herald) }
 

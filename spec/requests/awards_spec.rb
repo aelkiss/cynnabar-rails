@@ -12,7 +12,6 @@ describe "GET /awards" do
 end
 
 describe "GET /awards/new" do
-  include_context "when using devise/warden auth"
   it "as an admin, gets a form for a new award" do
     sign_in(create(:user, :admin))
     get new_award_path
@@ -21,7 +20,6 @@ describe "GET /awards/new" do
 end
 
 describe "POST /awards" do
-  include_context "when using devise/warden auth"
   it "as an admin, allows creating award" do
     sign_in(create(:user, :admin))
     expect { post awards_path, award: attributes_for(:award) }.to change{Award.count}.by(1)
@@ -45,7 +43,6 @@ describe "GET /award/:id" do
 end
 
 describe "GET /award/:id/edit" do
-  include_context "when using devise/warden auth"
   it "as an admin, shows edit form" do
     sign_in(create(:user, :admin))
     award = create(:award)
@@ -56,7 +53,6 @@ describe "GET /award/:id/edit" do
 end
 
 describe "PATCH /award/:id" do
-  include_context "when using devise/warden auth"
   it "as an admin, updates award" do
     award = create(:award)
     sign_in(create(:user, :admin))
@@ -67,7 +63,6 @@ describe "PATCH /award/:id" do
 end
 
 describe "DELETE /award/:id" do
-  include_context "when using devise/warden auth"
   it "as an admin, deletes award" do
     award = create(:award)
     sign_in(create(:user, :admin))
@@ -78,7 +73,6 @@ describe "DELETE /award/:id" do
 end
 
 describe "GET /awards/autocomplete_award_name" do
-  include_context "when using devise/warden auth"
   context "when signed in as a herald" do
     before(:each) { sign_in create(:user,:herald) }
 

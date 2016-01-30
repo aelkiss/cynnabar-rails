@@ -12,7 +12,6 @@ describe "GET /awardings" do
 end
 
 describe "GET /awardings/new" do
-  include_context "when using devise/warden auth"
   it "as a herald, gets a form for a new awarding" do
     sign_in(create(:user, :herald))
     get new_awarding_path
@@ -30,7 +29,6 @@ describe "POST /awardings" do
     post awardings_path, awarding: build(:awarding).attributes 
   end
 
-  include_context "when using devise/warden auth"
   it "as a herald, allows creating awarding" do
     sign_in(create(:user, :herald))
     expect { post_awardings }.to change{Awarding.count}.by(1)
@@ -59,23 +57,6 @@ describe "GET /awarding/:id" do
 end
 
 describe "GET /awarding/:id/edit" do
-  include_context "when using devise/warden auth"
-  it "as a herald, shows edit form" do
-    sign_in(create(:user, :herald))
-    awarding = create(:awarding)
-    get edit_awarding_path(awarding)
-    expect(response).to have_http_status(:success)
-    expect(response.body).to include(awarding.to_s)
-  end
-
-  it "when not logged in, does not get edit form" do
-    get edit_awarding_path(create(:awarding))
-    expect(response).to have_http_status(:forbidden)
-  end
-end
-
-describe "PATCH /awarding/:id" do
-  include_context "when using devise/warden auth"
   it "as a herald, updates awarding" do
     awarding = create(:awarding)
     sign_in(create(:user, :herald))
@@ -92,7 +73,6 @@ describe "PATCH /awarding/:id" do
 end
 
 describe "DELETE /awarding/:id" do
-  include_context "when using devise/warden auth"
   it "as a herald, deletes awarding" do
     awarding = create(:awarding)
     sign_in(create(:user, :herald))

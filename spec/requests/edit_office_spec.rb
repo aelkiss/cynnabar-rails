@@ -2,14 +2,13 @@ require 'rails_helper'
 require 'pry'
 
 describe "PATCH /:slug" do
-  include_context "when using devise/warden auth"
   context 'when logged in as an admin' do 
     before(:each) { sign_in(create(:user, :admin)) }
 
     it "can edit the office" do
       office = create(:office)
       newname = "new name"
-      path = url_for(office)
+      path = office_path(office)
 
       patch path, office: {name: newname}
 
@@ -32,7 +31,7 @@ end
 
 def cannot_edit_offices
   office = create(:office)
-  patch url_for(office), office: {name: 'newname'}
+  patch office_path(office), office: {name: 'newname'}
   expect(response).to have_http_status(:forbidden)
 end
 

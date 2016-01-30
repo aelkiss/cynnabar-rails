@@ -58,28 +58,14 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   #
-  config.include Devise::TestHelpers, :type => :controller
-  config.include Devise::TestHelpers, :type => :view
-  config.include Warden::Test::Helpers, type: :request
+  config.include Devise::TestHelpers, type:  :controller
+  config.include Devise::TestHelpers, type:  :view
 
-end
+  config.include RequestSpecHelper, type: :request
 
-RSpec.shared_context "when using devise/warden auth" do
-  before(:each) do
-    Warden.test_mode!
-  end
+  config.include Rails.application.routes.url_helpers, type: :request
 
-  after(:each) do
-    Warden.test_reset!
-  end
 
-  def sign_in(user)
-    login_as(user, scope: :user)
-  end
-
-  def sign_out
-    logout(:user)
-  end
 end
 
 RSpec.shared_context "when signed in through capybara" do

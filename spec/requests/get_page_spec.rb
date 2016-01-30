@@ -25,7 +25,6 @@ describe "GET /:slug" do
 
   # TODO: move to view tests?
   context 'when logged in as a regular user' do
-    include_context "when using devise/warden auth"
 
     it "shows an edit link for pages owned by that user" do
       user = create(:user)
@@ -59,7 +58,6 @@ describe "GET /:slug" do
   end
 
   context 'when logged in as an admin' do
-    include_context "when using devise/warden auth"
 
     it "always shows an edit link" do
       user = create(:user, :admin)

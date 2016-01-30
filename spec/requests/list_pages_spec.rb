@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'pry'
 
 describe "GET /pages" do
-  include_context "when using devise/warden auth"
   it "as an admin, shows all the pages with title and slug" do
     sign_in(create(:user, :admin))
     page1 = create(:page)

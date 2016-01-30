@@ -2,7 +2,6 @@ require 'rails_helper'
 require 'pry'
 
 describe "PATCH /:slug" do
-  include_context "when using devise/warden auth"
   context 'when logged in as an admin' do 
     before(:each) do
       sign_in(create(:user, :admin))
