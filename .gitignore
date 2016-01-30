@@ -19,3 +19,4 @@
 *.swp
 .byebug_history
 config/database.yml
+config/calendar

@@ -34,7 +34,7 @@ gem 'devise'
 gem 'cancancan', '~> 1.10'
 gem 'bootstrap-sass'
 gem 'actionview-encoded_mail_to'
-# gem 'google-api-client'
+gem 'google-api-client'
 
 # Use Capistrano for deployment
 group :development do
