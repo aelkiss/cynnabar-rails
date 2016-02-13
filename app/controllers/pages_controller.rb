@@ -20,8 +20,11 @@ class PagesController < ApplicationController
     response.headers["X-XSS-Protection"] = 0
     if params[:commit] == 'Save' 
       check_set_owner
-      @page.save
-      redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
+      if @page.save
+        redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
+      else
+        render :new
+      end
     else
       show_preview
       render :new
@@ -33,8 +36,11 @@ class PagesController < ApplicationController
     response.headers["X-XSS-Protection"] = 0
     if params[:commit] == 'Save'
       check_set_owner
-      @page.update(page_params) 
-      redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
+      if @page.update(page_params) 
+        redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
+      else
+        render :edit
+      end
     else
       show_preview
       render :edit
@@ -63,6 +69,9 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
+      [:calendar_details, :calendar_title, :calendar].each do |param|
+        params[:page][param] = nil if params[:page][param] and params[:page][param].empty?
+      end
       params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title)
     end
 end
