@@ -28,6 +28,11 @@ FactoryGirl.define do
     trait :office_page do
       association :office
     end
+
+    trait :calendar do
+      calendar 'example'
+      calendar_title 'Example Events'
+    end
   end
 
   factory :awarding do

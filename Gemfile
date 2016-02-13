@@ -36,6 +36,8 @@ gem 'bootstrap-sass'
 gem 'actionview-encoded_mail_to'
 gem 'google-api-client'
 
+gem 'rails_autolink'
+
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano-rails'

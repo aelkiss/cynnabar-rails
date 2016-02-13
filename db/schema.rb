@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231190833) do
+ActiveRecord::Schema.define(version: 20160112014319) do
 
   create_table "awardings", force: :cascade do |t|
     t.integer  "award_id",     limit: 4
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20151231190833) do
 
   create_table "awards", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.text     "description", limit: 65536
+    t.text     "description", limit: 16777215
     t.integer  "precedence",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -59,12 +59,15 @@ ActiveRecord::Schema.define(version: 20151231190833) do
   add_index "offices", ["page_id"], name: "index_offices_on_page_id", using: :btree
 
   create_table "pages", force: :cascade do |t|
-    t.text     "body",       limit: 4294967295
-    t.string   "title",      limit: 255
-    t.string   "slug",       limit: 255
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "user_id",    limit: 4
+    t.text     "body",             limit: 4294967295
+    t.string   "title",            limit: 255
+    t.string   "slug",             limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "user_id",          limit: 4
+    t.string   "calendar",         limit: 255
+    t.string   "calendar_title",   limit: 255
+    t.boolean  "calendar_details"
   end
 
   add_index "pages", ["slug"], name: "index_pages_on_slug", unique: true, using: :btree

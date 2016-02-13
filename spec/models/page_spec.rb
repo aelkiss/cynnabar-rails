@@ -37,4 +37,26 @@ describe Page, type: :model do
     page = build(:page, :office_page)
     expect(page).to be_valid
   end
+
+  it "can get a list of events from its calendar" do
+    page = build(:page, :calendar)
+    expect(page.events).not_to be_nil
+  end
+
+  it "has a link to the google calendar" do
+    page = build(:page, :calendar)
+    expect(page.calendar_link).not_to be_nil
+  end
+
+  it "does not raise an exception if its calendar file is missing" do
+    page = build(:page, calendar: 'nonexistant')
+    expect { page.events }.not_to raise_exception
+    expect(page.events).to be_nil
+  end
+
+  it "requires a calendar title if there is a calendar" do
+    page = build(:page, :calendar)
+    page.calendar_title = nil
+    expect(page).not_to be_valid
+  end
 end

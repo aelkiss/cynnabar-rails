@@ -16,6 +16,33 @@ $main-background-color: #FFFFCC;
   padding: 2px 5px;
 }
 
+.accordion-noimage .ui-accordion-header-icon {
+  display: none
+}
+
+.accordion-noimage h5.ui-accordion-icons {
+  padding: 0em
+}
+
+.event-details {
+  font-size: 1em;
+}
+
+.event-location {
+  padding: 0.25em;
+}
+
+.event-date {
+  display: inline-block;
+  min-width: 15em;
+  margin-right: 1em;
+}
+
+.event-summary {
+  font-weight: bold;
+}
+
+
 img, iframe {
   max-width: 100%;
   margin: auto;

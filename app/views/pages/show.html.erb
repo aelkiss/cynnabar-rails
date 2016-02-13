@@ -8,5 +8,9 @@
 <% end %>
 
 <div class="page_body">
-  <%== @page.body %>
+  <% if @page.events %>
+    <%== @page.body.sub('<!-- CALENDAR -->',render( partial: "calendar", locals: {events: @page.events})) %>
+  <% else %>
+    <%== @page.body %>
+  <% end %>
 </div>

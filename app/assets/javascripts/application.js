@@ -30,6 +30,10 @@ $( function() {
     active: 1
   });
 
+  $(".collapsible-open").accordion({
+    collapsible: true,
+  });
+
   $('.datepicker').datepicker({
     changeMonth: true,
     changeYear: true,

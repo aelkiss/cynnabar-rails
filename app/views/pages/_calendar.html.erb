@@ -1,0 +1,27 @@
+<% if events %>
+  <div class="page_calendar">
+    <h4><%= @page.calendar_title %></h4>
+    <ul>
+      <% events.each  do |event| %>
+        <li>
+          <div class="<%= @page.calendar_details ? '' : 'collapsible'%> accordion-noimage">
+            <h5>
+              <span class="event-date"><%= @page.format_event_date(event) %>, <%= @page.format_event_time(event) %></span>
+              <span class="event-summary"><%= event['summary'] %></span>
+              <% if !@page.calendar_details %>
+                <span class="event-more">(<a>More</a>)</span>
+              <% end %>
+            </h5>
+            <div class="event-content">
+              <% if event['location'] %>
+                <p class="event-location">Where: <%= event['location'] %> (<a href="http://maps.google.com/?q=<%= event['location'] %>">Map</a>) </p>
+              <% end %>
+              <blockquote class="event-details"><%= auto_link(event['description'].gsub("\n","<br>")) %></blockquote>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <h5><a href="<%= @page.calendar_link %>">See More Events</a></h5>
+  </div>
+<% end %>

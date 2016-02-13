@@ -60,6 +60,4 @@ class Recipient < ActiveRecord::Base
     validates :sca_name, presence: true, if: "mundane_name.blank?"
     validates :mundane_name, presence: true, if: "sca_name.blank?"
 
-
-
 end
