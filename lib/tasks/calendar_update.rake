@@ -3,7 +3,6 @@ require 'googleauth'
 require 'googleauth/stores/file_token_store'
 
 require 'fileutils'
-require 'pry'
 
 namespace :calendar do
   task :update do
