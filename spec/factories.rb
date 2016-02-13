@@ -32,6 +32,7 @@ FactoryGirl.define do
     trait :calendar do
       calendar 'example'
       calendar_title 'Example Events'
+      body { "<h1>Some sample markup for #{slug}</h1><!-- CALENDAR -->" }
     end
   end
 
