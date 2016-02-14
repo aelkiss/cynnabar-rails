@@ -2,7 +2,7 @@
 
 <%= render 'update_oop' %>
 
-<p><a href="javascript:expandAll()">Expand All</a> | <a href="javascript:collapseAll()">Collapse All</a></p>
+<!-- <p><a href="javascript:expandAll()">Expand All</a> | <a href="javascript:collapseAll()">Collapse All</a></p> -->
 
 <% @recipients.each do |recipient| %>
     <h4><%= link_to recipient, recipient %></h4>
@@ -12,7 +12,6 @@
     <% if can? :delete, recipient %>
       <%= link_to 'Destroy', recipient, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
-    <!-- <%= render partial: 'awards_collapse', locals: {recipient: recipient} %> -->
 <% end %>
 
 <br>
