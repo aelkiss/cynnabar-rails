@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160112014319) do
 
   create_table "awards", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.string   "description", limit: 16777215
+    t.text     "description", limit: 16777215
     t.integer  "precedence",  limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
