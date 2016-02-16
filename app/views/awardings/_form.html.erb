@@ -45,7 +45,21 @@
 
     <tr>
       <th>    <%= f.label :received %>: </th>
-      <td>    <%= text_field_tag 'received', @awarding.received, class: 'datepicker' %></p>
+      <td>    <%= f.text_field 'received', class: 'datepicker' %></p>
+    </tr>
+
+    <tr>
+      <td>  Is other/foreign award? </td>
+      <td>  <%= check_box_tag 'other_award', '1', (@awarding.award ? @awarding.award.other_award? : false) %> </td>
+
+    <tr>
+      <td>  <%= f.label :award_name %> (for foreign &amp; 'other' awards only) </td>
+      <td>  <%= f.text_field 'award_name' %></td>
+    </tr>
+
+    <tr>
+      <td>  <%= f.label :group_id %> (for foreign awards only, including AoAs, GoAs, and peerages): </td>
+      <td>  <%= f.collection_select(:group_id, Group.all, :id, :name) %> </td>
     </tr>
 
   </table>

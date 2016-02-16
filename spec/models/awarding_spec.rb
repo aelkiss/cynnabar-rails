@@ -23,6 +23,11 @@ describe Awarding, type: :model do
     end
   end
 
+  it "is valid with an award name and group if it is an 'other' award" do
+    awarding = build(:awarding, :other)
+    expect(awarding).to be_valid
+  end
+
   it "must have a group if the award does not" do
     awarding = build(:awarding, :other, group: nil)
     expect(awarding).not_to be_valid

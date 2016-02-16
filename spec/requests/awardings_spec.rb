@@ -45,6 +45,15 @@ describe "POST /awardings" do
     expect { post_awardings }.to change{Awarding.count}.by(0)
     expect(response).to have_http_status(:forbidden)
   end
+
+  it "allows adding fields for foreign awards" do
+    sign_in(create(:user, :herald))
+    attrs = build(:awarding, :other).attributes
+    # other_award: required check box not to dump foreign award attributes
+    post awardings_path, awarding: attrs, other_award: '1'
+    expect(response).to have_http_status(:redirect)
+    expect(Awarding.find_by_award_name(attrs['award_name'])).not_to be_nil
+  end
 end
 
 describe "GET /awarding/:id" do

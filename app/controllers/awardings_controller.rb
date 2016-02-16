@@ -40,9 +40,6 @@ class AwardingsController < ApplicationController
   # POST /awardings.json
   def create
     @awarding = Awarding.new(awarding_params)
-    if params[:received] and !params[:received].match(/unknown/i)
-      @awarding.received = params[:received] ? Date.parse(params[:received]) : nil
-    end
 
     respond_to do |format|
       if @awarding.save
@@ -59,10 +56,6 @@ class AwardingsController < ApplicationController
   # PATCH/PUT /awardings/1.json
   def update
     respond_to do |format|
-      if params[:received] and !params[:received].match(/unknown/i)
-        @awarding.received = params[:received] ? Date.parse(params[:received]) : @awarding.received
-      end
-
       if @awarding.update(awarding_params)
         format.html { redirect_to @awarding, notice: 'Awarding was successfully updated.' }
         format.json { render :show, status: :ok, location: @awarding }
@@ -87,6 +80,18 @@ class AwardingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def awarding_params
-    params.require(:awarding).permit(:award_id, :recipient_id, :received)
+    if(params[:other_award] and params[:other_award] == '1')
+      params[:awarding][:award_name] = nil if params[:awarding][:award_name] and params[:awarding][:award_name].empty?
+    else 
+      params[:awarding][:award_name] = nil
+      params[:awarding][:group_id] = nil
+    end
+
+    if params[:awarding][:received] and params[:awarding][:received].match(/unknown/i)
+      params[:awarding][:received] = nil
+    end
+    
+    params.require(:awarding).permit(:award_id, :recipient_id, :received, :award_name, :group_id)
+
   end
 end
