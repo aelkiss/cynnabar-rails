@@ -7,6 +7,31 @@ describe "GET /recipients" do
     expect(response.body).to include(recipient1.to_s)
     expect(response.body).to include(recipient2.to_s)
   end
+
+  it "can search by mundane name" do
+    person1 = create(:award, mundane_name: 'Mundane One')
+    person2 = create(:award, mundane_name: 'Mundane Two')
+    get recipients_path, name: 'Mundane One'
+    expect(response).to have_http_status(:success)
+    expect(response.body).to include(person1.to_s)
+    expect(response.body).not_to include(person2.to_s)
+  end
+
+  it "can search by sca name" do
+    person1 = create(:award, sca_name: 'Scaname One')
+    person2 = create(:award, sca_name: 'Scaname Two')
+    get recipients_path, name: 'Scaname One'
+    expect(response).to have_http_status(:success)
+    expect(response.body).to include(person1.to_s)
+    expect(response.body).not_to include(person2.to_s)
+  end
+
+  it "includes awardings when searching" do
+    awarding = create(:awarding)
+    get recipients_path, name: awarding.recipient.sca_name
+    expect(response).to have_http_status(:success)
+    expect(response.body).to include(awarding.award.to_s)
+  end
 end
 
 describe "GET /recipients/new" do

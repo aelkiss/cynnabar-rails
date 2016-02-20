@@ -9,6 +9,22 @@ describe "GET /awards" do
     expect(response.body).to include(award1.to_s)
     expect(response.body).to include(award2.to_s)
   end
+
+  it "can search by award name" do
+    award1 = create(:award, name: 'Award 1')
+    award2 = create(:award, name: 'Award 2')
+    get awards_path, name: 'Award 1'
+    expect(response).to have_http_status(:success)
+    expect(response.body).to include(award1.to_s)
+    expect(response.body).not_to include(award2.to_s)
+  end
+
+  it "includes awardings when searching" do
+    awarding = create(:awarding)
+    get awards_path, name: awarding.award.name
+    expect(response).to have_http_status(:success)
+    expect(response.body).to include(awarding.recipient.to_s)
+  end
 end
 
 describe "GET /awards/new" do
