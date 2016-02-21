@@ -10,6 +10,7 @@ $main-background-color: #FFFFCC;
 
 .awards tr td {
   padding: 2px 5px;
+  vertical-align: top;
 }
 
 .awards tr th {
@@ -36,6 +37,14 @@ $main-background-color: #FFFFCC;
   display: inline-block;
   min-width: 15em;
   margin-right: 1em;
+}
+
+.date-cell {
+  white-space: nowrap
+}
+
+.details-main {
+  vertical-align: top
 }
 
 .event-summary {
