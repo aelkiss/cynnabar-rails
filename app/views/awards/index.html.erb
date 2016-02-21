@@ -2,17 +2,34 @@
 
 <%= render 'update_oop' %>
 
-<!-- <p><a href="javascript:expandAll()">Expand All</a> | <a href="javascript:collapseAll()">Collapse All</a></p> -->
+<p>
+Search award name and description: 
+<%= form_tag("",method:"get") do %>
+  <%= text_field_tag 'search', @search %> 
+  <%= submit_tag 'Search' %>
+<% end %>
+</p>
+
+<% if @search and @awards %>
+  <p><a href="javascript:expandAll()">Expand All</a> | <a href="javascript:collapseAll()">Collapse All</a></p>
+<% end %>
 
 <% @awards.each do |award| %>
-    <h4><%= link_to award.name, award %></h4>
+  <h4><%= link_to award.name, award %></h4>
 
-    <p> <i><%= award.description %></i> </p>
+  <p> <i><%= award.description %></i> </p>
+
+
   <% if can? :update, award %>
     <%= link_to 'Edit', edit_award_path(award) %>
   <% end %>
   <% if can? :delete, award %>
     <%= link_to 'Destroy', award, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+
+  <!-- only show dropdown if searching -->
+  <% if @search %>
+    <%= render partial: 'recipients_collapse', locals: {award: award} %>
   <% end %>
 
 <% end %>

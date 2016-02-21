@@ -7,7 +7,12 @@ class AwardsController < ApplicationController
   # GET /awards
   # GET /awards.json
   def index
-    @awards = Award.order("name ASC")
+    if params[:search]
+      @search = params[:search]
+      @awards = Award.where("name like :search or description like :search",search: "%#{@search}%").order("name ASC")
+    else 
+      @awards = Award.order("name ASC")
+    end
   end
 
   # GET /awards/1
@@ -66,8 +71,8 @@ class AwardsController < ApplicationController
 
   private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def award_params
-      params.require(:award).permit(:name, :description, :precedence)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def award_params
+    params.require(:award).permit(:name, :description, :precedence)
+  end
 end

@@ -1,12 +1,12 @@
 class RecipientsController < ApplicationController
   load_and_authorize_resource
-  
+
   # override autocomplete from rails-autocomplete to search composite 
   def autocomplete_recipient_name
     term = params[:term]
 
     if term && !term.blank?
-      items = Recipient.where("mundane_name like ? or sca_name like ?", "%#{term}%", "%#{term}%")
+      items = search_recipients(term)
     else
       items = {}
     end
@@ -18,7 +18,12 @@ class RecipientsController < ApplicationController
   # GET /recipients
   # GET /recipients.json
   def index
-    @recipients = Recipient.order("coalesce(sca_name,mundane_name) ASC")
+    order = "coalesce(sca_name,mundane_name) ASC"
+    if @search = params[:search]
+      @recipients = search_recipients(@search).order(order)
+    else 
+      @recipients = Recipient.order(order)
+    end
   end
 
   # GET /recipients/1
@@ -77,8 +82,12 @@ class RecipientsController < ApplicationController
 
   private
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def recipient_params
-      params.require(:recipient).permit(:sca_name, :mundane_name, :is_group, :also_known_as, :formerly_known_as)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def recipient_params
+    params.require(:recipient).permit(:sca_name, :mundane_name, :is_group, :also_known_as, :formerly_known_as)
+  end
+
+  def search_recipients(term)
+    Recipient.where("mundane_name like :term or sca_name like :term or also_known_as like :term or formerly_known_as like :term", term: "%#{term}%")
+  end
 end

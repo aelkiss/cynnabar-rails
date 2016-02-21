@@ -13,7 +13,16 @@ describe "GET /awards" do
   it "can search by award name" do
     award1 = create(:award, name: 'Award 1')
     award2 = create(:award, name: 'Award 2')
-    get awards_path, name: 'Award 1'
+    get awards_path, search: 'Award 1'
+    expect(response).to have_http_status(:success)
+    expect(response.body).to include(award1.to_s)
+    expect(response.body).not_to include(award2.to_s)
+  end
+
+  it "can search by award description" do
+    award1 = create(:award, name: 'Award 1', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit,')
+    award2 = create(:award, name: 'Award 2', description: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua')
+    get awards_path, search: 'lorem'
     expect(response).to have_http_status(:success)
     expect(response.body).to include(award1.to_s)
     expect(response.body).not_to include(award2.to_s)
@@ -21,7 +30,7 @@ describe "GET /awards" do
 
   it "includes awardings when searching" do
     awarding = create(:awarding)
-    get awards_path, name: awarding.award.name
+    get awards_path, search: awarding.award.name
     expect(response).to have_http_status(:success)
     expect(response.body).to include(awarding.recipient.to_s)
   end
