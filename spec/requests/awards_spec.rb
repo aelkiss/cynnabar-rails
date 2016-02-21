@@ -34,6 +34,12 @@ describe "GET /awards" do
     expect(response).to have_http_status(:success)
     expect(response.body).to include(awarding.recipient.to_s)
   end
+
+  it "shows the default granter for the award" do
+    award = create(:award, :hasgroup)
+    get awards_path
+    expect(response.body).to include(award.group.name)
+  end
 end
 
 describe "GET /awards/new" do

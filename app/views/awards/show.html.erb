@@ -2,8 +2,7 @@
 
 <h3><%= @award %></h3>
 
-<p><i><%= @award.description %></i></p>
-
+<%= render partial: 'details', locals: {award: @award} %>
 <%= render partial: 'recipients_table', locals: {award: @award} %>
 
 <% if can? :create, Awarding %>

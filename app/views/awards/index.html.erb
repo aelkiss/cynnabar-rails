@@ -17,8 +17,7 @@ Search award name and description:
 <% @awards.each do |award| %>
   <h4><%= link_to award.name, award %></h4>
 
-  <p> <i><%= award.description %></i> </p>
-
+  <%= render partial: 'details', locals: {award: award} %>
 
   <% if can? :update, award %>
     <%= link_to 'Edit', edit_award_path(award) %>

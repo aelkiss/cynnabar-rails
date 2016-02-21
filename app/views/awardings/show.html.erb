@@ -20,7 +20,10 @@
 
 
 <% if can? :edit, @awarding %>
-  <%= link_to 'Edit', edit_awarding_path(@awarding) %>
+  <p><%= link_to 'Edit', edit_awarding_path(@awarding) %></p>
+<% end %>
+<% if can? :create, Awarding %>
+  <p><%= link_to 'Add Award Receipt', new_awarding_path %></p>
 <% end %>
 
-<%= render 'update_oop' %>
+<p><%= render 'update_oop' %></p>
