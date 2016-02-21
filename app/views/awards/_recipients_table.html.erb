@@ -8,6 +8,8 @@
     <td><%= link_to awarding.recipient, awarding.recipient %></td>
     <td class="date-cell"><%= awarding.received %></td>
 
+    <td><%= link_to 'Details', awarding_path(awarding) %></td>
+
     <% if can? :edit, awarding %>
       <td><%= link_to 'Edit', edit_awarding_path(awarding) %></td>
     <% end %>
