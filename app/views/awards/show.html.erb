@@ -1,12 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<h3><%= @award %></h3>
-
 <% if @award.heraldry.exists? %>
   <%= image_tag @award.heraldry.url, class: 'heraldry' %>
 <% end %>
 
+<h3><%= @award %></h3>
 <%= render partial: 'details', locals: {award: @award} %>
+
+
 <%= render partial: 'recipients_table', locals: {award: @award} %>
 
 

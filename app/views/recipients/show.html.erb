@@ -1,11 +1,11 @@
+<% if @recipient.heraldry.exists? %>
+  <%= image_tag @recipient.heraldry.url, class: 'heraldry' %>
+<% end %>
+
 <h3><%= @recipient %></h3>
 
 <% if @recipient.pronouns %>
   <p><b>Preferred Pronouns:</b> <%= @recipient.pronouns %></p>
-<% end %>
-
-<% if @recipient.heraldry.exists? %>
-  <%= image_tag @recipient.heraldry.url, class: 'heraldry' %>
 <% end %>
 
 <%= render partial: 'awards_table', locals: {recipient: @recipient} %>

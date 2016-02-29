@@ -8,6 +8,10 @@ $grid-float-breakpoint: $screen-md-min;
 //@media (min-width: 915px);
 $main-background-color: #FFFFCC;
 
+img.heraldry {
+  float: right
+}
+
 .awards tr td {
   padding: 2px 5px;
   vertical-align: top;
