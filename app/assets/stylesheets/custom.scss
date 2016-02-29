@@ -19,6 +19,13 @@ img.heraldry {
 
 .awards tr th {
   padding: 2px 5px;
+  vertical-align: top;
+}
+
+.awards #awarding_award_text {
+  width: 100%;
+  height: 8em;
+
 }
 
 .accordion-noimage .ui-accordion-header-icon {
