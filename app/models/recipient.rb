@@ -29,6 +29,18 @@ class Recipient < ActiveRecord::Base
       fix_empty(:also_known_as,value)
     end
 
+    def heraldry_blazon=(value)
+      fix_empty(:heraldry_blazon,value)
+    end
+
+    def title=(value)
+      fix_empty(:title,value)
+    end
+
+    def pronouns=(value)
+      fix_empty(:pronouns,value)
+    end
+
     def to_s
       # if both SCA name and mundane name exist, return both. Otherwise, use
       # whichever is populated.
