@@ -34,12 +34,6 @@ describe "GET /awards" do
     expect(response).to have_http_status(:success)
     expect(response.body).to include(awarding.recipient.to_s)
   end
-
-  it "shows the default granter for the award" do
-    award = create(:award, :hasgroup)
-    get awards_path
-    expect(response.body).to include(award.group.name)
-  end
 end
 
 describe "GET /awards/new" do
@@ -71,6 +65,19 @@ describe "GET /award/:id" do
     expect(response).to have_http_status(:success)
     expect(response.body).to include(award.to_s)
   end
+
+  it "shows the default granter for the award" do
+    award = create(:award, :hasgroup)
+    get award_path(award)
+    expect(response.body).to include(award.group.name)
+  end
+
+  it "does not show the default granter for society-level awards" do
+    award = create(:award, :hasgroup, :society)
+    get award_path(award)
+    expect(response.body).not_to include(award.group.name)
+  end
+
 end
 
 describe "GET /award/:id/edit" do

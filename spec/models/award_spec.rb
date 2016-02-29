@@ -1,3 +1,5 @@
+require "rails_helper"
+
 describe Award, type: :model do
   context "when given a normal award" do
     subject { build(:award) }

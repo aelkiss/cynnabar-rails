@@ -61,6 +61,7 @@ FactoryGirl.define do
     name "test award"
     precedence 0
     description "this is a long description of what the test award is"
+    society false
 
     trait :hasgroup do
       association :group
@@ -68,6 +69,10 @@ FactoryGirl.define do
 
     trait :other do
       other_award true
+    end
+
+    trait :society do
+      society true
     end
   end
 

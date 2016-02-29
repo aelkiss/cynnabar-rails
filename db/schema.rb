@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229142811) do
+ActiveRecord::Schema.define(version: 20160229145625) do
 
   create_table "awardings", force: :cascade do |t|
     t.integer  "award_id",     limit: 4
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20160229142811) do
     t.datetime "updated_at"
     t.integer  "group_id",    limit: 4
     t.boolean  "other_award"
+    t.boolean  "society",                      default: false, null: false
   end
 
   add_index "awards", ["group_id"], name: "index_awards_on_group_id", using: :btree

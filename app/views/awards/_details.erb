@@ -1,5 +1,10 @@
 <p> <i><%= award.description %></i> </p>
-<% if award.group %>
-  <p> <i>Granted by the <%= award.group %></i></p>
+
+<% if award.society %>
+  <p> <i>Society-level award; can be awarded by any kingdom</i> </p>
+<% end %>
+
+<% if award.group and !award.society %>
+  <p> <i>Awarded by the <%= award.group %></i></p>
 <% end %>
 
