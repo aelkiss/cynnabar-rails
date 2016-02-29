@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112014319) do
+ActiveRecord::Schema.define(version: 20160229134241) do
 
   create_table "awardings", force: :cascade do |t|
     t.integer  "award_id",     limit: 4
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 20160112014319) do
     t.datetime "updated_at"
     t.string   "also_known_as",     limit: 255
     t.string   "formerly_known_as", limit: 255
+    t.string   "title",             limit: 255
+    t.string   "pronouns",          limit: 255
   end
 
   create_table "users", force: :cascade do |t|

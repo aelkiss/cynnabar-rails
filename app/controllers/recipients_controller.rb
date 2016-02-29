@@ -84,7 +84,7 @@ class RecipientsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def recipient_params
-    params.require(:recipient).permit(:sca_name, :mundane_name, :is_group, :also_known_as, :formerly_known_as)
+    params.require(:recipient).permit(:sca_name, :mundane_name, :is_group, :also_known_as, :formerly_known_as, :title, :pronouns)
   end
 
   def search_recipients(term)

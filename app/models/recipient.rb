@@ -31,6 +31,13 @@ class Recipient < ActiveRecord::Base
       display_name = ""
       display_inserts = ""
 
+      display_sca_name = ""
+
+      if sca_name
+        display_sca_name = sca_name
+        display_sca_name = title + " " + display_sca_name if title
+      end
+
       if also_known_as and !also_known_as.empty?
         display_inserts += "(also known as #{also_known_as}) "
       end
@@ -42,9 +49,9 @@ class Recipient < ActiveRecord::Base
       if is_group
           display_name = "#{sca_name} (Group)"
       elsif sca_name and mundane_name and sca_name != '' and mundane_name != ''
-        display_name = "#{sca_name} #{display_inserts}(modernly known as #{mundane_name})"
+        display_name = "#{display_sca_name} #{display_inserts}(modernly known as #{mundane_name})"
       else
-        display_name = (sca_name and sca_name != '') ? sca_name : mundane_name
+        display_name = (display_sca_name and display_sca_name != '') ? display_sca_name : mundane_name
         if !display_inserts.empty?
           display_name += " #{display_inserts}"
         end

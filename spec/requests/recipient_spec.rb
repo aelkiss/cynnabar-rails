@@ -78,12 +78,34 @@ describe "GET /recipient/:id/edit" do
 end
 
 describe "PATCH /recipient/:id" do
-  it "as a herald, updates recipient" do
-    recipient = create(:recipient)
-    sign_in(create(:user, :herald))
-    patch recipient_path(recipient), recipient: attributes_for(:recipient)
-    expect(response).to have_http_status(:redirect)
-    expect(response.redirect_url).to match recipient_path(recipient)
+  context "as a herald" do
+    before(:each) do 
+      sign_in(create(:user, :herald))
+    end
+
+    it "can update recipient" do
+      recipient = create(:recipient)
+      patch recipient_path(recipient), recipient: attributes_for(:recipient)
+      expect(response).to have_http_status(:redirect)
+      expect(response.redirect_url).to match recipient_path(recipient)
+    end
+
+    it "can edit title" do
+      recipient = create(:recipient)
+      patch recipient_path(recipient), recipient: {title: 'Mytitle'}
+      # reload
+      recipient = Recipient.find(recipient.id)
+      expect(recipient.title).to eq('Mytitle')
+    end
+
+    it "can edit pronouns" do
+      recipient = create(:recipient)
+      patch recipient_path(recipient), recipient: {pronouns: 'Pronouns'}
+      # reload
+      recipient = Recipient.find(recipient.id)
+      expect(recipient.pronouns).to eq('Pronouns')
+    end
+
   end
 end
 

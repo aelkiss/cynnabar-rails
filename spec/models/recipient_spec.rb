@@ -1,3 +1,5 @@
+require "rails_helper"
+
 describe Recipient, type: :model do
   it "is valid with only sca name" do
     recipient = build(:recipient, sca_name: 'sca name', mundane_name: nil)
@@ -69,16 +71,33 @@ describe Recipient, type: :model do
       expect(recipient.to_s).not_to match(/ \(formerly known as /)
     end
 
-    it "nulls out mundane name if it is set to empty string" do
-      recipient = build(:recipient)
-      recipient.mundane_name = ""
-      expect(recipient.mundane_name).to be(nil)
+    it "includes the preferred title" do
+      recipient = build(:recipient, :sca, title: 'Mytitle')
+      expect(recipient.to_s).to match(/Mytitle/)
     end
 
-    it "nulls out sca name if it is set to empty string" do
-      recipient = build(:recipient)
-      recipient.sca_name = ""
-      expect(recipient.sca_name).to be(nil)
+    it "does not include a title if there is no sca name" do
+      recipient = build(:recipient, sca_name: nil, title: 'Mytitle')
+      expect(recipient.to_s).not_to match(/Mytitle/)
     end
   end
+
+  it "nulls out mundane name if it is set to empty string" do
+    recipient = build(:recipient)
+    recipient.mundane_name = ""
+    expect(recipient.mundane_name).to be(nil)
+  end
+
+  it "nulls out sca name if it is set to empty string" do
+    recipient = build(:recipient)
+    recipient.sca_name = ""
+    expect(recipient.sca_name).to be(nil)
+  end
+
+  it "can have preferred pronouns" do
+    recipient = build(:recipient)
+    recipient.pronouns = 'They/them/theirs'
+    expect(recipient.pronouns).to eq('They/them/theirs')
+  end
+
 end
