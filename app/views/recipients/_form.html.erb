@@ -13,8 +13,16 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :title, "Title" %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
     <%= f.label :sca_name, "SCA name" %><br>
     <%= f.text_field :sca_name %>
+  </div>
+  <div class="field">
+    <%= f.label :pronouns, "Preferred Pronouns" %><br>
+    <%= f.text_field :pronouns %>
   </div>
   <div class="field">
     <%= f.label :mundane_name %><br>

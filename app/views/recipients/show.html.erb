@@ -1,5 +1,9 @@
 <h3><%= @recipient %></h3>
 
+<% if @recipient.pronouns %>
+  <p><b>Preferred Pronouns:</b> <%= @recipient.pronouns %></p>
+<% end %>
+
 <%= render partial: 'awards_table', locals: {recipient: @recipient} %>
 
 <% if can? :create, Awarding  %>
