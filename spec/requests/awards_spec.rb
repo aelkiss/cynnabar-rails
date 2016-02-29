@@ -84,6 +84,13 @@ describe "GET /award/:id" do
     expect(response.body).to include(award.heraldry.url)
   end
 
+  it "includes the blazon" do
+    blazon = 'Azure, a bend or'
+    award = create(:award, heraldry_blazon: blazon)
+    get award_path(award)
+    expect(response.body).to include(blazon)
+  end
+
   it "does not include image tag for heraldry if there is no heraldry" do
     award = create(:award)
     get award_path(award)

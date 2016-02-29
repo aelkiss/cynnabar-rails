@@ -91,6 +91,13 @@ describe "GET /recipient/:id" do
     expect(response).to have_http_status(:success)
   end
 
+  it "includes the blazon" do
+    blazon = 'Azure, a bend or'
+    recipient = create(:recipient, heraldry_blazon: blazon)
+    get recipient_path(recipient)
+    expect(response.body).to include(blazon)
+  end
+
 end
 
 describe "GET /recipient/:id/edit" do

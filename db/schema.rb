@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229152949) do
+ActiveRecord::Schema.define(version: 20160229190038) do
 
   create_table "awardings", force: :cascade do |t|
     t.integer  "award_id",     limit: 4
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160229152949) do
     t.string   "heraldry_content_type", limit: 255
     t.integer  "heraldry_file_size",    limit: 4
     t.datetime "heraldry_updated_at"
+    t.text     "heraldry_blazon",       limit: 16777215
   end
 
   add_index "awards", ["group_id"], name: "index_awards_on_group_id", using: :btree
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160229152949) do
     t.string   "heraldry_content_type", limit: 255
     t.integer  "heraldry_file_size",    limit: 4
     t.datetime "heraldry_updated_at"
+    t.text     "heraldry_blazon",       limit: 16777215
   end
 
   create_table "users", force: :cascade do |t|
