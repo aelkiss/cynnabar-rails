@@ -71,6 +71,26 @@ describe "GET /recipient/:id" do
     get recipient_path(recipient)
     expect(response.body).to include(recipient.pronouns)
   end
+
+  it "includes the heraldry" do
+    recipient = create(:recipient, :heraldry)
+    get recipient_path(recipient)
+    expect(response.body).to include(recipient.heraldry.url)
+  end
+
+  it "does not include image tag for heraldry if there is no heraldry" do
+    recipient = create(:recipient)
+    get recipient_path(recipient)
+    expect(response.body).not_to include(recipient.heraldry.url)
+  end
+
+  it "can successfully get heraldry" do
+    recipient = create(:recipient, :heraldry)
+    get recipient.heraldry.url
+    expect(response.content_type).to match(/^image\//)
+    expect(response).to have_http_status(:success)
+  end
+
 end
 
 describe "GET /recipient/:id/edit" do

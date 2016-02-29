@@ -38,6 +38,8 @@ gem 'google-api-client'
 
 gem 'rails_autolink'
 
+gem 'paperclip', "~> 4.3"
+
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano-rails'

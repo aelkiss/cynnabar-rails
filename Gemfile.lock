@@ -162,6 +162,7 @@ GEM
     memoist (0.14.0)
     method_source (0.8.2)
     mime-types (2.99)
+    mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
@@ -174,6 +175,12 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     orm_adapter (0.5.0)
     os (0.9.6)
+    paperclip (4.3.5)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (= 0.3.0)
     pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -319,6 +326,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   mysql2
+  paperclip (~> 4.3)
   pry
   pry-byebug
   pry-rails

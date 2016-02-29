@@ -100,4 +100,10 @@ describe Recipient, type: :model do
     expect(recipient.pronouns).to eq('They/them/theirs')
   end
 
+  it { is_expected.to validate_attachment_content_type(:heraldry).
+       allowing('image/png', 'image/jpeg', 'image/gif').
+       rejecting('text/plain', 'application/octet-stream', 'application/pdf') }
+
+  it { should validate_attachment_size(:heraldry).less_than(500.kilobytes) }
+
 end

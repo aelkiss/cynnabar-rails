@@ -2,6 +2,10 @@ class Recipient < ActiveRecord::Base
     has_many :awardings
     has_many :awards, through: :awardings
 
+    has_attached_file :heraldry, styles: { medium: "300x300>", thumb: "100x100>" }
+    validates_with AttachmentContentTypeValidator, attributes: :heraldry, content_type: /\Aimage\/.*\Z/
+    validates_with AttachmentSizeValidator, attributes: :heraldry, less_than: 500.kilobytes
+
     def fix_empty(attr,value)
       if value and value.match(/^\s*$/)
         value = nil

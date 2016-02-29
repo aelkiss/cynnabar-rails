@@ -13,6 +13,12 @@ describe Award, type: :model do
   it { is_expected.to allow_value(build(:group)).for(:group) }
   it { is_expected.not_to validate_presence_of(:group) }
 
+  it { is_expected.to validate_attachment_content_type(:heraldry).
+       allowing('image/png', 'image/jpeg', 'image/gif').
+       rejecting('text/plain', 'application/octet-stream', 'application/pdf') }
+
+  it { should validate_attachment_size(:heraldry).less_than(500.kilobytes) }
+
   describe "#to_s" do
     it "returns the name" do
       award = build(:award)

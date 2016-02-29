@@ -2,8 +2,13 @@
 
 <h3><%= @award %></h3>
 
+<% if @award.heraldry.exists? %>
+  <%= image_tag @award.heraldry.url, class: 'heraldry' %>
+<% end %>
+
 <%= render partial: 'details', locals: {award: @award} %>
 <%= render partial: 'recipients_table', locals: {award: @award} %>
+
 
 <% if can? :create, Awarding %>
   <%= link_to 'Add Recipient', new_awarding_path(award_id: @award) %> | 

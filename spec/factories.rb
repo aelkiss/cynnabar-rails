@@ -1,9 +1,11 @@
 FactoryGirl.define do  
+
   factory :office do
     sequence(:email) { |n| "office#{n}@example.com" }
     sequence(:name) { |n| "Office #{n}" }
     sequence(:image) { |n| "/images/office#{n}.png" }
   end
+
 
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
@@ -18,6 +20,7 @@ FactoryGirl.define do
       role :herald
     end
   end
+
 
   factory :page do
     sequence(:slug) { |n| "slug#{n}" }
@@ -35,6 +38,7 @@ FactoryGirl.define do
       body { "<h1>Some sample markup for #{slug}</h1><!-- CALENDAR -->" }
     end
   end
+
 
   factory :awarding do
     association :award, :hasgroup
@@ -57,6 +61,7 @@ FactoryGirl.define do
     end
   end
 
+
   factory :award do
     name "test award"
     precedence 0
@@ -74,7 +79,12 @@ FactoryGirl.define do
     trait :society do
       society true
     end
+
+    trait :heraldry do
+      heraldry { File.new("#{Rails.root}/spec/assets/heraldry.gif") }
+    end
   end
+
 
   factory :recipient do
     mundane_name 'mundane name'
@@ -97,7 +107,12 @@ FactoryGirl.define do
     trait :pronouns do
       pronouns 'They/them/their'
     end
+
+    trait :heraldry do
+      heraldry { File.new("#{Rails.root}/spec/assets/heraldry.gif") }
+    end
   end
+
 
   factory :group do
     name "group name"

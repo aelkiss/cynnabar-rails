@@ -78,6 +78,25 @@ describe "GET /award/:id" do
     expect(response.body).not_to include(award.group.name)
   end
 
+  it "includes the heraldry" do
+    award = create(:award, :heraldry)
+    get award_path(award)
+    expect(response.body).to include(award.heraldry.url)
+  end
+
+  it "does not include image tag for heraldry if there is no heraldry" do
+    award = create(:award)
+    get award_path(award)
+    expect(response.body).not_to include(award.heraldry.url)
+  end
+
+  it "can successfully get heraldry" do
+    award = create(:award, :heraldry)
+    get award.heraldry.url
+    expect(response.content_type).to match(/^image\//)
+    expect(response).to have_http_status(:success)
+  end
+
 end
 
 describe "GET /award/:id/edit" do
