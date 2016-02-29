@@ -91,7 +91,7 @@ class AwardingsController < ApplicationController
       params[:awarding][:received] = nil
     end
     
-    params.require(:awarding).permit(:award_id, :recipient_id, :received, :award_name, :group_id)
+    params.require(:awarding).permit(:award_id, :recipient_id, :received, :award_name, :group_id, :award_text)
 
   end
 end

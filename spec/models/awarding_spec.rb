@@ -18,9 +18,14 @@ describe Awarding, type: :model do
       expect(awarding).not_to be_valid
     end
 
-    it "returns (Uaknown) for the date" do
+    it "returns (Unknown) for the date" do
       expect(awarding.received).to eq '(Unknown)'
     end
+  end
+
+  it "can have award text" do
+    awarding = build(:awarding, award_text: "Lorem ipsum dolor")
+    expect(awarding).to be_valid
   end
 
   it "is valid with an award name and group if it is an 'other' award" do

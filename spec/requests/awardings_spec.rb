@@ -29,11 +29,32 @@ describe "POST /awardings" do
     post awardings_path, awarding: build(:awarding).attributes 
   end
 
-  it "as a herald, allows creating awarding" do
-    sign_in(create(:user, :herald))
-    expect { post_awardings }.to change{Awarding.count}.by(1)
-    expect(response).to have_http_status(:redirect)
+  context "when logged in as a herald" do
+    before(:each) do 
+      sign_in(create(:user, :herald))
+    end
+
+    it "allows creating awarding" do
+      expect { post_awardings }.to change{Awarding.count}.by(1)
+      expect(response).to have_http_status(:redirect)
+    end
+
+    it "allows adding fields for foreign awards" do
+      attrs = build(:awarding, :other).attributes
+      # other_award: required check box not to dump foreign award attributes
+      post awardings_path, awarding: attrs, other_award: '1'
+      expect(response).to have_http_status(:redirect)
+      expect(Awarding.find_by_award_name(attrs['award_name'])).not_to be_nil
+    end
+
+    it "allows adding award text" do
+      attrs = build(:awarding, :text).attributes
+      post awardings_path, awarding: attrs
+      expect(response).to have_http_status(:redirect)
+      expect(Awarding.find_by_award_name(attrs['award_name']).award_text).to eq(attrs['award_text'])
+    end
   end
+
 
   it "as a normal user, does not allow creating awarding" do
     sign_in(create(:user))
@@ -46,14 +67,6 @@ describe "POST /awardings" do
     expect(response).to have_http_status(:forbidden)
   end
 
-  it "allows adding fields for foreign awards" do
-    sign_in(create(:user, :herald))
-    attrs = build(:awarding, :other).attributes
-    # other_award: required check box not to dump foreign award attributes
-    post awardings_path, awarding: attrs, other_award: '1'
-    expect(response).to have_http_status(:redirect)
-    expect(Awarding.find_by_award_name(attrs['award_name'])).not_to be_nil
-  end
 end
 
 describe "GET /awarding/:id" do
@@ -63,6 +76,13 @@ describe "GET /awarding/:id" do
     expect(response).to have_http_status(:success)
     expect(response.body).to include(awarding.to_s)
   end
+
+  it "shows award text" do
+    awarding = create(:awarding, :text)
+    get awarding_path(awarding)
+    expect(response.body).to include(awarding.award_text)
+  end
+
 end
 
 describe "GET /awarding/:id/edit" do

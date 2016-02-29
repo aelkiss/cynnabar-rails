@@ -1,22 +1,19 @@
-<p>
-  <strong>Award:</strong>
+<h3>
   <%= link_to @awarding, award_path(@awarding.award) %>
-</p>
+</h3>
 
-<p>
-  <strong>Recipient:</strong>
+<h4>
+  Awarded to
   <%= link_to @awarding.recipient, recipient_path(@awarding.recipient) %>
-</p>
+</h4>
 
-<p>
-  <strong>Granted by:</strong>
-  <%= @awarding.group %>
-</p>
+<h4>
+  By the <%= @awarding.group %> on <%= @awarding.received %>
+</h4>
 
-<p>
-  <strong>Received:</strong>
-  <%= @awarding.received %>
-</p>
+<% if @awarding.award_text %>
+  <p> <%= @awarding.award_text %> </p>
+<% end %>
 
 
 <% if can? :edit, @awarding %>

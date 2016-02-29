@@ -65,6 +65,12 @@ describe "GET /recipient/:id" do
     expect(response).to have_http_status(:success)
     expect(response.body).to include(recipient.to_s)
   end
+
+  it "includes preferred pronouns" do
+    recipient = create(:recipient, :pronouns)
+    get recipient_path(recipient)
+    expect(response.body).to include(recipient.pronouns)
+  end
 end
 
 describe "GET /recipient/:id/edit" do

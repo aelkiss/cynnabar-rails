@@ -45,9 +45,12 @@
 
     <tr>
       <th>    <%= f.label :received %>: </th>
-      <td>    <%= f.text_field 'received', class: 'datepicker' %></p>
+      <td>    <%= f.text_field 'received', class: 'datepicker' %></td>
     </tr>
 
+    <tr>
+      <th>  <%= f.label :award_text %>: </th>
+      <td>  <%= f.text_area 'award_text' %> </td>
     <tr>
       <td>  Is other/foreign award? </td>
       <td>  <%= check_box_tag 'other_award', '1', (@awarding.award ? @awarding.award.other_award? : false) %> </td>
