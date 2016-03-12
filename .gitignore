@@ -21,3 +21,14 @@
 config/*.yml
 config/calendar
 public/*
+
+# ignore deployment stuff
+Capfile
+config/deploy
+config/deploy.rb
+
+# ignore initial data & import tasks
+db/db_export
+db/drupal_export
+lib/tasks/awardload.rake
+lib/tasks/pageload.rake
