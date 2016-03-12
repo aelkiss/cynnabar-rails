@@ -62,6 +62,19 @@ img.heraldry {
 
 .event-summary {
   font-weight: bold;
+  display: block;
+  margin-bottom: 0.35em;
+}
+
+.event-more {
+  font-weight: normal;
+}
+
+@media screen and (min-width: 750px) {
+  .event-summary {
+    display: inline;
+    margin-bottom: 0.1em;
+  }
 }
 
 

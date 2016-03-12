@@ -7,10 +7,11 @@
           <div class="<%= @page.calendar_details ? '' : 'collapsible'%> accordion-noimage">
             <h5>
               <span class="event-date"><%= @page.format_event_date(event) %>, <%= @page.format_event_time(event) %></span>
-              <span class="event-summary"><%= event['summary'] %></span>
-              <% if !@page.calendar_details %>
-                <span class="event-more">(<a>More</a>)</span>
-              <% end %>
+              <span class="event-summary"><%= event['summary'] %>
+                <% if !@page.calendar_details %>
+                  <span class="event-more">(<a>More</a>)</span>
+                <% end %>
+              </span>
             </h5>
             <div class="event-content">
               <% if event['location'] %>
