@@ -18,6 +18,6 @@
 *~
 *.swp
 .byebug_history
-config/database.yml
+config/*.yml
 config/calendar
 public/*
