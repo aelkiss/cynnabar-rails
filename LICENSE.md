@@ -1,4 +1,4 @@
-opyright (c) 2015-2016 Aaron Elkiss
+Copyright (c) 2015-2016 Aaron Elkiss
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
