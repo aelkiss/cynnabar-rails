@@ -16,5 +16,3 @@ Notes:
  - Most of Devise's functionality for user management is currently disabled in
    this application; users can only be managed at the Rails console.
 
-This application is licensed under the terms of the GNU General Public License v3.0.
-
