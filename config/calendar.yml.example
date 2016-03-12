@@ -1,0 +1,25 @@
+---
+application_name:  'Barony of Cynnabar'
+# all paths relative to RAILS_ROOT/config
+json_output_path: 'calendar'
+# Obtain this from the Google Developers API console
+client_secrets_path: 'calendar/client_secret.json'
+# This will be generated the first time you run rake calendar:update
+credentials_path: 'calendar/calendar_creds.json'
+# API scope - you should not need to change this
+scope: 'https://www.googleapis.com/auth/calendar.readonly'
+
+calendars:
+  # Used below to specify which calendar to query. The calendar name
+  # needs to match exactly the Google Calendar name.
+  foo: Foo Calendar
+  bar: Bar Calendar
+queries:
+  home:
+    # Reference to 'calendars' above for the calendar to query, or 'all' for all
+    # calendar: all
+    calendar: foo
+    # How many months of events to show
+    horizon: 1
+    # Link to use for 'more events'
+    link: https://www.google.com/calendar/embed?GET_THIS_FROM_GOOGLE_CALENDAR_SHARING_TAB
