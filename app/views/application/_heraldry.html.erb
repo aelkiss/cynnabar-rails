@@ -1,0 +1,5 @@
+<% if heraldic_object.heraldry.exists? %>
+  <%= link_to(heraldic_object.heraldry.url) do %>
+    <%=  image_tag heraldic_object.heraldry_thumb_url, class: 'heraldry' %>
+  <% end %>
+<% end %>

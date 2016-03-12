@@ -1,8 +1,4 @@
-<% if @recipient.heraldry.exists? %>
- <%= link_to(@recipient.heraldry.url) do %>
-   <%= image_tag @recipient.heraldry.url, class: 'heraldry' %>
-  <% end %>
-<% end %>
+<%= render partial: 'heraldry', locals: {heraldic_object: @recipient} %>
 
 <h3><%= @recipient %></h3>
 

@@ -1,23 +1,24 @@
 class Award < ActiveRecord::Base
-    has_many :awardings
-    has_many :recipients, through: :awardings
-    belongs_to :group
+  include Heraldic 
 
-    has_attached_file :heraldry
-    validates_with AttachmentContentTypeValidator, attributes: :heraldry, content_type: /\Aimage\/.*\Z/
-    validates_with AttachmentSizeValidator, attributes: :heraldry, less_than: 500.kilobytes
+  has_many :awardings
+  has_many :recipients, through: :awardings
+  belongs_to :group
 
-    validates :name, presence: true
-    
-    validates :description, presence: true,
-        length: { minimum: 30 }
+  validates :name, presence: true
 
-    validates :precedence, presence: true
+  validates :description, presence: true,
+    length: { minimum: 30 }
 
-    has_many :awardings
-    has_many :awards, through: :awardings
+  validates :precedence, presence: true
 
-    def to_s
-      name
-    end
+  has_many :awardings
+  has_many :awards, through: :awardings
+
+  def to_s
+    name
+  end
+
+  private
+
 end
