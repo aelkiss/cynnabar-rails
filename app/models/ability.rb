@@ -18,6 +18,7 @@ class Ability
       can :read, Awarding
       can :read, Award
       can :read, Recipient
+      can :armory, Recipient
     end
 
     if user.herald?

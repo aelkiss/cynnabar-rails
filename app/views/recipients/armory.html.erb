@@ -1,0 +1,10 @@
+<div class="armory-grid">
+<% @armory_people.each do |r| %>
+  <div class="armory-cell">
+    <div class="armory-scaname"><%= link_to r.sca_name, r %></div>
+    <%= render partial: 'heraldry', locals: {heraldic_object: r} %>
+    <div class="armory-blazon"><%= r.heraldry_blazon %></div>
+  </div>
+<% end %>
+
+</div>

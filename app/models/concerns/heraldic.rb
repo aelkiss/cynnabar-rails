@@ -4,7 +4,7 @@ module Heraldic
   extend ActiveSupport::Concern
 
   included do
-    has_attached_file :heraldry, styles: { thumb: "100x100>" }
+    has_attached_file :heraldry, styles: { thumb: "100x200>" }
     before_post_process :resize_images
 
     validates_with Paperclip::Validators::AttachmentContentTypeValidator, attributes: :heraldry, content_type: /\Aimage\/.*\Z/

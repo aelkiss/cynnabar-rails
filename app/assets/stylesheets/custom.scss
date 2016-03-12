@@ -8,6 +8,33 @@ $grid-float-breakpoint: $screen-md-min;
 //@media (min-width: 915px);
 $main-background-color: #FFFFCC;
 
+.armory-grid {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.armory-cell {
+  width: 240px;
+  height: auto;
+  margin: auto;
+  padding: 0.5em;
+}
+
+.armory-cell img.heraldry {
+  float: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.armory-scaname {
+  font-size: large;
+  font-weight: bold;
+  text-align: center;
+}
+
 img.heraldry {
   float: right;
   max-width: 100px;

@@ -15,6 +15,11 @@ class RecipientsController < ApplicationController
 
   end
 
+  def armory
+    @armory_people = @recipients.where.not(heraldry_file_name: nil)
+    render :armory
+  end
+
   # GET /recipients
   # GET /recipients.json
   def index

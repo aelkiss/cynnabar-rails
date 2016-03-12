@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :recipients do
     get :autocomplete_recipient_name, :on => :collection
+    get :armory, :on => :collection
   end
 
   resources :awards do

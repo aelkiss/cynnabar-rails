@@ -36,6 +36,30 @@ describe "GET /recipients" do
   end
 end
 
+describe "GET /recipients/armory" do
+  it "gets the name, armory, and blazon" do
+    recipient1 = create(:recipient, :heraldry, sca_name: 'Bob 1', heraldry_blazon: 'Azure')
+    recipient2 = create(:recipient, :heraldry, sca_name: 'Bob 2', heraldry_blazon: 'Gules')
+
+    get armory_recipients_path 
+
+    expect(response.body).to include(recipient1.sca_name)
+    expect(response.body).to include(recipient2.sca_name)
+    expect(response.body).to include(recipient1.heraldry_blazon)
+    expect(response.body).to include(recipient2.heraldry_blazon)
+    expect(response.body).to include(recipient1.heraldry.url)
+    expect(response.body).to include(recipient2.heraldry.url)
+  end
+
+  it "doesn't show users without armory" do
+    recipient = create(:recipient, sca_name: 'Bob 1')
+
+    get armory_recipients_path
+
+    expect(response.body).not_to include(recipient.sca_name)
+  end
+end
+
 describe "GET /recipients/new" do
   it "as a herald, gets a form for a new user" do
     sign_in(create(:user, :herald))
