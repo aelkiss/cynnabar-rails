@@ -9,7 +9,10 @@ $grid-float-breakpoint: $screen-md-min;
 $main-background-color: #FFFFCC;
 
 img.heraldry {
-  float: right
+  float: right;
+  max-width: 100px;
+  width: 100%;
+  height: auto;
 }
 
 .awards tr td {

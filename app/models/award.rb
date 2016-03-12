@@ -3,7 +3,7 @@ class Award < ActiveRecord::Base
     has_many :recipients, through: :awardings
     belongs_to :group
 
-    has_attached_file :heraldry, styles: { medium: "300x300>", thumb: "100x100>" }
+    has_attached_file :heraldry
     validates_with AttachmentContentTypeValidator, attributes: :heraldry, content_type: /\Aimage\/.*\Z/
     validates_with AttachmentSizeValidator, attributes: :heraldry, less_than: 500.kilobytes
 

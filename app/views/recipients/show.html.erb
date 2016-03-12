@@ -1,5 +1,7 @@
 <% if @recipient.heraldry.exists? %>
-  <%= image_tag @recipient.heraldry.url, class: 'heraldry' %>
+ <%= link_to(@recipient.heraldry.url) do %>
+   <%= image_tag @recipient.heraldry.url, class: 'heraldry' %>
+  <% end %>
 <% end %>
 
 <h3><%= @recipient %></h3>
@@ -9,7 +11,7 @@
 <% end %>
 
 <% if @recipient.heraldry_blazon %>
-  <p><b>Heraldry:</b> <%= @recipient.heraldry_blazon %></p>
+  <p><i><%= @recipient.heraldry_blazon %></i></p>
 <% end %>
 
 <%= render partial: 'awards_table', locals: {recipient: @recipient} %>

@@ -1,5 +1,7 @@
 <% if @award.heraldry.exists? %>
-  <%= image_tag @award.heraldry.url, class: 'heraldry' %>
+  <%= link_to(@recipient.heraldry.url) do %>
+    <%= image_tag @award.heraldry.url, class: 'heraldry' %>
+  <% end %>
 <% end %>
 
 <h3><%= @award %></h3>
