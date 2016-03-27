@@ -9,4 +9,8 @@ class Office < ActiveRecord::Base
   def officer_name
     officer ? officer.name : '(Vacant)'
   end
+
+  def to_s
+    "#{name}, #{officer_name}"
+  end
 end
