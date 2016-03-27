@@ -1,0 +1,27 @@
+<h3>Contact <%= @contacted_thing %></h3>
+
+<%= form_tag do |f| %>
+  <%= hidden_field_tag :office_id %>
+  <%= hidden_field_tag :user_id %>
+
+  <p>
+  <%= label_tag :subject %>
+  <%= text_field_tag :subject %>
+  </p>
+
+  <p>
+  <%= label_tag 'Your Name' %>
+  <%= text_field_tag :from_name %>
+  </p>
+
+  <p>
+  <%= label_tag 'Your E-mail Address' %>
+  <%= text_field_tag :from_email %>
+  </p>
+
+  <h4>Your Feedback</h4>
+  <%= text_area_tag :feedback %>
+
+  <%= submit_tag 'Send' %>
+<% end %>
+

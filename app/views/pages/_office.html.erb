@@ -10,7 +10,7 @@
     <div class="col-sm-6" style="text-align:right;">
       <b><%= office.officer_name %></b>
       <br>
-      <b> <%= mail_to office.email, "Contact", encode: 'javascript' %> </b>
+      <b> <%= link_to 'Contact', office_contact_path(office) %> </b>
 
     </div>
   </div>

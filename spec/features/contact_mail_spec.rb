@@ -19,21 +19,20 @@ RSpec.feature "Contact email" do
     # expect email to have been sent
     email = ActionMailer::Base.deliveries.last
     expect(email.to[0]).to eq(expected_whom)
-    expect(email.subject).to contain(subject)
+    expect(email.subject).to match(subject)
     # asset reply to and body as well
-    binding.pry
   end
 
   scenario "sends email to officer" do
-    office = create(:office)
-    visit office_path(office)
+    office = create(:office, page: create(:page))
+    visit page_path(office.page)
     click_on "Contact"
     send_and_expect_email(office.email)
   end
 
   scenario "sends email to user" do
     user = create(:user)
-    visit contact_user_path(user)
+    visit user_contact_path(user)
     send_and_expect_email(user.email)
   end
 
