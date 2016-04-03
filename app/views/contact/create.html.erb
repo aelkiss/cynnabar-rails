@@ -1,3 +1,7 @@
 <h3>Contact <%= @contacted_thing %></h3>
 
-Your feedback has been sent!
+<p>Your feedback has been sent!</p>
+
+<% if @referring_page %>
+  <p><%= link_to "Go Back", @referring_page %></p>
+<% end %>

@@ -227,6 +227,8 @@ GEM
     rake (11.1.1)
     rdoc (4.2.2)
       json (~> 1.4)
+    recaptcha (1.2.0)
+      json
     ref (2.0.0)
     representable (2.3.0)
       uber (~> 0.0.7)
@@ -334,6 +336,7 @@ DEPENDENCIES
   rails (= 4.2.6)
   rails4-autocomplete
   rails_autolink
+  recaptcha
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)

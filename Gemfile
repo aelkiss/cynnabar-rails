@@ -39,6 +39,7 @@ gem 'google-api-client'
 gem 'rails_autolink'
 
 gem 'paperclip', "~> 4.3"
+gem "recaptcha", require: "recaptcha/rails"
 
 # Use Capistrano for deployment
 group :development do

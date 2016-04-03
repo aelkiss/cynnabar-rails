@@ -5,7 +5,7 @@ include ERB::Util
 
 RSpec.feature "Contact email" do
 
-  def send_and_expect_email(expected_whom)
+  def send_and_expect_email(expected_whom,expected_back)
     subject = 'This is the subject'
     from = 'bob@example.com'
     from_name = 'Bob Exampleman'
@@ -20,20 +20,28 @@ RSpec.feature "Contact email" do
     email = ActionMailer::Base.deliveries.last
     expect(email.to[0]).to eq(expected_whom)
     expect(email.subject).to match(subject)
+
     # asset reply to and body as well
+  
+    # make sure we can get back to where we were
+    expect(page.body).to have_content("feedback has been sent")
+    click_on "Back"
+    expect(page.current_path).to eq expected_back
   end
 
   scenario "sends email to officer" do
     office = create(:office, page: create(:page))
     visit page_path(office.page)
     click_on "Contact"
-    send_and_expect_email(office.email)
+    send_and_expect_email(office.email,page_path(office.page))
   end
 
   scenario "sends email to user" do
     user = create(:user)
-    visit user_contact_path(user)
-    send_and_expect_email(user.email)
+    page = create(:page, body: "Click <a href=\"#{user_contact_path(user)}\">here</a>")
+    visit page_path(page)
+    click_on "here"
+    send_and_expect_email(user.email,page_path(page))
   end
 
 end

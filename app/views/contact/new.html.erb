@@ -3,25 +3,25 @@
 <%= form_tag do |f| %>
   <%= hidden_field_tag :office_id %>
   <%= hidden_field_tag :user_id %>
+  <%= hidden_field_tag :referring_page, @back_link %>
 
   <p>
-  <%= label_tag :subject %>
-  <%= text_field_tag :subject %>
+      <%= label_tag :subject %></th>
+      <%= text_field_tag :subject %></td>
   </p>
-
   <p>
-  <%= label_tag 'Your Name' %>
-  <%= text_field_tag :from_name %>
+     <%= label_tag 'Your Name' %>
+     <%= text_field_tag :from_name %>
   </p>
-
   <p>
-  <%= label_tag 'Your E-mail Address' %>
-  <%= text_field_tag :from_email %>
+     <%= label_tag 'Your E-Mail Address' %>
+     <%= text_field_tag :from_email %>
   </p>
 
   <h4>Your Feedback</h4>
   <%= text_area_tag :feedback %>
 
-  <%= submit_tag 'Send' %>
+  <p> <%= recaptcha_tags %> </p>
+  <p> <%= submit_tag 'Send' %> </p>
 <% end %>
 
