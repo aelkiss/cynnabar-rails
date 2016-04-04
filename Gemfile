@@ -36,7 +36,7 @@ gem 'bootstrap-sass'
 gem 'actionview-encoded_mail_to'
 gem 'google-api-client'
 
-gem 'rails_autolink'
+gem 'rinku'
 
 gem 'paperclip', "~> 4.3"
 gem "recaptcha", require: "recaptcha/rails"

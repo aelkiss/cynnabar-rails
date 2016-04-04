@@ -8,6 +8,10 @@ $grid-float-breakpoint: $screen-md-min;
 //@media (min-width: 915px);
 $main-background-color: #FFFFCC;
 
+a.calendar_link {
+  word-break: break-all;
+}
+
 form label {
   padding: 0.3em;
   width: 11em;
