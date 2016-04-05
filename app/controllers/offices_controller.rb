@@ -9,6 +9,7 @@ class OfficesController < ApplicationController
   # GET /offices/1
   # GET /offices/1.json
   def show
+    redirect_to @office.page
   end
 
   # GET /offices/new
@@ -23,7 +24,7 @@ class OfficesController < ApplicationController
   # POST /offices.json
   def create
     if @office.save
-      redirect_to @office, notice: 'Office was successfully created.'
+      redirect_to @office.page, notice: 'Office was successfully created.'
     else
       render :new
     end
@@ -33,7 +34,7 @@ class OfficesController < ApplicationController
   # PATCH/PUT /offices/1.json
   def update
     if @office.update(office_params)
-      redirect_to @office, notice: 'Office was successfully updated.'
+      redirect_to @office.page, notice: 'Office was successfully updated.'
     else
       render :edit 
     end

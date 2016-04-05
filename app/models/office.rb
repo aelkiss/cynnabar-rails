@@ -5,6 +5,7 @@ class Office < ActiveRecord::Base
   validates :email, presence: true
   validates :name, presence: true
   validates :image, presence: true
+  validates :page, presence: true
 
   def officer_name
     officer ? officer.name : '(Vacant)'

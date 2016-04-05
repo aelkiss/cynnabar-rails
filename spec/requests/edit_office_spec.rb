@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'pry'
 
-describe "PATCH /:slug" do
+describe "PATCH /office/:office_id" do
   context 'when logged in as an admin' do 
     before(:each) { sign_in(create(:user, :admin)) }
 
@@ -14,7 +14,7 @@ describe "PATCH /:slug" do
 
       edited_office = Office.find(office.id)
       expect(response).to have_http_status(:redirect)
-      expect(response.redirect_url).to include(path)
+      expect(response.redirect_url).to include page_path(office.page)
       expect(edited_office.name).to eq(newname)
     end
   end

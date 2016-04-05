@@ -4,6 +4,7 @@ RSpec.describe Office, type: :model do
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_presence_of(:image) }
+  it { is_expected.to validate_presence_of(:page) }
   it { is_expected.not_to validate_presence_of(:officer) }
 
   context "when there is no officer" do

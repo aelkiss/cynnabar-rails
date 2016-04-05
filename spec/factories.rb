@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "office#{n}@example.com" }
     sequence(:name) { |n| "Office #{n}" }
     sequence(:image) { |n| "/images/office#{n}.png" }
+    association :page
   end
 
 
@@ -28,10 +29,6 @@ FactoryGirl.define do
     title { "title for #{slug}" }
     body { "<h1>This is some html markup for #{slug}</h1>" }
     association :user, :admin
-
-    trait :office_page do
-      association :office
-    end
 
     trait :calendar do
       calendar 'example'
