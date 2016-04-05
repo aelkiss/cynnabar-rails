@@ -21,7 +21,7 @@ describe "POST /pages" do
       sign_in(create(:user, :admin))
       user = create(:user)
       page = attributes_for(:page)
-      page[:user_email] = user.email
+      page[:user_id] = user.id
 
       post "/pages", page: page, commit: 'Save'
 

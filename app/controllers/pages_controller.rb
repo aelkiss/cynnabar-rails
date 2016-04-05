@@ -51,9 +51,9 @@ class PagesController < ApplicationController
 
     def check_set_owner
       params.require(:page)
-      if params[:page][:user_email] 
+      if params[:page][:user_id] 
         authorize! :set_owner, @page
-        @page.user = User.find_by_email!(params[:page][:user_email])
+        @page.user = User.find(params[:page][:user_id])
       elsif @page.user == nil
         authorize! :set_owner, @page
         @page.user = current_user
@@ -69,9 +69,9 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      [:calendar_details, :calendar_title, :calendar].each do |param|
+      [:calendar_details, :calendar_title, :calendar, :user_id].each do |param|
         params[:page][param] = nil if params[:page][param] and params[:page][param].empty?
       end
-      params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title)
+      params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title, :user_id)
     end
 end

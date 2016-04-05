@@ -34,7 +34,9 @@ describe Page, type: :model do
   end
 
   it "can have an associated office" do
-    page = build(:page, :office_page)
+    office = build(:office)
+    page = build(:page)
+    page.office = office
     expect(page).to be_valid
   end
 

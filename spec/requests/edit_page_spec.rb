@@ -45,7 +45,7 @@ describe "PATCH /:slug" do
 
       page = create(:page, user: user1)
 
-      patch "/#{page.slug}", page: {user_email: user2.email}, commit: 'Save'
+      patch "/#{page.slug}", page: {user_id: user2.id}, commit: 'Save'
 
       edited_page = Page.find(page.slug)
       expect(edited_page.user).to eq(user2)
@@ -71,7 +71,7 @@ describe "PATCH /:slug" do
       page = create(:page, user: user1)
 
       sign_in(user1)
-      patch "/#{page.slug}", page: {user_email: user2.email}, commit: 'Save'
+      patch "/#{page.slug}", page: {user_id: user2.id}, commit: 'Save'
 
       expect(response).to have_http_status(:forbidden)
       edited_page = Page.find(page.slug)
