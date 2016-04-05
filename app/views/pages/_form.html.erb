@@ -25,6 +25,11 @@
     <%= f.text_field :slug %>
   </div>
 
+  <% if can? :manage, @page %>
+    <%= f.label 'Owner' %>
+    <%= f.collection_select(:user_id, User.order(:name), :id, :name) %>
+  <% end %>
+
   <h4>Calendar info</h4>
   A calendar can be included in the page with the special markup <tt>&lt;-- CALENDAR --&gt;</tt>.
   Contact the Webminister to configure the calendar.
