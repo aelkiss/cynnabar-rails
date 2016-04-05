@@ -8,9 +8,8 @@ $grid-float-breakpoint: $screen-md-min;
 //@media (min-width: 915px);
 $main-background-color: #FFFFCC;
 
-a.calendar_link {
-  word-break: break-all;
-}
+
+/** GENERAL STUFF **/
 
 form label {
   padding: 0.3em;
@@ -28,6 +27,24 @@ form textarea {
   padding: 1em;
   height: 10em;
 }
+
+tr td {
+  padding: 2px 5px;
+  vertical-align: top;
+}
+
+tr th {
+  padding: 2px 5px;
+  vertical-align: top;
+}
+
+/** MISC STUFF **/
+
+.pagelist .pagetitle {
+  width: 40%;
+}
+
+/** ARMORY FLEXBOX STUFF **/
 
 .armory-grid {
   display: flex;
@@ -71,15 +88,7 @@ img.heraldry {
   height: auto;
 }
 
-.awards tr td {
-  padding: 2px 5px;
-  vertical-align: top;
-}
-
-.awards tr th {
-  padding: 2px 5px;
-  vertical-align: top;
-}
+/** ORDER OF PRECEDENCE STUFF **/
 
 .awards #awarding_award_text {
   width: 100%;
@@ -94,6 +103,9 @@ img.heraldry {
 .accordion-noimage h5.ui-accordion-icons {
   padding: 0em
 }
+
+/** CALENDER STUFF **/ 
+
 
 .event-details {
   font-size: 1em;
@@ -117,6 +129,10 @@ img.heraldry {
   vertical-align: top
 }
 
+a.calendar_link {
+  word-break: break-all;
+}
+
 .event-summary {
   font-weight: bold;
   display: block;
@@ -126,6 +142,8 @@ img.heraldry {
 .event-more {
   font-weight: normal;
 }
+
+/** RESPONSIVE STUFF **/
 
 @media screen and (min-width: 750px) {
   .event-summary {
