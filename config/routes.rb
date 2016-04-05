@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get '/*slug' => 'pages#show', as: :page
   patch '/*slug' => 'pages#update'
   put '/*slug' => 'pages#update'
+  delete '/*slug' => 'pages#destroy'
 
   root 'pages#show', defaults: { slug: 'home' }
 

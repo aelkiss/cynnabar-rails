@@ -47,6 +47,11 @@ class PagesController < ApplicationController
     end
   end
 
+  def destroy
+    @page.destroy
+    redirect_to pages_path, notice: 'Page was successfully deleted.'
+  end
+
   private
 
     def check_set_owner
