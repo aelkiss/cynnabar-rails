@@ -25,11 +25,11 @@
   </div>
   <div class="field">
     <%= f.label :page_id %><br>
-    <%= f.text_field :page_id %>
+    <%= f.collection_select(:page_id, Page.order(:slug), :id, :slug) %>
   </div>
   <div class="field">
     <%= f.label :officer_id %><br>
-    <%= f.text_field :officer_id %>
+    <%= f.collection_select(:officer_id, User.order(:name), :id, :name) %>
   </div>
   <div class="actions">
     <%= f.submit %>

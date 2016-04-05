@@ -2,13 +2,8 @@ require 'rails_helper'
 
 RSpec.describe "offices/edit", type: :view do
   before(:each) do
-    @office = assign(:office, Office.create!(
-      :name => "MyString",
-      :email => "MyString",
-      :image => "MyString",
-      :page => nil,
-      :officer => nil
-    ))
+    @office = assign(:office, create(:office))
+    @page = create(:page)
   end
 
   it "renders the edit office form" do
@@ -22,9 +17,21 @@ RSpec.describe "offices/edit", type: :view do
 
       assert_select "input#office_image[name=?]", "office[image]"
 
-      assert_select "input#office_page_id[name=?]", "office[page_id]"
+      assert_select "select#office_page_id[name=?]", "office[page_id]"
 
-      assert_select "input#office_officer_id[name=?]", "office[officer_id]"
+      assert_select "select#office_officer_id[name=?]", "office[officer_id]"
     end
+  end
+
+  it "has an option for selecting the user" do
+    user = create(:user)
+    render
+    assert_select "option", {text: user.to_s}
+  end
+
+  it "has an option for selecting the page" do
+    page = create(:page)
+    render
+    assert_select "option", {text: page.slug}
   end
 end
