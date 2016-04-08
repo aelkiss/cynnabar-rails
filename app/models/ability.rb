@@ -4,13 +4,17 @@ class Ability
   def initialize(user)
     user ||= User.new # guest user (not logged in)
 
+    if user.approved?
+      can :update, Page, :user_id => user.id
+      can :update, Recipient, :id => user.recipient_id
+    end
+
     if user.admin?
       can :manage, :all
       can :set_owner, Page
     else
       # default permission for everyone
       can :read, Page
-      can :update, Page, :user_id => user.id
       cannot :index, Page
 
       can :index, Office

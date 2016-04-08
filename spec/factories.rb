@@ -13,6 +13,7 @@ FactoryGirl.define do
     role :normal
     password "password"
     name "Bob Exampleman"
+    approved true
 
     trait :admin do
       role :admin
@@ -20,6 +21,10 @@ FactoryGirl.define do
 
     trait :herald do
       role :herald
+    end
+
+    trait :has_recipient do
+      association :recipient
     end
   end
 

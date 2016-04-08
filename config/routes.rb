@@ -5,11 +5,7 @@ Rails.application.routes.draw do
     post 'contact' => 'contact#create'
   end
 
-  devise_for :users, :skip => [:registrations]
-  as :user do
-    get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
-    patch 'users' => 'devise/registrations#update', :as => 'user_registration'            
-  end
+  devise_for :users
 
   resources :users do
     get 'contact' => 'contact#new'

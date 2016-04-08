@@ -6,6 +6,11 @@ describe "Ability" do
     let(:user) { create(:user) }
     subject { Ability.new(user) }
 
+    context "when the user has a recipient" do
+      before(:each) { user.recipient = build(:recipient) }
+      it { is_expected.to be_able_to(:edit, user.recipient) }
+    end
+
     context "when the user has a page they own" do
       let(:page) { build(:page, user: user) }
 
@@ -62,6 +67,14 @@ describe "Ability" do
     it { is_expected.not_to be_able_to(:manage, build(:award)) }
     it { is_expected.not_to be_able_to(:manage, build(:page)) }
     it { is_expected.not_to be_able_to(:manage, build(:office)) }
+  end
+
+  context "when the user is not approved" do
+    let (:user) { create(:user, :has_recipient, approved: false) }
+    subject { Ability.new(user) }
+
+    it { is_expected.not_to be_able_to(:edit, user.recipient) }
+    it { is_expected.not_to be_able_to(:edit, build(:page, user: user)) }
   end
 
 end
