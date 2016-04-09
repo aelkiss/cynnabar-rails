@@ -65,6 +65,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-gem 'shoulda-matchers'
+  gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
 end
 
