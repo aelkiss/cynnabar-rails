@@ -1,0 +1,26 @@
+<h1>Users</h1>
+
+<table class="userlist">
+
+  <tr>
+    <th>Title</th>
+    <th>Path</th>
+    <th>Owner</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <h3>Users Pending Approval</h3>
+
+  <% @users.each do |user| %>
+    <tr>
+      <%= render partial: 'user_row', locals: {user: user} %>
+      <td>
+        <%= link_to 'Approve', user_path(user, approve: true) %>
+      </td>
+    </tr>
+  <% end %>
+
+  <h3>Approved Users</h3>
+
+</table>
