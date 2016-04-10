@@ -61,6 +61,11 @@ RSpec.configure do |config|
 
   config.include Rails.application.routes.url_helpers, type: :request
 
+  # Don't try to run javascript tests if DISPLAY is not set
+  if !ENV['DISPLAY']
+    config.filter_run_excluding js: true
+  end
+
 end
 
 RSpec.shared_context "when signed in through capybara" do
