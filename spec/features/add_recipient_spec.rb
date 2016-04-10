@@ -12,10 +12,10 @@ RSpec.feature "Create recipient" do
       visit "/recipients/new"
       fill_in "recipient_sca_name", with: "Bob Exampleman"
 
-      click_on "Create Recipient"
+      click_on "Create Profile"
     end.to change{Recipient.count}.from(0).to(1)
 
-    expect(page).to have_content('Recipient was successfully created')
+    expect(page).to have_content('Profile was successfully created')
 
   end
 

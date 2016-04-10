@@ -20,7 +20,7 @@ RSpec.feature "Adding heradry" do
 
   scenario "adds heraldry to recipient" do
     new_recipient = create(:recipient, :sca)
-    attach_heraldry(edit_recipient_path(new_recipient),recipient_path(new_recipient),'Update Recipient')
+    attach_heraldry(edit_recipient_path(new_recipient),recipient_path(new_recipient),'Update Profile')
   end
 
   scenario "adds heraldry to award" do

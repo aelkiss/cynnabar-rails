@@ -100,6 +100,11 @@ describe Recipient, type: :model do
     expect(recipient.pronouns).to eq('They/them/theirs')
   end
 
+  it "can get a linked user" do
+    user = create(:user, :has_recipient)
+    expect(user.recipient.user).to eq(user)
+  end
+
   it { is_expected.to validate_attachment_content_type(:heraldry).
        allowing('image/png', 'image/jpeg', 'image/gif').
        rejecting('text/plain', 'application/octet-stream', 'application/pdf') }

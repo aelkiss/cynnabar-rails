@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   def set_defaults
     self.role ||= :normal
-    self.approved = false
+    self.approved ||= false
   end
 
   def to_s

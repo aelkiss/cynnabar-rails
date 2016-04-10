@@ -3,6 +3,7 @@ class Recipient < ActiveRecord::Base
 
   has_many :awardings
   has_many :awards, through: :awardings
+  has_one  :user
 
   def fix_empty(attr,value)
     if value and value.match(/^\s*$/)
