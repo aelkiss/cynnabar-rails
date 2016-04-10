@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     post 'contact' => 'contact#create'
   end
 
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations'
+  }
 
   resources :users do
     get 'contact' => 'contact#new'

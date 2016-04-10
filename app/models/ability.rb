@@ -23,6 +23,8 @@ class Ability
       can :read, Award
       can :read, Recipient
       can :armory, Recipient
+      can :autocomplete_award_name, Award
+      can :autocomplete_recipient_name, Recipient
     end
 
     if user.herald?
@@ -30,8 +32,6 @@ class Ability
       can :manage, Awarding
       can :create, Recipient
       can :update, Recipient
-      can :autocomplete_award_name, Award
-      can :autocomplete_recipient_name, Recipient
     end
   end
 end

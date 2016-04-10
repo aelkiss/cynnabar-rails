@@ -9,7 +9,6 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'devise'
 require 'shoulda-matchers'
-require 'steak/autocomplete'
 require 'dbclean_helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

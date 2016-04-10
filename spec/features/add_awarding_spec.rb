@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'steak/autocomplete'
 require 'pry'
 
 include ERB::Util
