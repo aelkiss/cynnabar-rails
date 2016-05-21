@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe 'pages/show.html.erb' do
   context 'if the page has a calendar' do
-    let (:page) { build(:page, :calendar) }
+    let(:page) { build(:page, :calendar) }
 
     before(:each) do
       assign(:page, page)

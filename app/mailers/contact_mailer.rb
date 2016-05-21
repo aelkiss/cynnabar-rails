@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ContactMailer < ApplicationMailer
   def contact_email(user, from_email, from_name, subject, feedback)
     @feedback = feedback

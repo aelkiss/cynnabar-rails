@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Awarding < ActiveRecord::Base
   belongs_to :award
   belongs_to :recipient
@@ -15,13 +16,8 @@ class Awarding < ActiveRecord::Base
 
   # returns overriden value if present, otherwise falls back to award
   def override_attr(attr, own_attr_val)
-    if own_attr_val
-      return own_attr_val
-    elsif award
-      return award.send(attr)
-    else
-      return nil
-    end
+    return own_attr_val if own_attr_val
+    award.send(attr) if award
   end
 
   # returns override award name if one exists, otherwise the default group
@@ -39,10 +35,7 @@ class Awarding < ActiveRecord::Base
   end
 
   def received
-    if super
-      return super
-    else
-      return '(Unknown)'
-    end
+    return super if super
+    '(Unknown)'
   end
 end

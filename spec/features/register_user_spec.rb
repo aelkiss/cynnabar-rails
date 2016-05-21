@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 include ERB::Util
@@ -5,7 +6,7 @@ include ERB::Util
 feature 'User registration', js: true do
   scenario 'can create an unconfirmed user' do
     recipient = create(:recipient)
-    page = create(:page, slug: 'home')
+    create(:page, slug: 'home')
     visit '/users/sign_up'
     fill_in 'user_email', with: 'bob@exampleman.com'
     fill_in 'user_password', with: 'password'

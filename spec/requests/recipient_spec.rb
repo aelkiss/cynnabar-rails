@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe 'GET /recipients' do
@@ -111,7 +112,7 @@ describe 'GET /recipient/:id' do
   it 'can successfully get heraldry' do
     recipient = create(:recipient, :heraldry)
     get recipient.heraldry.url
-    expect(response.content_type).to match(/^image\//)
+    expect(response.content_type).to match(%r{^image/})
     expect(response).to have_http_status(:success)
   end
 
@@ -186,8 +187,8 @@ describe 'GET /recipients/autocomplete_recipient_name' do
     end
 
     it 'returns multiple options for autocomplete' do
-      recipient1 = create(:recipient)
-      recipient2 = create(:recipient)
+      create(:recipient)
+      create(:recipient)
       get '/recipients/autocomplete_recipient_name', term: 'name'
       response_obj = JSON.parse(@response.body)
       expect(response_obj.length).to eq(Recipient.count)

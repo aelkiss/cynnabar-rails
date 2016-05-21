@@ -1,13 +1,13 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'cancan/matchers'
 
 describe 'Ability' do
   context 'when the user is a normal user' do
-    let(:user) { create(:user) }
+    let(:user) { create(:user,:has_recipient) }
     subject { Ability.new(user) }
 
     context 'when the user has a recipient' do
-      before(:each) { user.recipient = build(:recipient) }
       it { is_expected.to be_able_to(:edit, user.recipient) }
     end
 
@@ -27,8 +27,8 @@ describe 'Ability' do
     it { is_expected.not_to be_able_to(:edit, build(:office)) }
     it { is_expected.not_to be_able_to(:show, build(:office)) }
 
-    for operation in [:edit, :create, :destroy] do
-      for type in [:award, :recipient, :awarding] do
+    [:edit, :create, :destroy].each do |operation|
+      [:award, :recipient, :awarding].each do |type|
         it "is not able to #{operation} #{type}s" do
           is_expected.not_to be_able_to(operation, build(type))
         end
@@ -70,7 +70,7 @@ describe 'Ability' do
   end
 
   context 'when the user is not approved' do
-    let (:user) { create(:user, :has_recipient, approved: false) }
+    let(:user) { create(:user, :has_recipient, approved: false) }
     subject { Ability.new(user) }
 
     it { is_expected.not_to be_able_to(:edit, user.recipient) }

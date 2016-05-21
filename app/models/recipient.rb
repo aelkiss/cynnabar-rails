@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Recipient < ActiveRecord::Base
   include Heraldic
 
@@ -7,7 +8,7 @@ class Recipient < ActiveRecord::Base
 
   def fix_empty(attr, value)
     value = nil if value && value.match(/^\s*$/)
-    write_attribute(attr, value)
+    self[attr] = value
   end
 
   def sca_name=(value)
@@ -41,15 +42,54 @@ class Recipient < ActiveRecord::Base
   def to_s
     # if both SCA name and mundane name exist, return both. Otherwise, use
     # whichever is populated.
-    display_name = ''
-    display_inserts = ''
 
-    display_sca_name = ''
-
-    if sca_name
-      display_sca_name = sca_name
-      display_sca_name = title + ' ' + display_sca_name if title
+    if is_group
+      "#{sca_name} (Group)"
+    elsif both_names?
+      "#{format_sca_name} #{format_inserts}(modernly known as #{mundane_name})"
+    else
+      format_one_name
     end
+  end
+
+  validates :sca_name, presence: true, if: :is_group
+  validates :mundane_name, absence: true, if: :is_group
+
+  validates :sca_name, presence: true, if: 'mundane_name.blank?'
+  validates :mundane_name, presence: true, if: 'sca_name.blank?'
+
+  private
+
+  def both_names?
+    sca_name && mundane_name && sca_name != '' && mundane_name != ''
+  end
+
+  def format_one_name
+    display_name = if format_sca_name&.empty?
+                     mundane_name
+                   else
+                     format_sca_name
+                   end
+
+    if format_inserts.empty?
+      display_name
+    else
+      "#{display_name} #{format_inserts}"
+    end
+  end
+
+  def format_sca_name
+    if sca_name && title
+      title + ' ' + sca_name
+    elsif sca_name
+      sca_name
+    else
+      ''
+    end
+  end
+
+  def format_inserts
+    display_inserts = ''
 
     if also_known_as && !also_known_as.empty?
       display_inserts += "(also known as #{also_known_as}) "
@@ -59,21 +99,6 @@ class Recipient < ActiveRecord::Base
       display_inserts += "(formerly known as #{formerly_known_as}) "
     end
 
-    if is_group
-      display_name = "#{sca_name} (Group)"
-    elsif sca_name && mundane_name && sca_name != '' && mundane_name != ''
-      display_name = "#{display_sca_name} #{display_inserts}(modernly known as #{mundane_name})"
-    else
-      display_name = (display_sca_name && display_sca_name != '') ? display_sca_name : mundane_name
-      display_name += " #{display_inserts}" unless display_inserts.empty?
-    end
-
-    display_name
+    display_inserts
   end
-
-  validates :sca_name, presence: true, if: :is_group
-  validates :mundane_name, absence: true, if: :is_group
-
-  validates :sca_name, presence: true, if: 'mundane_name.blank?'
-  validates :mundane_name, presence: true, if: 'sca_name.blank?'
 end

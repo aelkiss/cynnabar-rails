@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'pry'
 
@@ -11,7 +12,7 @@ describe 'GET /users' do
       expect(response).to have_http_status(:forbidden)
 
       edited_user = User.find(user.id)
-      expect(user.approved).to be_falsey
+      expect(edited_user.approved).to be_falsey
     end
   end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 
 describe 'GET /awards' do
@@ -100,7 +101,7 @@ describe 'GET /award/:id' do
   it 'can successfully get heraldry' do
     award = create(:award, :heraldry)
     get award.heraldry.url
-    expect(response.content_type).to match(/^image\//)
+    expect(response.content_type).to match(%r{^image/})
     expect(response).to have_http_status(:success)
   end
 end

@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 require 'json'
 
 class Page < ActiveRecord::Base
   validates :body, presence: true
-  validates :slug, format: { with: /\A[a-z0-9_\/-]+\z/, message: "must contain only lowercase letters, numbers, '_', '-' and '/' characters" }
+  validates :slug, format: { with: %r{\A[a-z0-9_/-]+\z}, message: "must contain only lowercase letters, numbers, '_', '-' and '/' characters" }
   validates :slug, format: { with: /\A[a-z0-9].*\z/, message: 'must begin with a lowercase letter or a number' }
-  validates_uniqueness_of :slug
+  validates :slug, uniqueness: true
   validates :title, presence: true
   validates :user, presence: true
   validates :calendar_title, presence: true, if: :calendar
@@ -31,16 +32,12 @@ class Page < ActiveRecord::Base
   end
 
   def format_event_date(event)
-    DateTime.parse(event['start']).strftime('%a, %b %e')
+    Time.zone.parse(event['start']).strftime('%a, %b %e')
   end
 
   def format_event_time(event)
-    def format_time(datetime)
-      datetime.strftime('%l:%M %p')
-    end
-
-    start_time = DateTime.parse(event['start'])
-    end_time = DateTime.parse(event['end'])
+    start_time = Time.zone.parse(event['start'])
+    end_time = Time.zone.parse(event['end'])
     if start_time.to_date == end_time.to_date
       "#{format_time(start_time)} - #{format_time(end_time)}"
     else
@@ -49,6 +46,10 @@ class Page < ActiveRecord::Base
   end
 
   private
+
+  def format_time(datetime)
+    datetime.strftime('%l:%M %p')
+  end
 
   def load_calendar_if_needed
     if calendar && !@events

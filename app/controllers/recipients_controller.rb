@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class RecipientsController < ApplicationController
   load_and_authorize_resource
 
@@ -23,7 +24,8 @@ class RecipientsController < ApplicationController
   # GET /recipients.json
   def index
     order = 'coalesce(sca_name,mundane_name) ASC'
-    @recipients = if @search = params[:search]
+    @search = params[:search]
+    @recipients = if @search
                     search_recipients(@search).order(order)
                   else
                     Recipient.order(order)

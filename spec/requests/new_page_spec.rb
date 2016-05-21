@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'pry'
 
@@ -36,7 +37,7 @@ describe 'POST /pages' do
     end
 
     it 'does not allow previewing pages' do
-      expect_page_action_to_fail_with_user(create(:user), commit = 'Preview')
+      expect_page_action_to_fail_with_user(create(:user), commit: 'Preview')
     end
   end
 
@@ -46,7 +47,7 @@ describe 'POST /pages' do
     end
 
     it 'does not allow previewing pages' do
-      expect_page_action_to_fail_with_user(nil, commit = 'Preview')
+      expect_page_action_to_fail_with_user(nil, commit: 'Preview')
     end
   end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'google/apis/calendar_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
@@ -6,14 +7,25 @@ require 'fileutils'
 
 namespace :calendar do
   task :update do
-    CONFIG_PATH = "#{::Rails.root}/config".freeze
+    CONFIG_PATH = "#{::Rails.root}/config"
     config = YAML.load_file("#{CONFIG_PATH}/calendar.yml")
-    OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
+    OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
     APPLICATION_NAME = config['application_name']
-    CLIENT_SECRETS_PATH = "#{CONFIG_PATH}/#{config['client_secrets_path']}".freeze
-    CREDENTIALS_PATH = "#{CONFIG_PATH}/#{config['credentials_path']}".freeze
-    OUTPUT_PATH = "#{CONFIG_PATH}/#{config['json_output_path']}".freeze
+    CLIENT_SECRETS_PATH = "#{CONFIG_PATH}/#{config['client_secrets_path']}"
+    CREDENTIALS_PATH = "#{CONFIG_PATH}/#{config['credentials_path']}"
+    OUTPUT_PATH = "#{CONFIG_PATH}/#{config['json_output_path']}"
     SCOPE = config['scope']
+
+    def initial_credentials
+      url = authorizer.get_authorization_url(
+        base_url: OOB_URI)
+      puts 'Open the following URL in the browser and enter the ' \
+        'resulting code after authorization'
+      puts url
+      code = gets
+      authorizer.get_and_store_credentials_from_code(
+        user_id: user_id, code: code, base_url: OOB_URI)
+    end
 
     def authorize
       FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
@@ -24,16 +36,7 @@ namespace :calendar do
         client_id, SCOPE, token_store)
       user_id = 'default'
       credentials = authorizer.get_credentials(user_id)
-      if credentials.nil?
-        url = authorizer.get_authorization_url(
-          base_url: OOB_URI)
-        puts 'Open the following URL in the browser and enter the ' \
-             'resulting code after authorization'
-        puts url
-        code = gets
-        credentials = authorizer.get_and_store_credentials_from_code(
-          user_id: user_id, code: code, base_url: OOB_URI)
-      end
+      initial_credentials if credentials.nil?
       credentials
     end
 
@@ -41,11 +44,6 @@ namespace :calendar do
     service = Google::Apis::CalendarV3::CalendarService.new
     service.client_options.application_name = APPLICATION_NAME
     service.authorization = authorize
-
-    # Initialize the API
-    #    client = Google::APIClient.new(:application_name => APPLICATION_NAME)
-    #    client.authorization = authorize
-    calendar_api = Google::Apis::CalendarV3::CalendarService.new
 
     calendars = config['calendars']
     queries = config['queries']
@@ -70,7 +68,7 @@ namespace :calendar do
       query['max_results'] ||= 12
       query['query'] ||= /.*/
 
-      timeMax = Date.today >> query['horizon']
+      time_max = Time.zone.today >> query['horizon']
 
       events = []
       query['calendars'].each do |calendar_sym|
@@ -78,8 +76,8 @@ namespace :calendar do
           calendars[calendar_sym],
           single_events: true,
           order_by: 'startTime',
-          time_min: Date.today.to_time.iso8601,
-          time_max: (Date.today >> query['horizon']).to_time.iso8601
+          time_min: Time.zone.today.to_time.iso8601,
+          time_max: time_max.to_time.iso8601
         ).items.select { |e| e.summary.match(query['query']) }
       end
       sorted_events = events.sort_by { |e| e.start.date_time }.first(query['max_results'])

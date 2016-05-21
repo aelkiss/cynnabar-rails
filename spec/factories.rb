@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 FactoryGirl.define do
   factory :office do
     sequence(:email) { |n| "office#{n}@example.com" }

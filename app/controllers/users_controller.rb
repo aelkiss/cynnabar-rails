@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+# Controller for user display & editing
 class UsersController < ApplicationController
   load_and_authorize_resource
 
@@ -18,8 +20,6 @@ class UsersController < ApplicationController
     end
   end
 
-  #
-  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:email, :name, :approved, :role)
   end

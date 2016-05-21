@@ -1,4 +1,16 @@
 AllCops:
   Exclude:
-    - 'db/migrate/*'
+    - 'db/**/*'
+    - 'config/**/*'
     - 'lib/tasks/awardload.rake'
+  TargetRubyVersion: 2.3
+
+Rails:
+  Enabled: true
+
+Metrics/LineLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+

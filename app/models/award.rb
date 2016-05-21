@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Award < ActiveRecord::Base
   include Heraldic
 
@@ -18,6 +19,4 @@ class Award < ActiveRecord::Base
   def to_s
     name
   end
-
-  private
 end

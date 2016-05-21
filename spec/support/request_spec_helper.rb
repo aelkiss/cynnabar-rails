@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module RequestSpecHelper
   def self.included(base)
     ::Warden.test_mode!
@@ -16,6 +17,4 @@ module RequestSpecHelper
       proxy.logout(:user)
     end
   end
-
-  private
 end
