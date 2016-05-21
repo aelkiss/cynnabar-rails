@@ -6,13 +6,13 @@ require 'fileutils'
 
 namespace :calendar do
   task :update do
-    CONFIG_PATH = "#{::Rails.root}/config"
+    CONFIG_PATH = "#{::Rails.root}/config".freeze
     config = YAML.load_file("#{CONFIG_PATH}/calendar.yml")
-    OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'
+    OOB_URI = 'urn:ietf:wg:oauth:2.0:oob'.freeze
     APPLICATION_NAME = config['application_name']
-    CLIENT_SECRETS_PATH = "#{CONFIG_PATH}/#{config['client_secrets_path']}"
-    CREDENTIALS_PATH = "#{CONFIG_PATH}/#{config['credentials_path']}"
-    OUTPUT_PATH = "#{CONFIG_PATH}/#{config['json_output_path']}"
+    CLIENT_SECRETS_PATH = "#{CONFIG_PATH}/#{config['client_secrets_path']}".freeze
+    CREDENTIALS_PATH = "#{CONFIG_PATH}/#{config['credentials_path']}".freeze
+    OUTPUT_PATH = "#{CONFIG_PATH}/#{config['json_output_path']}".freeze
     SCOPE = config['scope']
 
     def authorize
@@ -27,8 +27,8 @@ namespace :calendar do
       if credentials.nil?
         url = authorizer.get_authorization_url(
           base_url: OOB_URI)
-        puts "Open the following URL in the browser and enter the " +
-          "resulting code after authorization"
+        puts 'Open the following URL in the browser and enter the ' \
+             'resulting code after authorization'
         puts url
         code = gets
         credentials = authorizer.get_and_store_credentials_from_code(
@@ -55,12 +55,10 @@ namespace :calendar do
 
     results.items.each do |calendar|
       calendar_sym = calendars_invert[calendar.summary]
-      if calendar_sym
-        calendars[calendar_sym] = calendar.id 
-      end
+      calendars[calendar_sym] = calendar.id if calendar_sym
     end
 
-    queries.each do |sym,query|
+    queries.each do |sym, query|
       puts "CALENDAR QUERY FOR #{sym}"
 
       if query['calendar'] == 'all'
@@ -81,12 +79,12 @@ namespace :calendar do
           single_events: true,
           order_by: 'startTime',
           time_min: Date.today.to_time.iso8601,
-          time_max: (Date.today >> query['horizon']).to_time.iso8601 
+          time_max: (Date.today >> query['horizon']).to_time.iso8601
         ).items.select { |e| e.summary.match(query['query']) }
       end
-      sorted_events = events.sort_by{ |e| e.start.date_time }.first(query['max_results'])
+      sorted_events = events.sort_by { |e| e.start.date_time }.first(query['max_results'])
       hash_events = sorted_events.map do |event|
-        Hash[ [:description, :end, :html_link, :location, :start, :summary].map do |field|
+        Hash[[:description, :end, :html_link, :location, :start, :summary].map do |field|
           [field.to_s, event.send(field)]
         end]
       end
@@ -95,11 +93,10 @@ namespace :calendar do
         event['end'] = event['end'].date_time
       end
 
-      File.open("#{OUTPUT_PATH}/#{sym}.json","w") do |file|
+      File.open("#{OUTPUT_PATH}/#{sym}.json", 'w') do |file|
         file.write({ events: hash_events,
-                    link: query['link'] }.to_json)
+                     link: query['link'] }.to_json)
       end
-
     end
   end
 end

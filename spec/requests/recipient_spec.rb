@@ -1,7 +1,7 @@
-require "rails_helper" 
+require 'rails_helper'
 
-describe "GET /recipients" do
-  it "gets the index" do
+describe 'GET /recipients' do
+  it 'gets the index' do
     recipient1 = create(:recipient)
     recipient2 = create(:recipient)
     get recipients_path
@@ -10,7 +10,7 @@ describe "GET /recipients" do
     expect(response.body).to include(recipient2.to_s)
   end
 
-  it "can search by mundane name" do
+  it 'can search by mundane name' do
     recipient1 = create(:recipient, mundane_name: 'Mundane One')
     recipient2 = create(:recipient, mundane_name: 'Mundane Two')
     get recipients_path, search: 'Mundane One'
@@ -19,7 +19,7 @@ describe "GET /recipients" do
     expect(response.body).not_to include(recipient2.to_s)
   end
 
-  it "can search by sca name" do
+  it 'can search by sca name' do
     recipient1 = create(:recipient, sca_name: 'Scaname One')
     recipient2 = create(:recipient, sca_name: 'Scaname Two')
     get recipients_path, search: 'Scaname One'
@@ -28,7 +28,7 @@ describe "GET /recipients" do
     expect(response.body).not_to include(recipient2.to_s)
   end
 
-  it "includes awardings when searching" do
+  it 'includes awardings when searching' do
     awarding = create(:awarding)
     get recipients_path, search: awarding.recipient.mundane_name
     expect(response).to have_http_status(:success)
@@ -36,12 +36,12 @@ describe "GET /recipients" do
   end
 end
 
-describe "GET /recipients/armory" do
-  it "gets the name, armory, and blazon" do
+describe 'GET /recipients/armory' do
+  it 'gets the name, armory, and blazon' do
     recipient1 = create(:recipient, :heraldry, sca_name: 'Bob 1', heraldry_blazon: 'Azure')
     recipient2 = create(:recipient, :heraldry, sca_name: 'Bob 2', heraldry_blazon: 'Gules')
 
-    get armory_recipients_path 
+    get armory_recipients_path
 
     expect(response.body).to include(recipient1.sca_name)
     expect(response.body).to include(recipient2.sca_name)
@@ -60,72 +60,71 @@ describe "GET /recipients/armory" do
   end
 end
 
-describe "GET /recipients/new" do
-  it "as a herald, gets a form for a new user" do
+describe 'GET /recipients/new' do
+  it 'as a herald, gets a form for a new user' do
     sign_in(create(:user, :herald))
     get new_recipient_path
     expect(response).to have_http_status(:success)
   end
 end
 
-describe "POST /recipients" do
-  it "as a herald, allows creating recipient" do
+describe 'POST /recipients' do
+  it 'as a herald, allows creating recipient' do
     sign_in(create(:user, :herald))
-    expect { post recipients_path, recipient: attributes_for(:recipient) }.to change{Recipient.count}.by(1)
+    expect { post recipients_path, recipient: attributes_for(:recipient) }.to change { Recipient.count }.by(1)
     expect(response).to have_http_status(:redirect)
   end
 
-  it "as a normal user, does not allow creating recipient" do
+  it 'as a normal user, does not allow creating recipient' do
     sign_in(create(:user))
-    expect { post recipients_path, recipient: attributes_for(:recipient) }.to change{Recipient.count}.by(0)
+    expect { post recipients_path, recipient: attributes_for(:recipient) }.to change { Recipient.count }.by(0)
     expect(response).to have_http_status(:forbidden)
   end
 end
 
-describe "GET /recipient/:id" do
-  it "shows recipient" do
+describe 'GET /recipient/:id' do
+  it 'shows recipient' do
     recipient = create(:recipient)
     get recipient_path(recipient)
     expect(response).to have_http_status(:success)
     expect(response.body).to include(recipient.to_s)
   end
 
-  it "includes preferred pronouns" do
+  it 'includes preferred pronouns' do
     recipient = create(:recipient, :pronouns)
     get recipient_path(recipient)
     expect(response.body).to include(recipient.pronouns)
   end
 
-  it "includes the heraldry" do
+  it 'includes the heraldry' do
     recipient = create(:recipient, :heraldry)
     get recipient_path(recipient)
     expect(response.body).to include(recipient.heraldry.url)
   end
 
-  it "does not include image tag for heraldry if there is no heraldry" do
+  it 'does not include image tag for heraldry if there is no heraldry' do
     recipient = create(:recipient)
     get recipient_path(recipient)
     expect(response.body).not_to include(recipient.heraldry.url)
   end
 
-  it "can successfully get heraldry" do
+  it 'can successfully get heraldry' do
     recipient = create(:recipient, :heraldry)
     get recipient.heraldry.url
     expect(response.content_type).to match(/^image\//)
     expect(response).to have_http_status(:success)
   end
 
-  it "includes the blazon" do
+  it 'includes the blazon' do
     blazon = 'Azure, a bend or'
     recipient = create(:recipient, heraldry_blazon: blazon)
     get recipient_path(recipient)
     expect(response.body).to include(blazon)
   end
-
 end
 
-describe "GET /recipient/:id/edit" do
-  it "as a herald, shows edit form" do
+describe 'GET /recipient/:id/edit' do
+  it 'as a herald, shows edit form' do
     sign_in(create(:user, :herald))
     recipient = create(:recipient)
     get edit_recipient_path(recipient)
@@ -134,68 +133,64 @@ describe "GET /recipient/:id/edit" do
   end
 end
 
-describe "PATCH /recipient/:id" do
-  context "as a herald" do
-    before(:each) do 
+describe 'PATCH /recipient/:id' do
+  context 'as a herald' do
+    before(:each) do
       sign_in(create(:user, :herald))
     end
 
-    it "can update recipient" do
+    it 'can update recipient' do
       recipient = create(:recipient)
       patch recipient_path(recipient), recipient: attributes_for(:recipient)
       expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to match recipient_path(recipient)
     end
 
-    it "can edit title" do
+    it 'can edit title' do
       recipient = create(:recipient)
-      patch recipient_path(recipient), recipient: {title: 'Mytitle'}
+      patch recipient_path(recipient), recipient: { title: 'Mytitle' }
       # reload
       recipient = Recipient.find(recipient.id)
       expect(recipient.title).to eq('Mytitle')
     end
 
-    it "can edit pronouns" do
+    it 'can edit pronouns' do
       recipient = create(:recipient)
-      patch recipient_path(recipient), recipient: {pronouns: 'Pronouns'}
+      patch recipient_path(recipient), recipient: { pronouns: 'Pronouns' }
       # reload
       recipient = Recipient.find(recipient.id)
       expect(recipient.pronouns).to eq('Pronouns')
     end
-
   end
 end
 
-describe "DELETE /recipient/:id" do
-  it "as an admin, deletes recipient" do
+describe 'DELETE /recipient/:id' do
+  it 'as an admin, deletes recipient' do
     recipient = create(:recipient)
     sign_in(create(:user, :admin))
-    expect { delete recipient_path(recipient) }.to change{Recipient.count}.by(-1)
+    expect { delete recipient_path(recipient) }.to change { Recipient.count }.by(-1)
     expect(response).to have_http_status(:redirect)
     expect(response.redirect_url).to match recipients_path
   end
 end
 
-describe "GET /recipients/autocomplete_recipient_name" do
-  context "when signed in as a herald" do
-    before(:each) { sign_in create(:user,:herald) }
+describe 'GET /recipients/autocomplete_recipient_name' do
+  context 'when signed in as a herald' do
+    before(:each) { sign_in create(:user, :herald) }
 
-    it "autocompletes recipient name" do
+    it 'autocompletes recipient name' do
       recipient = create(:recipient)
-      get "/recipients/autocomplete_recipient_name",  term: recipient.mundane_name.split(" ")[0].downcase
+      get '/recipients/autocomplete_recipient_name', term: recipient.mundane_name.split(' ')[0].downcase
       response_obj = JSON.parse(@response.body)
-      expect(response_obj[0]["id"].to_i).to eq(recipient.id)
+      expect(response_obj[0]['id'].to_i).to eq(recipient.id)
     end
 
-    it "returns multiple options for autocomplete" do
+    it 'returns multiple options for autocomplete' do
       recipient1 = create(:recipient)
       recipient2 = create(:recipient)
-      get "/recipients/autocomplete_recipient_name",  term: "name"
+      get '/recipients/autocomplete_recipient_name', term: 'name'
       response_obj = JSON.parse(@response.body)
       expect(response_obj.length).to eq(Recipient.count)
     end
   end
-
 end
-
-

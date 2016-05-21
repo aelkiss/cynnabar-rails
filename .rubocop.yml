@@ -1,0 +1,4 @@
+AllCops:
+  Exclude:
+    - 'db/migrate/*'
+    - 'lib/tasks/awardload.rake'

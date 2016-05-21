@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   validates :approved, inclusion: { in: [true, false] }
   belongs_to :recipient
 
-  enum role: [ :admin, :normal, :herald ]
+  enum role: [:admin, :normal, :herald]
   after_initialize :set_defaults
 
   def set_defaults

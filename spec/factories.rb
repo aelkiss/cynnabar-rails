@@ -1,5 +1,4 @@
-FactoryGirl.define do  
-
+FactoryGirl.define do
   factory :office do
     sequence(:email) { |n| "office#{n}@example.com" }
     sequence(:name) { |n| "Office #{n}" }
@@ -7,12 +6,11 @@ FactoryGirl.define do
     association :page
   end
 
-
   factory :user do
     sequence(:email) { |n| "user#{n}@example.com" }
     role :normal
-    password "password"
-    name "Bob Exampleman"
+    password 'password'
+    name 'Bob Exampleman'
     approved true
 
     trait :admin do
@@ -28,7 +26,6 @@ FactoryGirl.define do
     end
   end
 
-
   factory :page do
     sequence(:slug) { |n| "slug#{n}" }
     title { "title for #{slug}" }
@@ -41,7 +38,6 @@ FactoryGirl.define do
       body { "<h1>Some sample markup for #{slug}</h1><!-- CALENDAR -->" }
     end
   end
-
 
   factory :awarding do
     association :award, :hasgroup
@@ -60,15 +56,14 @@ FactoryGirl.define do
       ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
       sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-      mollit anim id est laborum.' 
+      mollit anim id est laborum.'
     end
   end
 
-
   factory :award do
-    name "test award"
+    name 'test award'
     precedence 0
-    description "this is a long description of what the test award is"
+    description 'this is a long description of what the test award is'
     society false
 
     trait :hasgroup do
@@ -87,7 +82,6 @@ FactoryGirl.define do
       heraldry { File.new("#{Rails.root}/spec/assets/heraldry.gif") }
     end
   end
-
 
   factory :recipient do
     mundane_name 'mundane name'
@@ -116,10 +110,7 @@ FactoryGirl.define do
     end
   end
 
-
   factory :group do
-    name "group name"
+    name 'group name'
   end
-
-
 end

@@ -1,18 +1,17 @@
 class RecipientsController < ApplicationController
   load_and_authorize_resource
 
-  # override autocomplete from rails-autocomplete to search composite 
+  # override autocomplete from rails-autocomplete to search composite
   def autocomplete_recipient_name
     term = params[:term]
 
-    if term && !term.blank?
-      items = search_recipients(term)
-    else
-      items = {}
-    end
+    items = if term && !term.blank?
+              search_recipients(term)
+            else
+              {}
+            end
 
-    render :json => json_for_autocomplete(items, :to_s)
-
+    render json: json_for_autocomplete(items, :to_s)
   end
 
   def armory
@@ -23,12 +22,12 @@ class RecipientsController < ApplicationController
   # GET /recipients
   # GET /recipients.json
   def index
-    order = "coalesce(sca_name,mundane_name) ASC"
-    if @search = params[:search]
-      @recipients = search_recipients(@search).order(order)
-    else 
-      @recipients = Recipient.order(order)
-    end
+    order = 'coalesce(sca_name,mundane_name) ASC'
+    @recipients = if @search = params[:search]
+                    search_recipients(@search).order(order)
+                  else
+                    Recipient.order(order)
+                  end
   end
 
   # GET /recipients/1
@@ -93,6 +92,6 @@ class RecipientsController < ApplicationController
   end
 
   def search_recipients(term)
-    Recipient.where("mundane_name like :term or sca_name like :term or also_known_as like :term or formerly_known_as like :term", term: "%#{term}%")
+    Recipient.where('mundane_name like :term or sca_name like :term or also_known_as like :term or formerly_known_as like :term', term: "%#{term}%")
   end
 end

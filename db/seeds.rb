@@ -33,5 +33,5 @@ kingdoms = ['Kingdom of Æthelmearc',
             'Kingdom of the West']
 
 kingdoms.each do |kingdom|
-    Group.create(name: kingdom)
+  Group.create(name: kingdom)
 end

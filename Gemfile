@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 gem 'mysql2'
@@ -38,8 +37,8 @@ gem 'google-api-client'
 
 gem 'rinku'
 
-gem 'paperclip', "~> 4.3"
-gem "recaptcha", require: "recaptcha/rails"
+gem 'paperclip', '~> 4.3'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 # Use Capistrano for deployment
 group :development do
@@ -68,4 +67,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
 end
-

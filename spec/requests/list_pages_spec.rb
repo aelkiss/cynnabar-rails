@@ -1,8 +1,8 @@
 require 'rails_helper'
 require 'pry'
 
-describe "GET /pages" do
-  it "as an admin, shows all the pages with title, slug, and owner" do
+describe 'GET /pages' do
+  it 'as an admin, shows all the pages with title, slug, and owner' do
     sign_in(create(:user, :admin))
     user = create(:user)
     page1 = create(:page)
@@ -18,13 +18,13 @@ describe "GET /pages" do
     expect(response.body).to include(user.name)
   end
 
-  it "as a normal user, does not list pages" do
+  it 'as a normal user, does not list pages' do
     sign_in(create(:user))
     get pages_path
     expect(response).to have_http_status(:forbidden)
   end
 
-  it "when not logged in, does not list pages" do
+  it 'when not logged in, does not list pages' do
     get pages_path
     expect(response).to have_http_status(:forbidden)
   end

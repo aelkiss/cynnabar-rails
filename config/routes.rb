@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   resources :offices do
     get 'contact' => 'contact#new'
     post 'contact' => 'contact#create'
@@ -14,15 +13,15 @@ Rails.application.routes.draw do
     post 'contact' => 'contact#create'
   end
 
-  resources :awardings 
+  resources :awardings
 
   resources :recipients do
-    get :autocomplete_recipient_name, :on => :collection
-    get :armory, :on => :collection
+    get :autocomplete_recipient_name, on: :collection
+    get :armory, on: :collection
   end
 
   resources :awards do
-    get :autocomplete_award_name, :on => :collection
+    get :autocomplete_award_name, on: :collection
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -30,14 +29,13 @@ Rails.application.routes.draw do
   get '/pages' => 'pages#index'
   get '/pages/new' => 'pages#new', as: :new_page
   post '/pages' => 'pages#create'
-  get '/*slug/edit' => 'pages#edit' , as: :edit_page
+  get '/*slug/edit' => 'pages#edit', as: :edit_page
   get '/*slug' => 'pages#show', as: :page
   patch '/*slug' => 'pages#update'
   put '/*slug' => 'pages#update'
   delete '/*slug' => 'pages#destroy'
 
   root 'pages#show', defaults: { slug: 'home' }
-
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'

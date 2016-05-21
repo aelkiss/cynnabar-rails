@@ -17,8 +17,8 @@ class PagesController < ApplicationController
 
   def create
     # required for what ckeditor sends
-    response.headers["X-XSS-Protection"] = 0
-    if params[:commit] == 'Save' 
+    response.headers['X-XSS-Protection'] = 0
+    if params[:commit] == 'Save'
       check_set_owner
       if @page.save
         redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
@@ -33,10 +33,10 @@ class PagesController < ApplicationController
 
   def update
     # required for what ckeditor sends
-    response.headers["X-XSS-Protection"] = 0
+    response.headers['X-XSS-Protection'] = 0
     if params[:commit] == 'Save'
       check_set_owner
-      if @page.update(page_params) 
+      if @page.update(page_params)
         redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
       else
         render :edit
@@ -54,29 +54,27 @@ class PagesController < ApplicationController
 
   private
 
-    def check_set_owner
-      params.require(:page)
-      if params[:page][:user_id] 
-        authorize! :set_owner, @page
-        @page.user = User.find(params[:page][:user_id])
-      elsif @page.user == nil
-        authorize! :set_owner, @page
-        @page.user = current_user
-      end
+  def check_set_owner
+    params.require(:page)
+    if params[:page][:user_id]
+      authorize! :set_owner, @page
+      @page.user = User.find(params[:page][:user_id])
+    elsif @page.user.nil?
+      authorize! :set_owner, @page
+      @page.user = current_user
     end
+  end
 
-    def show_preview
-      params.require(:page)
-      if params[:page][:body]
-        @body = params[:page][:body]
-      end
-    end
+  def show_preview
+    params.require(:page)
+    @body = params[:page][:body] if params[:page][:body]
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def page_params
-      [:calendar_details, :calendar_title, :calendar, :user_id].each do |param|
-        params[:page][param] = nil if params[:page][param] and params[:page][param].empty?
-      end
-      params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title, :user_id)
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def page_params
+    [:calendar_details, :calendar_title, :calendar, :user_id].each do |param|
+      params[:page][param] = nil if params[:page][param] && params[:page][param].empty?
     end
+    params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title, :user_id)
+  end
 end

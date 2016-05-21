@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
- before_filter :configure_sign_up_params, only: [:create]
-# before_filter :configure_account_update_params, only: [:update]
+  before_filter :configure_sign_up_params, only: [:create]
+  # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
@@ -42,17 +42,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.for(:sign_up) << :recipient_id << :name
   end
 
-  def build_resource(hash=nil)
+  def build_resource(hash = nil)
     hash ||= {}
     super
     recipient = nil
-    if(hash[:recipient_id])
+    if hash[:recipient_id]
       recipient = Recipient.find(hash[:recipient_id])
       # recipient must have either sca or mundane name. preferentially use sca name
       resource.name = recipient.sca_name
       resource.name ||= recipient.mundane_name
       resource.recipient = recipient
-    else 
+    else
       resource.name = hash[:name]
     end
   end

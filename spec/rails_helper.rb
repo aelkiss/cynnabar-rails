@@ -2,7 +2,7 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
@@ -62,21 +62,18 @@ RSpec.configure do |config|
   config.include Rails.application.routes.url_helpers, type: :request
 
   # Don't try to run javascript tests if DISPLAY is not set
-  if !ENV['DISPLAY']
-    config.filter_run_excluding js: true
-  end
-
+  config.filter_run_excluding js: true unless ENV['DISPLAY']
 end
 
-RSpec.shared_context "when signed in through capybara" do
+RSpec.shared_context 'when signed in through capybara' do
   def sign_in(user)
     # required for sign in redirect
     create(:page, slug: 'home')
 
     visit '/users/sign_in'
-    fill_in "user_email", with: user.email
-    fill_in "user_password", with: user.password
-    click_on "Log in"
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: user.password
+    click_on 'Log in'
   end
 
   def sign_out(user)
@@ -91,9 +88,9 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-def choose_autocomplete_result(text, input_id="input[data-autocomplete]")
-  page.execute_script %Q{ $('#{input_id}').trigger("focus") }
-  page.execute_script %Q{ $('#{input_id}').trigger("keydown") }
+def choose_autocomplete_result(text, input_id = 'input[data-autocomplete]')
+  page.execute_script %{ $('#{input_id}').trigger("focus") }
+  page.execute_script %{ $('#{input_id}').trigger("keydown") }
   expect(page).to have_selector 'ul.ui-autocomplete li.ui-menu-item'
-  page.execute_script %Q{ $(".ui-menu-item:contains('#{text}')").trigger("mouseenter").trigger("click"); }
+  page.execute_script %{ $(".ui-menu-item:contains('#{text}')").trigger("mouseenter").trigger("click"); }
 end
