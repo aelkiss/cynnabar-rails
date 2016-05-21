@@ -5,6 +5,9 @@
     <% if current_user.recipient and can? :edit, current_user.recipient %>
       <li><%= link_to('Edit Profile', edit_recipient_path(current_user.recipient)) %></li>
     <% end %>
+    <% if can? :list, User %>
+      <li><%= link_to 'List Users', users_path %></li>
+    <% end %>
     <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %> 
   </ul>
 </li>
