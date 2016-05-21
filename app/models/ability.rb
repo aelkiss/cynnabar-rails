@@ -7,6 +7,7 @@ class Ability
     if user.approved?
       can :update, Page, :user_id => user.id
       can :update, Recipient, :id => user.recipient_id
+      can :update, User, :id => user.id
     end
 
     if user.admin?

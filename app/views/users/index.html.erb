@@ -2,25 +2,42 @@
 
 <table class="userlist">
 
+
   <tr>
-    <th>Title</th>
-    <th>Path</th>
-    <th>Owner</th>
+    <th colspan="5"> <h3>Users Pending Approval</h3> </th>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Recipient</th>
     <th></th>
     <th></th>
   </tr>
 
-  <h3>Users Pending Approval</h3>
-
-  <% @users.each do |user| %>
+  <% @unapproved_users.each do |user| %>
     <tr>
       <%= render partial: 'user_row', locals: {user: user} %>
       <td>
-        <%= link_to 'Approve', user_path(user, approve: true) %>
+        <%= link_to 'Approve', user_path(user, user: {approved: true}), method: :patch %>
       </td>
     </tr>
   <% end %>
 
-  <h3>Approved Users</h3>
+  <tr>
+    <th colspan="5"> <h3>Approved Users</h3> </th>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <th>Name</th>
+    <th>Recipient</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @approved_users.each do |user| %>
+    <tr>
+      <%= render partial: 'user_row', locals: {user: user} %>
+    </tr>
+  <% end %>
 
 </table>
