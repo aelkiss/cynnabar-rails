@@ -57,9 +57,8 @@ class AwardingsController < ApplicationController
   private
 
   def nil_award_name
-    if params[:other_award] && params[:other_award] == '1' &&
-       params[:awarding][:award_name] && params[:awarding][:award_name].empty?
-      params[:awarding][:award_name] = nil
+    if params[:other_award] == '1'
+      params[:awarding][:award_name] = nil if params[:awarding][:award_name].blank?
     else
       params[:awarding][:award_name] = nil
       params[:awarding][:group_id] = nil
@@ -67,7 +66,7 @@ class AwardingsController < ApplicationController
   end
 
   def nil_unknown_date
-    if params[:awarding][:received] && params[:awarding][:received].match(/unknown/i)
+    if params[:awarding][:received]&.match(/unknown/i)
       params[:awarding][:received] = nil
     end
   end
