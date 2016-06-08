@@ -18,7 +18,7 @@
     <tr>
       <%= render partial: 'user_row', locals: {user: user} %>
       <td>
-        <%= link_to 'Approve', user_path(user, user: {approved: true}), method: :patch %>
+        <%= link_to 'Approve', user_path(user, user: {approved: true}), method: :patch, data: { confirm: 'Are you sure?' } %>
       </td>
     </tr>
   <% end %>
