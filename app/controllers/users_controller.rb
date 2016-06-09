@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   def update
     authorize! :manage, @user if user_params[:role] || user_params[:approved]
     if @user.update(user_params)
-      redirect_to @user, notice: 'Profile was successfully updated.'
+      redirect_to update_redirect_path, notice: 'Profile was successfully updated.'
     else
       render :edit
     end
@@ -28,5 +28,13 @@ class UsersController < ApplicationController
 
   def authorize_manage(user_params, field)
     authorize! :manage, @user if user_params[field]
+  end
+
+  def update_redirect_path
+    if user_params[:approved]
+      users_path
+    else
+      @user
+    end
   end
 end

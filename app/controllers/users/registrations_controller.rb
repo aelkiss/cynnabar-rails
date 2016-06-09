@@ -40,13 +40,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.for(:sign_up) << :recipient_id << :name
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:recipient_id, :name])
   end
 
   def build_resource(hash = nil)
     hash ||= {}
     super
-    if hash[:recipient_id]
+    if hash[:recipient_id].present?
       recipient = Recipient.find(hash[:recipient_id])
       # recipient must have either sca or mundane name. preferentially use sca name
       resource.name = recipient.sca_name
