@@ -1,16 +1,12 @@
 # frozen_string_literal: true
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
+  prepend_before_action :check_captcha, only: [:create]
   # before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   # def new
   #   super
-  # end
-
-  # POST /resource
-  # def create
-  #  super
   # end
 
   # GET /resource/edit
@@ -37,7 +33,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:recipient_id, :name])
@@ -55,6 +51,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       resource.name = hash[:name]
     end
+  end
+
+  def check_captcha
+    if verify_recaptcha
+      true
+    else
+      self.resource = resource_class.new sign_up_params
+      respond_with_navigational(resource) { render :new }
+    end 
   end
 
   # If you have extra params to permit, append them to the sanitizer.
