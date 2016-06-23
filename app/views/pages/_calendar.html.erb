@@ -17,7 +17,7 @@
               <% if event['location'] %>
                 <p class="event-location">Where: <%= event['location'] %> (<a href="http://maps.google.com/?q=<%= event['location'] %>">Map</a>) </p>
               <% end %>
-              <blockquote class="event-details"><%== Rinku.auto_link(event['description'].gsub("\n","<br>"), :all, 'class="calendar_link"') %></blockquote>
+              <blockquote class="event-details"><%== Rinku.auto_link( (event['description'] || '').gsub("\n","<br>"), :all, 'class="calendar_link"') %></blockquote>
             </div>
           </div>
         </li>
