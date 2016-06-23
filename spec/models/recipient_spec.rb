@@ -106,6 +106,26 @@ describe Recipient, type: :model do
     expect(user.recipient.user).to eq(user)
   end
 
+  it 'can have a mundane bio' do
+    recipient = create(:recipient, mundane_bio: 'This is a test bio')
+    expect(recipient).to be_valid
+  end
+
+  it 'can have an sca bio' do
+    recipient = create(:recipient, sca_bio: 'This is a test bio')
+    expect(recipient).to be_valid
+  end
+
+  it 'can have activities' do
+    recipient = create(:recipient, activities: 'These are some activities')
+    expect(recipient).to be_valid
+  end
+
+  it 'can have food preferences' do
+    recipient = create(:recipient, food_prefs: 'These are some food preferences')
+    expect(recipient).to be_valid
+  end
+
   it do
     is_expected.to validate_attachment_content_type(:heraldry)
       .allowing('image/png', 'image/jpeg', 'image/gif')
