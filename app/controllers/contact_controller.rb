@@ -2,18 +2,23 @@
 class ContactController < ApplicationController
   # POST /user/contact
   def create
-    @contacted_thing = contacted_thing
-    @referring_page = params[:referring_page]
 
-    # reject it if it isn't on this site
-    @referring_page = nil unless @referring_page.match("^#{root_url}")
+    if verify_recaptcha
+      @contacted_thing = contacted_thing
+      @referring_page = params[:referring_page]
 
-    feedback = params[:feedback]
-    from_name = params[:from_name]
-    from_email = params[:from_email]
-    subject = params[:subject]
+      # reject it if it isn't on this site
+      @referring_page = nil unless @referring_page.match("^#{root_url}")
 
-    ContactMailer.contact_email(@contacted_thing, from_email, from_name, subject, feedback).deliver_later
+      feedback = params[:feedback]
+      from_name = params[:from_name]
+      from_email = params[:from_email]
+      subject = params[:subject]
+
+      ContactMailer.contact_email(@contacted_thing, from_email, from_name, subject, feedback).deliver_later
+    else
+      render 'new'
+    end
   end
 
   # GET /user/contact

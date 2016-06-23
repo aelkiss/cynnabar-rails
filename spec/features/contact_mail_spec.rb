@@ -49,4 +49,12 @@ RSpec.feature 'Contact email' do
     send_mail
     expect_email(user.email, page_path(page))
   end
+
+  scenario 'does not send email without recaptcha' do
+    Recaptcha.configuration.skip_verify_env.delete("test")
+    office = create(:office, page: create(:page))
+    visit page_path(office.page)
+    click_on 'Contact'
+    expect { send_mail }.not_to change(ActionMailer::Base.deliveries, :count)
+  end
 end
