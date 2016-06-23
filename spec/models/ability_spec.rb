@@ -4,7 +4,7 @@ require 'cancan/matchers'
 
 describe 'Ability' do
   context 'when the user is a normal user' do
-    let(:user) { create(:user,:has_recipient) }
+    let(:user) { create(:user, :has_recipient) }
     subject { Ability.new(user) }
 
     context 'when the user has a recipient' do

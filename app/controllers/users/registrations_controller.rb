@@ -59,7 +59,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       self.resource = resource_class.new sign_up_params
       respond_with_navigational(resource) { render :new }
-    end 
+    end
   end
 
   # If you have extra params to permit, append them to the sanitizer.

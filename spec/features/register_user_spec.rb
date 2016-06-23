@@ -54,9 +54,7 @@ feature 'User approval', js: true do
       find(:xpath, "//tr[td[a[contains(text(),'#{user.email}')]]]//a[contains(text(),'Approve')]").click
     end
 
-    expect(current_path).to eq("/users")
+    expect(current_path).to eq('/users')
     expect(User.find(user.id).approved).to be(true)
-
   end
-
 end

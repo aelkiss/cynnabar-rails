@@ -51,7 +51,7 @@ RSpec.feature 'Contact email' do
   end
 
   scenario 'does not send email without recaptcha' do
-    Recaptcha.configuration.skip_verify_env.delete("test")
+    Recaptcha.configuration.skip_verify_env.delete('test')
     office = create(:office, page: create(:page))
     visit page_path(office.page)
     click_on 'Contact'

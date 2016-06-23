@@ -2,7 +2,6 @@
 class ContactController < ApplicationController
   # POST /user/contact
   def create
-
     if verify_recaptcha
       @contacted_thing = contacted_thing
       @referring_page = params[:referring_page]
