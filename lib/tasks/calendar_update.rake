@@ -68,7 +68,7 @@ namespace :calendar do
       query['max_results'] ||= 12
       query['query'] ||= /.*/
 
-      time_max = Time.zone.today >> query['horizon']
+      time_max = Date.today >> query['horizon']
 
       events = []
       query['calendars'].each do |calendar_sym|
@@ -76,19 +76,19 @@ namespace :calendar do
           calendars[calendar_sym],
           single_events: true,
           order_by: 'startTime',
-          time_min: Time.zone.today.to_time.iso8601,
+          time_min: Date.today.to_time.iso8601,
           time_max: time_max.to_time.iso8601
         ).items.select { |e| e.summary.match(query['query']) }
       end
-      sorted_events = events.sort_by { |e| e.start.date_time }.first(query['max_results'])
+      sorted_events = events.sort_by { |e| e.start.date_time || e.start.date }.first(query['max_results'])
       hash_events = sorted_events.map do |event|
         Hash[[:description, :end, :html_link, :location, :start, :summary].map do |field|
           [field.to_s, event.send(field)]
         end]
       end
       hash_events.each do |event|
-        event['start'] = event['start'].date_time
-        event['end'] = event['end'].date_time
+        event['start'] = event['start'].date_time || event['start'].date
+        event['end'] = event['end'].date_time || event['end'].date
       end
 
       File.open("#{OUTPUT_PATH}/#{sym}.json", 'w') do |file|
