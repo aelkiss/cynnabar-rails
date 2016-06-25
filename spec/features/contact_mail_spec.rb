@@ -19,15 +19,14 @@ RSpec.feature 'Contact email' do
     click_on 'Send'
   end
 
-  def expect_email(expected_whom, expected_back)
-    # expect email to have been sent
+  # expect email to have been sent
+  def expect_email_to(expected_whom)
     email = ActionMailer::Base.deliveries.last
     expect(email.to[0]).to eq(expected_whom)
     expect(email.subject).to match(TEST_SUBJECT)
+  end
 
-    # asset reply to and body as well
-
-    # make sure we can get back to where we were
+  def expect_page_with_back_link(expected_back)
     expect(page.body).to have_content('feedback has been sent')
     click_on 'Back'
     expect(page.current_path).to eq expected_back
@@ -38,7 +37,8 @@ RSpec.feature 'Contact email' do
     visit page_path(office.page)
     click_on 'Contact'
     send_mail
-    expect_email(office.email, page_path(office.page))
+    expect_email_to(office.email)
+    expect_page_with_back_link(page_path(office.page))
   end
 
   scenario 'sends email to user' do
@@ -47,7 +47,8 @@ RSpec.feature 'Contact email' do
     visit page_path(page)
     click_on 'here'
     send_mail
-    expect_email(user.email, page_path(page))
+    expect_email_to(user.email)
+    expect_page_with_back_link(page_path(page))
   end
 
   scenario 'does not send email without recaptcha' do

@@ -3,18 +3,8 @@ class ContactController < ApplicationController
   # POST /user/contact
   def create
     if verify_recaptcha
-      @contacted_thing = contacted_thing
-      @referring_page = params[:referring_page]
-
-      # reject it if it isn't on this site
-      @referring_page = nil unless @referring_page.match("^#{root_url}")
-
-      feedback = params[:feedback]
-      from_name = params[:from_name]
-      from_email = params[:from_email]
-      subject = params[:subject]
-
-      ContactMailer.contact_email(@contacted_thing, from_email, from_name, subject, feedback).deliver_later
+      clean_referring_page
+      contact_user
     else
       render 'new'
     end
@@ -36,5 +26,18 @@ class ContactController < ApplicationController
     else
       raise ActionController::ParameterMissing 'office_id or user_id required'
     end
+  end
+
+  def clean_referring_page
+    @referring_page = params[:referring_page]
+    # reject it if it isn't on this site
+    @referring_page = nil unless @referring_page.match("^#{root_url}")
+  end
+
+  def contact_user
+    @contacted_thing = contacted_thing
+    ContactMailer.contact_email(@contacted_thing, params[:from_email],
+                                params[:from_name], params[:subject],
+                                params[:feedback]).deliver_later
   end
 end

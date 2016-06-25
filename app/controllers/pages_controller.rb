@@ -19,33 +19,13 @@ class PagesController < ApplicationController
   def create
     # required for what ckeditor sends
     response.headers['X-XSS-Protection'] = 0
-    if params[:commit] == 'Save'
-      check_set_owner
-      if @page.save
-        redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
-      else
-        render :new
-      end
-    else
-      show_preview
-      render :new
-    end
+    save_page_or_preview(:new, &:save)
   end
 
   def update
     # required for what ckeditor sends
     response.headers['X-XSS-Protection'] = 0
-    if params[:commit] == 'Save'
-      check_set_owner
-      if @page.update(page_params)
-        redirect_to "/#{@page.slug}", notice: 'Page was successfully updated.'
-      else
-        render :edit
-      end
-    else
-      show_preview
-      render :edit
-    end
+    save_page_or_preview(:edit) { |page| page.update(page_params) }
   end
 
   def destroy
@@ -77,5 +57,23 @@ class PagesController < ApplicationController
       params[:page][param] = nil if params[:page][param] && params[:page][param].empty?
     end
     params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title, :user_id)
+  end
+
+  def save_page_or_preview(template, &block)
+    if params[:commit] == 'Save'
+      check_set_owner
+      try_save_page(template, &block)
+    else
+      show_preview
+      render template
+    end
+  end
+
+  def try_save_page(template)
+    if yield(@page)
+      redirect_to "/#{@page.slug}", notice: 'Page was successfully created.'
+    else
+      render template
+    end
   end
 end
