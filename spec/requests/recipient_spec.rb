@@ -122,6 +122,15 @@ describe 'GET /recipient/:id' do
     get recipient_path(recipient)
     expect(response.body).to include(blazon)
   end
+
+  %w(mundane_bio sca_bio activities food_prefs).each do |bio_field|
+    it "includes the #{bio_field}" do
+      bio = "my test #{bio_field}"
+      recipient = create(:recipient, bio_field => bio)
+      get recipient_path(recipient)
+      expect(response.body).to include(bio)
+    end
+  end
 end
 
 describe 'GET /recipient/:id/edit' do

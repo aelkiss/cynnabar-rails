@@ -10,6 +10,28 @@
   <p><i><%= @recipient.heraldry_blazon %></i></p>
 <% end %>
 
+<% if @recipient.mundane_bio || @recipient.sca_bio %>
+  <h3>Biography</h3>
+<% end %>
+
+<% if @recipient.sca_bio %>
+  <p><%= @recipient.sca_bio %></p>
+<% end %>
+
+<% if @recipient.mundane_bio %>
+  <p><%= @recipient.mundane_bio %></p>
+<% end %>
+
+<% if @recipient.activities %>
+  <h3>Activities</h3>
+  <p><%= @recipient.activities %></p>
+<% end %>
+
+<% if @recipient.food_prefs %>
+  <h3>Food Preferences</h3>
+  <p><%= @recipient.food_prefs %></p>
+<% end %>
+
 <%= render partial: 'awards_table', locals: {recipient: @recipient} %>
 
 <% if can? :create, Awarding  %>
