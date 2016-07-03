@@ -116,19 +116,13 @@ describe 'GET /recipient/:id' do
     expect(response).to have_http_status(:success)
   end
 
-  it 'includes the blazon' do
-    blazon = 'Azure, a bend or'
-    recipient = create(:recipient, heraldry_blazon: blazon)
-    get recipient_path(recipient)
-    expect(response.body).to include(blazon)
-  end
-
-  %w(mundane_bio sca_bio activities food_prefs).each do |bio_field|
-    it "includes the #{bio_field}" do
-      bio = "my test #{bio_field}"
-      recipient = create(:recipient, bio_field => bio)
+  %w(heraldry_blazon mundane_bio 
+     sca_bio activities food_prefs).each do |text_field|
+    it "includes the #{text_field}" do
+      sample_text = "my test #{text_field}"
+      recipient = create(:recipient, text_field => sample_text)
       get recipient_path(recipient)
-      expect(response.body).to include(bio)
+      expect(response.body).to include(sample_text)
     end
   end
 end
@@ -171,6 +165,22 @@ describe 'PATCH /recipient/:id' do
       recipient = Recipient.find(recipient.id)
       expect(recipient.pronouns).to eq('Pronouns')
     end
+  end
+
+  context 'as a user with linked recipient' do
+    %w(heraldry_blazon mundane_bio 
+       sca_bio activities food_prefs).each do |text_field|
+      it "can edit #{text_field}" do
+        recipient = create(:recipient)
+        sign_in(create(:user, recipient: recipient))
+        sample_text = "My test #{text_field}"
+        patch recipient_path(recipient), recipient: { text_field => sample_text }
+        # reload
+        recipient = Recipient.find(recipient.id)
+        expect(recipient.send(text_field)).to eq(sample_text)
+      end
+    end
+
   end
 end
 

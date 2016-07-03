@@ -11,7 +11,7 @@
 <% end %>
 
 <% if @recipient.mundane_bio || @recipient.sca_bio %>
-  <h3>Biography</h3>
+  <h4>Biography</h4>
 <% end %>
 
 <% if @recipient.sca_bio %>
@@ -23,12 +23,12 @@
 <% end %>
 
 <% if @recipient.activities %>
-  <h3>Activities</h3>
+  <h4>Activities and Interests</h4>
   <p><%= @recipient.activities %></p>
 <% end %>
 
 <% if @recipient.food_prefs %>
-  <h3>Food Preferences</h3>
+  <h4>Food Preferences</h4>
   <p><%= @recipient.food_prefs %></p>
 <% end %>
 

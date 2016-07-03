@@ -9,6 +9,11 @@ $grid-float-breakpoint: $screen-md-min;
 $main-background-color: #FFFFCC;
 
 
+.edit_recipient * textarea  {
+  display: block;
+  height: 6em;
+  width: 100%;
+}
 /** GENERAL STUFF **/
 
 tr td {
