@@ -116,7 +116,7 @@ describe 'GET /recipient/:id' do
     expect(response).to have_http_status(:success)
   end
 
-  %w(heraldry_blazon mundane_bio 
+  %w(heraldry_blazon mundane_bio
      sca_bio activities food_prefs).each do |text_field|
     it "includes the #{text_field}" do
       sample_text = "my test #{text_field}"
@@ -168,7 +168,7 @@ describe 'PATCH /recipient/:id' do
   end
 
   context 'as a user with linked recipient' do
-    %w(heraldry_blazon mundane_bio 
+    %w(heraldry_blazon mundane_bio
        sca_bio activities food_prefs).each do |text_field|
       it "can edit #{text_field}" do
         recipient = create(:recipient)
@@ -180,7 +180,6 @@ describe 'PATCH /recipient/:id' do
         expect(recipient.send(text_field)).to eq(sample_text)
       end
     end
-
   end
 end
 

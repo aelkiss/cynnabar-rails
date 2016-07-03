@@ -42,7 +42,7 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.example_status_persistence_file_path = ".rspec_status"
+  config.example_status_persistence_file_path = '.rspec_status'
 
   config.include Paperclip::Shoulda::Matchers
 end
