@@ -3,6 +3,8 @@ require 'rails_helper'
 
 include ERB::Util
 
+DEFAULT_USER_EMAIL = 'bob@example.com'
+
 feature 'User registration', js: true do
   # must exist for user to have somewhere to get redirected back to
   before(:each) { create(:page, slug: 'home') }
@@ -16,7 +18,7 @@ feature 'User registration', js: true do
     choose_autocomplete_result recipient.to_s, 'user_name'
 
     click_on 'Sign up'
-    user = User.find_by_email('bob@example.com')
+    user = User.find_by_email(DEFAULT_USER_EMAIL)
     expect(user).not_to be(nil)
     expect(user.approved).to be(false)
     expect(user.recipient_id).to eq(recipient.id)
@@ -28,13 +30,13 @@ feature 'User registration', js: true do
     fill_in 'user_name', with: 'Asdf Ghjkl'
 
     click_on 'Sign up'
-    user = User.find_by_email('bob@example.com')
+    user = User.find_by_email(DEFAULT_USER_EMAIL)
     expect(user).not_to be(nil)
     expect(user.approved).to be(false)
   end
 
   def fill_in_user_details
-    fill_in 'user_email', with: 'bob@example.com'
+    fill_in 'user_email', with: DEFAULT_USER_EMAIL
     fill_in 'user_password', with: 'password'
     fill_in 'user_password_confirmation', with: 'password'
   end
