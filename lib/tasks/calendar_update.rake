@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'google/apis/calendar_v3'
 require 'googleauth'
 require 'googleauth/stores/file_token_store'
@@ -15,6 +16,17 @@ namespace :calendar do
     OUTPUT_PATH = "#{CONFIG_PATH}/#{config['json_output_path']}"
     SCOPE = config['scope']
 
+    def initial_credentials
+      url = authorizer.get_authorization_url(
+        base_url: OOB_URI)
+      puts 'Open the following URL in the browser and enter the ' \
+        'resulting code after authorization'
+      puts url
+      code = gets
+      authorizer.get_and_store_credentials_from_code(
+        user_id: user_id, code: code, base_url: OOB_URI)
+    end
+
     def authorize
       FileUtils.mkdir_p(File.dirname(CREDENTIALS_PATH))
 
@@ -24,16 +36,7 @@ namespace :calendar do
         client_id, SCOPE, token_store)
       user_id = 'default'
       credentials = authorizer.get_credentials(user_id)
-      if credentials.nil?
-        url = authorizer.get_authorization_url(
-          base_url: OOB_URI)
-        puts "Open the following URL in the browser and enter the " +
-          "resulting code after authorization"
-        puts url
-        code = gets
-        credentials = authorizer.get_and_store_credentials_from_code(
-          user_id: user_id, code: code, base_url: OOB_URI)
-      end
+      initial_credentials if credentials.nil?
       credentials
     end
 
@@ -41,11 +44,6 @@ namespace :calendar do
     service = Google::Apis::CalendarV3::CalendarService.new
     service.client_options.application_name = APPLICATION_NAME
     service.authorization = authorize
-
-    # Initialize the API
-    #    client = Google::APIClient.new(:application_name => APPLICATION_NAME)
-    #    client.authorization = authorize
-    calendar_api = Google::Apis::CalendarV3::CalendarService.new
 
     calendars = config['calendars']
     queries = config['queries']
@@ -55,12 +53,10 @@ namespace :calendar do
 
     results.items.each do |calendar|
       calendar_sym = calendars_invert[calendar.summary]
-      if calendar_sym
-        calendars[calendar_sym] = calendar.id 
-      end
+      calendars[calendar_sym] = calendar.id if calendar_sym
     end
 
-    queries.each do |sym,query|
+    queries.each do |sym, query|
       puts "CALENDAR QUERY FOR #{sym}"
 
       if query['calendar'] == 'all'
@@ -72,7 +68,7 @@ namespace :calendar do
       query['max_results'] ||= 12
       query['query'] ||= /.*/
 
-      timeMax = Date.today >> query['horizon']
+      time_max = Date.today >> query['horizon']
 
       events = []
       query['calendars'].each do |calendar_sym|
@@ -81,25 +77,24 @@ namespace :calendar do
           single_events: true,
           order_by: 'startTime',
           time_min: Date.today.to_time.iso8601,
-          time_max: (Date.today >> query['horizon']).to_time.iso8601 
+          time_max: time_max.to_time.iso8601
         ).items.select { |e| e.summary.match(query['query']) }
       end
-      sorted_events = events.sort_by{ |e| e.start.date_time }.first(query['max_results'])
+      sorted_events = events.sort_by { |e| e.start.date_time || e.start.date }.first(query['max_results'])
       hash_events = sorted_events.map do |event|
-        Hash[ [:description, :end, :html_link, :location, :start, :summary].map do |field|
+        Hash[[:description, :end, :html_link, :location, :start, :summary].map do |field|
           [field.to_s, event.send(field)]
         end]
       end
       hash_events.each do |event|
-        event['start'] = event['start'].date_time
-        event['end'] = event['end'].date_time
+        event['start'] = event['start'].date_time || event['start'].date
+        event['end'] = event['end'].date_time || event['end'].date
       end
 
-      File.open("#{OUTPUT_PATH}/#{sym}.json","w") do |file|
+      File.open("#{OUTPUT_PATH}/#{sym}.json", 'w') do |file|
         file.write({ events: hash_events,
-                    link: query['link'] }.to_json)
+                     link: query['link'] }.to_json)
       end
-
     end
   end
 end

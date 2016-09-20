@@ -1,15 +1,15 @@
+# frozen_string_literal: true
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rails'
 require 'devise'
 require 'shoulda-matchers'
-require 'steak/autocomplete'
 require 'dbclean_helper'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -55,24 +55,70 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   #
-  config.include Devise::TestHelpers, type:  :controller
-  config.include Devise::TestHelpers, type:  :view
+  config.include Devise::Test::ControllerHelpers, type:  :controller
+  config.include Devise::Test::ControllerHelpers, type:  :view
 
   config.include RequestSpecHelper, type: :request
 
   config.include Rails.application.routes.url_helpers, type: :request
 
+  # Don't try to run javascript tests if DISPLAY is not set
+  config.filter_run_excluding js: true unless ENV['DISPLAY']
+
+  # copy-pasta from database_cleaner
+  config.use_transactional_fixtures = false
+
+  config.before(:suite) do
+    if config.use_transactional_fixtures?
+      raise(<<-MSG)
+        Delete line `config.use_transactional_fixtures = true` from rails_helper.rb
+        (or set it to false) to prevent uncommitted transactions being used in
+        JavaScript-dependent specs.
+
+        During testing, the app-under-test that the browser driver connects to
+        uses a different database connection to the database connection used by
+        the spec. The app's database connection would not be able to access
+        uncommitted transaction data setup over the spec's database connection.
+      MSG
+    end
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, type: :feature) do
+    # :rack_test driver's Rack app under test shares database connection
+    # with the specs, so continue to use transaction strategy for speed.
+    driver_shares_db_connection_with_specs = Capybara.current_driver == :rack_test
+
+    unless driver_shares_db_connection_with_specs
+      # Driver is probably for an external browser with an app
+      # under test that does *not* share a database connection with the
+      # specs, so use truncation strategy.
+      DatabaseCleaner.strategy = :truncation
+    end
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+  end
 end
 
-RSpec.shared_context "when signed in through capybara" do
+RSpec.shared_context 'when signed in through capybara' do
   def sign_in(user)
     # required for sign in redirect
     create(:page, slug: 'home')
 
     visit '/users/sign_in'
-    fill_in "user_email", with: user.email
-    fill_in "user_password", with: user.password
-    click_on "Log in"
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: user.password
+    click_on 'Log in'
   end
 
   def sign_out(user)
@@ -87,9 +133,9 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
-def choose_autocomplete_result(text, input_id="input[data-autocomplete]")
-  page.execute_script %Q{ $('#{input_id}').trigger("focus") }
-  page.execute_script %Q{ $('#{input_id}').trigger("keydown") }
+def choose_autocomplete_result(text, input_id = 'input[data-autocomplete]')
+  page.execute_script %{ $('#{input_id}').trigger("focus") }
+  page.execute_script %{ $('#{input_id}').trigger("keydown") }
   expect(page).to have_selector 'ul.ui-autocomplete li.ui-menu-item'
-  page.execute_script %Q{ $(".ui-menu-item:contains('#{text}')").trigger("mouseenter").trigger("click"); }
+  page.execute_script %{ $(".ui-menu-item:contains('#{text}')").trigger("mouseenter").trigger("click"); }
 end

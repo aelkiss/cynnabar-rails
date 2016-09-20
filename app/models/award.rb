@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 class Award < ActiveRecord::Base
-  include Heraldic 
+  include Heraldic
 
   has_many :awardings
   has_many :recipients, through: :awardings
@@ -8,7 +9,7 @@ class Award < ActiveRecord::Base
   validates :name, presence: true
 
   validates :description, presence: true,
-    length: { minimum: 30 }
+                          length: { minimum: 30 }
 
   validates :precedence, presence: true
 
@@ -18,7 +19,4 @@ class Award < ActiveRecord::Base
   def to_s
     name
   end
-
-  private
-
 end

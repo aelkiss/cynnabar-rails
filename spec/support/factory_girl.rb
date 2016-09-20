@@ -1,13 +1,14 @@
+# frozen_string_literal: true
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
-  config.before(:suite) do 
+  config.before(:suite) do
     begin
       DatabaseCleaner.start
-      FactoryGirl.lint 
+      FactoryGirl.lint
     ensure
-      DatabaseCleaner.clean 
+      DatabaseCleaner.clean
       Rails.application.load_seed
     end
-  end 
+  end
 end

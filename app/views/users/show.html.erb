@@ -1,0 +1,22 @@
+<h1><%= @user.name %></h1>
+
+
+<dl>
+  <dt>Email:</dt>
+  <dd><%= link_to @user.email, user_contact_path(@user) %>
+<dt>Name:</dt>
+<dd> <%= @user.name %></dd>
+<% if @user.recipient %>
+  <dt>Public profile:</dt>
+  <dd>
+  <%= link_to @user.recipient.to_s, recipient_path(@user.recipient) %>
+  </dd>
+<% end %>
+
+<% if can? :edit, @user %>
+  <dt> <%= link_to 'Edit', edit_user_path(@user) %></dt>
+<% end %>
+<% if can? :delete, @user %>
+  <dt> <%= link_to 'Delete', @user, method: :delete, data: { confirm: 'Are you sure?' } %> </dt>
+<% end %>
+</dl>

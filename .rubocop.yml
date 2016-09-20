@@ -1,0 +1,23 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'lib/tasks/awardload.rake'
+  TargetRubyVersion: 2.3
+
+Rails:
+  Enabled: true
+
+Rails/Date:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+  
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+

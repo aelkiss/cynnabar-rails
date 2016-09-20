@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Office < ActiveRecord::Base
   belongs_to :page
   belongs_to :officer, class_name: 'User'

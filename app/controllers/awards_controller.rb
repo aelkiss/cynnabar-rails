@@ -1,17 +1,17 @@
+# frozen_string_literal: true
 class AwardsController < ApplicationController
   load_and_authorize_resource
 
-  autocomplete :award, :name, :full => true
-
+  autocomplete :award, :name, full: true
 
   # GET /awards
   # GET /awards.json
   def index
     if params[:search]
       @search = params[:search]
-      @awards = Award.where("name like :search or description like :search",search: "%#{@search}%").order("name ASC")
-    else 
-      @awards = Award.order("name ASC")
+      @awards = Award.where('name like :search or description like :search', search: "%#{@search}%").order('name ASC')
+    else
+      @awards = Award.order('name ASC')
     end
   end
 

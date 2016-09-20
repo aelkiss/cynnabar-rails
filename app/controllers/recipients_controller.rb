@@ -1,18 +1,18 @@
+# frozen_string_literal: true
 class RecipientsController < ApplicationController
   load_and_authorize_resource
 
-  # override autocomplete from rails-autocomplete to search composite 
+  # override autocomplete from rails-autocomplete to search composite
   def autocomplete_recipient_name
     term = params[:term]
 
-    if term && !term.blank?
-      items = search_recipients(term)
-    else
-      items = {}
-    end
+    items = if term && !term.blank?
+              search_recipients(term)
+            else
+              {}
+            end
 
-    render :json => json_for_autocomplete(items, :to_s)
-
+    render json: json_for_autocomplete(items, :to_s)
   end
 
   def armory
@@ -23,12 +23,13 @@ class RecipientsController < ApplicationController
   # GET /recipients
   # GET /recipients.json
   def index
-    order = "coalesce(sca_name,mundane_name) ASC"
-    if @search = params[:search]
-      @recipients = search_recipients(@search).order(order)
-    else 
-      @recipients = Recipient.order(order)
-    end
+    order = 'coalesce(sca_name,mundane_name) ASC'
+    @search = params[:search]
+    @recipients = if @search
+                    search_recipients(@search).order(order)
+                  else
+                    Recipient.order(order)
+                  end
   end
 
   # GET /recipients/1
@@ -52,7 +53,7 @@ class RecipientsController < ApplicationController
 
     respond_to do |format|
       if @recipient.save
-        format.html { redirect_to @recipient, notice: 'Recipient was successfully created.' }
+        format.html { redirect_to @recipient, notice: 'Profile was successfully created.' }
         format.json { render :show, status: :created, location: @recipient }
       else
         format.html { render :new }
@@ -66,7 +67,7 @@ class RecipientsController < ApplicationController
   def update
     respond_to do |format|
       if @recipient.update(recipient_params)
-        format.html { redirect_to @recipient, notice: 'Recipient was successfully updated.' }
+        format.html { redirect_to @recipient, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipient }
       else
         format.html { render :edit }
@@ -89,10 +90,10 @@ class RecipientsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def recipient_params
-    params.require(:recipient).permit(:sca_name, :mundane_name, :is_group, :also_known_as, :formerly_known_as, :title, :pronouns, :heraldry, :heraldry_blazon)
+    params.require(:recipient).permit(:sca_name, :mundane_name, :is_group, :also_known_as, :formerly_known_as, :title, :pronouns, :heraldry, :heraldry_blazon, :mundane_bio, :sca_bio, :activities, :food_prefs)
   end
 
   def search_recipients(term)
-    Recipient.where("mundane_name like :term or sca_name like :term or also_known_as like :term or formerly_known_as like :term", term: "%#{term}%")
+    Recipient.where('mundane_name like :term or sca_name like :term or also_known_as like :term or formerly_known_as like :term', term: "%#{term}%")
   end
 end

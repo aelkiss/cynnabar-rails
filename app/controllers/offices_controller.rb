@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class OfficesController < ApplicationController
   load_and_authorize_resource
 
@@ -36,7 +37,7 @@ class OfficesController < ApplicationController
     if @office.update(office_params)
       redirect_to @office.page, notice: 'Office was successfully updated.'
     else
-      render :edit 
+      render :edit
     end
   end
 
@@ -48,6 +49,7 @@ class OfficesController < ApplicationController
   end
 
   private
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def office_params
     params.require(:office).permit(:name, :email, :image, :page_id, :officer_id)

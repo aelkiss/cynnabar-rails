@@ -1,5 +1,5 @@
+# frozen_string_literal: true
 source 'https://rubygems.org'
-
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
@@ -17,7 +17,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
 gem 'rails4-autocomplete'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+# Turbolinks makes following links in your web application faster. Read more:
+# https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -38,22 +39,25 @@ gem 'google-api-client'
 
 gem 'rinku'
 
-gem 'paperclip', "~> 4.3"
-gem "recaptcha", require: "recaptcha/rails"
+gem 'paperclip', '~> 4.3'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano-rails'
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv'
-  # Access an IRB console on exception pages or by using <%= console %> in views
+  # Access an IRB console on exception pages or by using <%= console %> in
+  # views
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'pry-rails'
+  gem 'rubocop'
 end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger
+  # console
   gem 'byebug'
   gem 'pry'
   gem 'pry-byebug'
@@ -68,4 +72,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
 end
-

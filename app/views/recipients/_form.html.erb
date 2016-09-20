@@ -36,10 +36,14 @@
     <%= f.label :formerly_known_as %><br>
     <%= f.text_field :formerly_known_as %>
   </div>
-  <div class="field">
-    <%= f.label :is_group, "Group?" %>
-    <%= f.check_box :is_group %>
-  </div>
+
+  <% if @recipient and !@recipient.user %>
+    <div class="field">
+      <%= f.label :is_group, "Group?" %>
+      <%= f.check_box :is_group %>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :heraldry %>
     <%= f.file_field :heraldry %>
@@ -48,7 +52,23 @@
     <%= f.label :heraldry_blazon %>
     <%= f.text_field :heraldry_blazon %>
   </div>
+  <div class="field">
+    <%= f.label "SCA Biography" %>
+    <%= f.text_area :sca_bio %>
+  </div>
+  <div class="field">
+    <%= f.label "Mundane Biography" %>
+    <%= f.text_area :mundane_bio %>
+  </div>
+  <div class="field">
+    <%= f.label "Activities and Interests" %>
+    <%= f.text_area :activities %>
+  </div>
+  <div class="field">
+    <%= f.label "Food Preferences (Likes, Dislikes, Allergies)" %>
+    <%= f.text_area :food_prefs %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "#{action_name == 'new' ? 'Create' : 'Update'} Profile" %>
   </div>
 <% end %>

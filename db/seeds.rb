@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -7,10 +8,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
-admin = User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Default Admin User')
+User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Default Admin User')
 
-cynnabar = Group.create(name: 'Barony of Cynnabar')
-midrealm = Group.create(name: 'Middle Kingdom')
+Group.create(name: 'Barony of Cynnabar')
+Group.create(name: 'Middle Kingdom')
 
 kingdoms = ['Kingdom of Æthelmearc',
             'Kingdom of An Tir',
@@ -33,5 +34,5 @@ kingdoms = ['Kingdom of Æthelmearc',
             'Kingdom of the West']
 
 kingdoms.each do |kingdom|
-    Group.create(name: kingdom)
+  Group.create(name: kingdom)
 end
