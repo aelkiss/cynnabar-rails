@@ -4,6 +4,8 @@ class ContactMailer < ApplicationMailer
     @feedback = feedback
     @from_name = from_name
     @from_email = from_email
-    mail(to: user.email, subject: "Contact from cynnabar.org: #{subject}", reply_to: from_email)
+    if feedback
+      mail(to: user.email, subject: "Contact from cynnabar.org: #{subject}", reply_to: from_email)
+    end
   end
 end
