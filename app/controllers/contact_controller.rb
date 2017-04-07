@@ -36,8 +36,12 @@ class ContactController < ApplicationController
 
   def contact_user
     @contacted_thing = contacted_thing
-    ContactMailer.contact_email(@contacted_thing, params[:from_email],
-                                params[:from_name], params[:subject],
-                                params[:feedback]).deliver_later
+    if(params[:feedback].present?) 
+      ContactMailer.contact_email(@contacted_thing, params[:from_email],
+                                  params[:from_name], params[:subject],
+                                  params[:feedback]).deliver_later
+    else
+      flash.alert = "Not sending email - feedback must be present"
+    end
   end
 end
