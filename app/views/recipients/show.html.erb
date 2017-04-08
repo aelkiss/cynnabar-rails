@@ -2,32 +2,32 @@
 
 <h3><%= @recipient %></h3>
 
-<% if @recipient.pronouns %>
+<% if @recipient.pronouns.present? %>
   <p><b>Preferred Pronouns:</b> <%= @recipient.pronouns %></p>
 <% end %>
 
-<% if @recipient.heraldry_blazon %>
+<% if @recipient.heraldry_blazon.present? %>
   <p><i><%= @recipient.heraldry_blazon %></i></p>
 <% end %>
 
-<% if @recipient.mundane_bio || @recipient.sca_bio %>
+<% if @recipient.mundane_bio.present? || @recipient.sca_bio.present? %>
   <h4>Biography</h4>
 <% end %>
 
-<% if @recipient.sca_bio %>
+<% if @recipient.sca_bio.present? %>
   <p><%= @recipient.sca_bio %></p>
 <% end %>
 
-<% if @recipient.mundane_bio %>
+<% if @recipient.mundane_bio.present? %>
   <p><%= @recipient.mundane_bio %></p>
 <% end %>
 
-<% if @recipient.activities %>
+<% if @recipient.activities.present? %>
   <h4>Activities and Interests</h4>
   <p><%= @recipient.activities %></p>
 <% end %>
 
-<% if @recipient.food_prefs %>
+<% if @recipient.food_prefs.present? %>
   <h4>Food Preferences</h4>
   <p><%= @recipient.food_prefs %></p>
 <% end %>
@@ -41,6 +41,6 @@
   <%= link_to 'Edit', edit_recipient_path(@recipient) %>
 <% end %>
 
-<p><%= render 'update_oop' %></p>
+<p><%= render 'application/update_oop' %></p>
 
 <p><%= link_to 'Show All Persons/Groups', recipients_path %>
