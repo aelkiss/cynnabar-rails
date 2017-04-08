@@ -91,12 +91,6 @@ describe 'GET /recipient/:id' do
     expect(response.body).to include(recipient.to_s)
   end
 
-  it 'includes preferred pronouns' do
-    recipient = create(:recipient, :pronouns)
-    get recipient_path(recipient)
-    expect(response.body).to include(recipient.pronouns)
-  end
-
   it 'includes the heraldry' do
     recipient = create(:recipient, :heraldry)
     get recipient_path(recipient)
@@ -116,13 +110,26 @@ describe 'GET /recipient/:id' do
     expect(response).to have_http_status(:success)
   end
 
-  %w(heraldry_blazon mundane_bio
-     sca_bio activities food_prefs).each do |text_field|
+
+  text_fields = %w(heraldry_blazon mundane_bio
+     sca_bio activities food_prefs pronouns)
+
+  text_fields.each do |text_field|
     it "includes the #{text_field}" do
       sample_text = "my test #{text_field}"
       recipient = create(:recipient, text_field => sample_text)
       get recipient_path(recipient)
       expect(response.body).to include(sample_text)
+    end
+  end
+
+  it "does not include headers for empty text fields" do
+    # use blank text for all text fields
+    params = text_fields.map { |f| [f,''] }.to_h
+    recipient = create(:recipient, params) 
+    get recipient_path(recipient)
+    ['Preferred Pronouns','Biography','Activities and Interests','Food Preferences'].each do |header|
+      expect(response.body).not_to include(header)
     end
   end
 end
