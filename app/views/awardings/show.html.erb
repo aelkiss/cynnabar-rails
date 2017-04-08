@@ -12,7 +12,7 @@
 </h4>
 
 <% if @awarding.award_text %>
-  <p> <%= @awarding.award_text %> </p>
+  <p> <%= simple_format(@awarding.award_text) %> </p>
 <% end %>
 
 
@@ -23,4 +23,4 @@
   <p><%= link_to 'Add Award Receipt', new_awarding_path %></p>
 <% end %>
 
-<p><%= render 'update_oop' %></p>
+<p><%= render 'application/update_oop' %></p>
