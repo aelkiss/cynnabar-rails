@@ -16,7 +16,7 @@ class RecipientsController < ApplicationController
   end
 
   def armory
-    @armory_people = @recipients.where.not(heraldry_file_name: nil)
+    @armory_people = @recipients.where.not(heraldry_file_name: nil).order(:sca_name)
     render :armory
   end
 

@@ -38,6 +38,7 @@ describe 'GET /recipients' do
 end
 
 describe 'GET /recipients/armory' do
+
   it 'gets the name, armory, and blazon' do
     recipient1 = create(:recipient, :heraldry, sca_name: 'Bob 1', heraldry_blazon: 'Azure')
     recipient2 = create(:recipient, :heraldry, sca_name: 'Bob 2', heraldry_blazon: 'Gules')
@@ -52,12 +53,21 @@ describe 'GET /recipients/armory' do
     expect(response.body).to include(recipient2.heraldry.url)
   end
 
-  it "doesn't show users without armory" do
-    recipient = create(:recipient, sca_name: 'Bob 1')
+  it 'displays in order by sca name' do
+    recipient1 = create(:recipient, :heraldry, sca_name: 'Stan')
+    recipient2 = create(:recipient, :heraldry, sca_name: 'Bob')
 
     get armory_recipients_path
 
-    expect(response.body).not_to include(recipient.sca_name)
+    expect(response.body).to match(/Bob.*Stan/m)
+  end
+
+  it "doesn't show users without armory" do
+    no_armory_recipient = create(:recipient, sca_name: 'Bob 3')
+
+    get armory_recipients_path
+
+    expect(response.body).not_to include(no_armory_recipient.sca_name)
   end
 end
 
