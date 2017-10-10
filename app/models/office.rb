@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Office < ActiveRecord::Base
+class Office < ApplicationRecord
   belongs_to :page
   belongs_to :officer, class_name: 'User'
 

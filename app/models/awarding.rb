@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Awarding < ActiveRecord::Base
+class Awarding < ApplicationRecord
   belongs_to :award
   belongs_to :recipient
   belongs_to :group
