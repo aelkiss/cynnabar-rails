@@ -12,7 +12,7 @@ describe 'PATCH /:slug' do
       page = create(:page)
       newbody = '<h3>new body</h3>'
 
-      patch "/#{page.slug}", page: { body: newbody }, commit: 'Save'
+      patch "/#{page.slug}", params: { page: { body: newbody }, commit: 'Save' }
 
       edited_page = Page.find(page.slug)
       expect(response).to have_http_status(:redirect)
@@ -25,7 +25,7 @@ describe 'PATCH /:slug' do
       page = create(:page)
       newslug = 'newslug'
 
-      patch "/#{page.slug}", page: { slug: newslug }, commit: 'Save'
+      patch "/#{page.slug}", params: { page: { slug: newslug }, commit: 'Save' }
 
       expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to include(newslug)
@@ -46,7 +46,7 @@ describe 'PATCH /:slug' do
 
       page = create(:page, user: user1)
 
-      patch "/#{page.slug}", page: { user_id: user2.id }, commit: 'Save'
+      patch "/#{page.slug}", params: { page: { user_id: user2.id }, commit: 'Save' }
 
       edited_page = Page.find(page.slug)
       expect(edited_page.user).to eq(user2)
@@ -60,7 +60,7 @@ describe 'PATCH /:slug' do
       newbody = '<h3>new body</h3>'
 
       sign_in(user)
-      patch "/#{page.slug}", page: { body: newbody }, commit: 'Save'
+      patch "/#{page.slug}", params: { page: { body: newbody }, commit: 'Save' }
 
       edited_page = Page.find_by_slug(page.slug)
       expect(edited_page.body).to eq(newbody)
@@ -72,7 +72,7 @@ describe 'PATCH /:slug' do
       page = create(:page, user: user1)
 
       sign_in(user1)
-      patch "/#{page.slug}", page: { user_id: user2.id }, commit: 'Save'
+      patch "/#{page.slug}", params: { page: { user_id: user2.id }, commit: 'Save' }
 
       expect(response).to have_http_status(:forbidden)
       edited_page = Page.find(page.slug)
@@ -85,7 +85,7 @@ describe 'PATCH /:slug' do
       page = create(:page)
       newbody = '<h3>new body</h3>'
 
-      patch "/#{page.slug}", page: { body: newbody }, commit: 'Save'
+      patch "/#{page.slug}", params: { page: { body: newbody }, commit: 'Save' }
 
       expect(response).to have_http_status(:forbidden)
     end

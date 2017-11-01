@@ -2,13 +2,13 @@
 require 'rails_helper'
 require 'pry'
 
-describe 'GET /users' do
+describe 'PATCH /users' do
   context 'as an unapproved user' do
     it 'cannot approve itself' do
       user = create(:user, approved: false)
       sign_in(user)
 
-      patch user_path(user), user: { approved: true }
+      patch user_path(user), params: { user: { approved: true } }
       expect(response).to have_http_status(:forbidden)
 
       edited_user = User.find(user.id)
@@ -22,7 +22,7 @@ describe 'GET /users' do
       sign_in(user)
       email = 'alskdjflksjd@example.com'
 
-      patch user_path(user), user: { email: email }
+      patch user_path(user), params: { user: { email: email } }
 
       edited_user = User.find(user.id)
       expect(response).to have_http_status(:redirect)
@@ -34,7 +34,7 @@ describe 'GET /users' do
       user = create(:user, approved: true)
       sign_in(user)
 
-      patch user_path(user), user: { role: :admin }
+      patch user_path(user), params: { user: { role: :admin } }
 
       expect(response).to have_http_status(:forbidden)
       edited_user = User.find(user.id)
