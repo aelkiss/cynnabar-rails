@@ -82,11 +82,17 @@ RSpec.configure do |config|
       MSG
     end
     DatabaseCleaner.clean_with(:truncation)
+
+    Capybara.register_driver :selenium_chrome do |app|
+        Capybara::Selenium::Driver.new(app, browser: :chrome)
+    end
+    Capybara.javascript_driver = :selenium_chrome
   end
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
+
 
   config.before(:each, type: :feature) do
     # :rack_test driver's Rack app under test shares database connection
@@ -136,6 +142,7 @@ end
 def choose_autocomplete_result(text, input_id = 'input[data-autocomplete]')
   page.execute_script %{ $('#{input_id}').trigger("focus") }
   page.execute_script %{ $('#{input_id}').trigger("keydown") }
+  binding.pry
   expect(page).to have_selector 'ul.ui-autocomplete li.ui-menu-item'
   page.execute_script %{ $(".ui-menu-item:contains('#{text}')").trigger("mouseenter").trigger("click"); }
 end

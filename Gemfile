@@ -64,7 +64,7 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'rspec-rails', '~> 3.0'
   gem 'capybara'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
 end
 
 group :test do
