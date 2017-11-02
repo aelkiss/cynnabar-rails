@@ -82,11 +82,6 @@ RSpec.configure do |config|
       MSG
     end
     DatabaseCleaner.clean_with(:truncation)
-
-    Capybara.register_driver :selenium_chrome do |app|
-        Capybara::Selenium::Driver.new(app, browser: :chrome)
-    end
-    Capybara.javascript_driver = :selenium_chrome
   end
 
   config.before(:each) do
@@ -125,6 +120,8 @@ RSpec.shared_context 'when signed in through capybara' do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: user.password
     click_on 'Log in'
+
+    expect(page).to have_content('Signed in successfully')
   end
 
   def sign_out(user)
@@ -142,7 +139,6 @@ end
 def choose_autocomplete_result(text, input_id = 'input[data-autocomplete]')
   page.execute_script %{ $('#{input_id}').trigger("focus") }
   page.execute_script %{ $('#{input_id}').trigger("keydown") }
-  binding.pry
   expect(page).to have_selector 'ul.ui-autocomplete li.ui-menu-item'
   page.execute_script %{ $(".ui-menu-item:contains('#{text}')").trigger("mouseenter").trigger("click"); }
 end

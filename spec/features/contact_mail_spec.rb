@@ -21,7 +21,6 @@ RSpec.feature 'Contact email' do
 
   # expect email to have been sent
   def expect_email_to(expected_whom)
-    binding.pry
     email = ActionMailer::Base.deliveries.last
     expect(email.to[0]).to eq(expected_whom)
     expect(email.subject).to match(TEST_SUBJECT)

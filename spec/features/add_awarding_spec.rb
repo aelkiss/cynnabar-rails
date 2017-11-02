@@ -13,7 +13,6 @@ feature 'Create awarding', js: true do
     award = create(:award, :hasgroup)
 
     visit '/awardings/new'
-    binding.pry
     fill_in 'recipient_name', with: recipient.to_s
     choose_autocomplete_result recipient.to_s, 'recipient_name'
     fill_in 'award_name', with: award.name

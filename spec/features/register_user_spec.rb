@@ -11,13 +11,16 @@ feature 'User registration', js: true do
 
   scenario 'can create an unconfirmed user' do
     visit '/users/sign_up'
+    binding.pry
     fill_in_user_details
 
     recipient = create(:recipient)
     fill_in 'user_name', with: recipient.to_s
     choose_autocomplete_result recipient.to_s, 'user_name'
 
+    binding.pry
     click_on 'Sign up'
+    expect(page).to have_content('signed up successfully')
     user = User.find_by_email(DEFAULT_USER_EMAIL)
     expect(user).not_to be(nil)
     expect(user.approved).to be(false)
@@ -29,7 +32,10 @@ feature 'User registration', js: true do
     fill_in_user_details
     fill_in 'user_name', with: 'Asdf Ghjkl'
 
+    binding.pry
     click_on 'Sign up'
+    expect(page).to have_content('signed up successfully')
+
     user = User.find_by_email(DEFAULT_USER_EMAIL)
     expect(user).not_to be(nil)
     expect(user.approved).to be(false)
@@ -48,6 +54,7 @@ feature 'User approval', js: true do
   scenario 'can approve an unapproved user' do
     user = create(:user, approved: false)
     admin = create(:user, :admin)
+    binding.pry
     sign_in(admin)
 
     visit '/users'
@@ -55,6 +62,8 @@ feature 'User approval', js: true do
     page.accept_alert 'Are you sure?' do
       find(:xpath, "//tr[td[a[contains(text(),'#{user.email}')]]]//a[contains(text(),'Approve')]").click
     end
+
+    sleep(1)
 
     expect(current_path).to eq('/users')
     expect(User.find(user.id).approved).to be(true)
