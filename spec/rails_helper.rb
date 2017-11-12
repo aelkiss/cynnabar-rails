@@ -88,6 +88,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
+
   config.before(:each, type: :feature) do
     # :rack_test driver's Rack app under test shares database connection
     # with the specs, so continue to use transaction strategy for speed.
@@ -119,6 +120,8 @@ RSpec.shared_context 'when signed in through capybara' do
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: user.password
     click_on 'Log in'
+
+    expect(page).to have_content('Signed in successfully')
   end
 
   def sign_out(user)

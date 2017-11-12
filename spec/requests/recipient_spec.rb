@@ -14,7 +14,7 @@ describe 'GET /recipients' do
   it 'can search by mundane name' do
     recipient1 = create(:recipient, mundane_name: 'Mundane One')
     recipient2 = create(:recipient, mundane_name: 'Mundane Two')
-    get recipients_path, search: 'Mundane One'
+    get recipients_path, params: { search: 'Mundane One' }
     expect(response).to have_http_status(:success)
     expect(response.body).to include(recipient1.to_s)
     expect(response.body).not_to include(recipient2.to_s)
@@ -23,7 +23,7 @@ describe 'GET /recipients' do
   it 'can search by sca name' do
     recipient1 = create(:recipient, sca_name: 'Scaname One')
     recipient2 = create(:recipient, sca_name: 'Scaname Two')
-    get recipients_path, search: 'Scaname One'
+    get recipients_path, params: { search: 'Scaname One' }
     expect(response).to have_http_status(:success)
     expect(response.body).to include(recipient1.to_s)
     expect(response.body).not_to include(recipient2.to_s)
@@ -31,7 +31,7 @@ describe 'GET /recipients' do
 
   it 'includes awardings when searching' do
     awarding = create(:awarding)
-    get recipients_path, search: awarding.recipient.mundane_name
+    get recipients_path, params: { search: awarding.recipient.mundane_name }
     expect(response).to have_http_status(:success)
     expect(response.body).to include(awarding.award.to_s)
   end
@@ -82,13 +82,15 @@ end
 describe 'POST /recipients' do
   it 'as a herald, allows creating recipient' do
     sign_in(create(:user, :herald))
-    expect { post recipients_path, recipient: attributes_for(:recipient) }.to change { Recipient.count }.by(1)
+    expect { post recipients_path, params: { recipient: attributes_for(:recipient) } }
+      .to change { Recipient.count }.by(1)
     expect(response).to have_http_status(:redirect)
   end
 
   it 'as a normal user, does not allow creating recipient' do
     sign_in(create(:user))
-    expect { post recipients_path, recipient: attributes_for(:recipient) }.to change { Recipient.count }.by(0)
+    expect { post recipients_path, params: { recipient: attributes_for(:recipient) } }
+      .to change { Recipient.count }.by(0)
     expect(response).to have_http_status(:forbidden)
   end
 end
@@ -162,14 +164,14 @@ describe 'PATCH /recipient/:id' do
 
     it 'can update recipient' do
       recipient = create(:recipient)
-      patch recipient_path(recipient), recipient: attributes_for(:recipient)
+      patch recipient_path(recipient), params: { recipient: attributes_for(:recipient) }
       expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to match recipient_path(recipient)
     end
 
     it 'can edit title' do
       recipient = create(:recipient)
-      patch recipient_path(recipient), recipient: { title: 'Mytitle' }
+      patch recipient_path(recipient), params: { recipient: { title: 'Mytitle' } }
       # reload
       recipient = Recipient.find(recipient.id)
       expect(recipient.title).to eq('Mytitle')
@@ -177,7 +179,7 @@ describe 'PATCH /recipient/:id' do
 
     it 'can edit pronouns' do
       recipient = create(:recipient)
-      patch recipient_path(recipient), recipient: { pronouns: 'Pronouns' }
+      patch recipient_path(recipient), params: { recipient: { pronouns: 'Pronouns' } }
       # reload
       recipient = Recipient.find(recipient.id)
       expect(recipient.pronouns).to eq('Pronouns')
@@ -191,7 +193,7 @@ describe 'PATCH /recipient/:id' do
         recipient = create(:recipient)
         sign_in(create(:user, recipient: recipient))
         sample_text = "My test #{text_field}"
-        patch recipient_path(recipient), recipient: { text_field => sample_text }
+        patch recipient_path(recipient), params: { recipient: { text_field => sample_text } }
         # reload
         recipient = Recipient.find(recipient.id)
         expect(recipient.send(text_field)).to eq(sample_text)
@@ -216,7 +218,7 @@ describe 'GET /recipients/autocomplete_recipient_name' do
 
     it 'autocompletes recipient name' do
       recipient = create(:recipient)
-      get '/recipients/autocomplete_recipient_name', term: recipient.mundane_name.split(' ')[0].downcase
+      get '/recipients/autocomplete_recipient_name', params: { term: recipient.mundane_name.split(' ')[0].downcase }
       response_obj = JSON.parse(@response.body)
       expect(response_obj[0]['id'].to_i).to eq(recipient.id)
     end
@@ -224,7 +226,7 @@ describe 'GET /recipients/autocomplete_recipient_name' do
     it 'returns multiple options for autocomplete' do
       create(:recipient)
       create(:recipient)
-      get '/recipients/autocomplete_recipient_name', term: 'name'
+      get '/recipients/autocomplete_recipient_name', params: { term: 'name' }
       response_obj = JSON.parse(@response.body)
       expect(response_obj.length).to eq(Recipient.count)
     end

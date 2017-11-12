@@ -11,7 +11,7 @@ describe 'POST /users' do
     Recaptcha.configuration.skip_verify_env.delete('test')
     user = attributes_for(:user)
     expect do
-      post '/users', user: user, commit: 'Save'
+      post '/users', params: { user: user, commit: 'Save' }
     end.not_to change(User, :count)
   end
 

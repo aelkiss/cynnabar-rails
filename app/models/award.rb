@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class Award < ActiveRecord::Base
+class Award < ApplicationRecord
   include Heraldic
 
   has_many :awardings

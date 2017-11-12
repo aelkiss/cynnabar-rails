@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-FactoryGirl.define do
+FactoryBot.define do
   factory :office do
     sequence(:email) { |n| "office#{n}@example.com" }
     sequence(:name) { |n| "Office #{n}" }

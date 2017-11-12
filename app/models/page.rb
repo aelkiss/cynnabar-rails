@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'json'
 
-class Page < ActiveRecord::Base
+class Page < ApplicationRecord
   validates :body, presence: true
   validates :slug, format: { with: %r{\A[a-z0-9_/-]+\z}, message: "must contain only lowercase letters, numbers, '_', '-' and '/' characters" }
   validates :slug, format: { with: /\A[a-z0-9].*\z/, message: 'must begin with a lowercase letter or a number' }

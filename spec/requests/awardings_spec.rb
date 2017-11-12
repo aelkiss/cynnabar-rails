@@ -27,7 +27,7 @@ end
 
 describe 'POST /awardings' do
   def post_awardings
-    post awardings_path, awarding: build(:awarding).attributes
+    post awardings_path, params: { awarding: build(:awarding).attributes }
   end
 
   context 'when logged in as a herald' do
@@ -43,14 +43,14 @@ describe 'POST /awardings' do
     it 'allows adding fields for foreign awards' do
       attrs = build(:awarding, :other).attributes
       # other_award: required check box not to dump foreign award attributes
-      post awardings_path, awarding: attrs, other_award: '1'
+      post awardings_path, params: { awarding: attrs, other_award: '1' }
       expect(response).to have_http_status(:redirect)
       expect(Awarding.find_by_award_name(attrs['award_name'])).not_to be_nil
     end
 
     it 'allows adding award text' do
       attrs = build(:awarding, :text).attributes
-      post awardings_path, awarding: attrs
+      post awardings_path, params: { awarding: attrs }
       expect(response).to have_http_status(:redirect)
       expect(Awarding.find_by_award_name(attrs['award_name']).award_text).to eq(attrs['award_text'])
     end
@@ -87,14 +87,14 @@ describe 'GET /awarding/:id/edit' do
   it 'as a herald, updates awarding' do
     awarding = create(:awarding)
     sign_in(create(:user, :herald))
-    patch awarding_path(awarding), awarding: build(:awarding).attributes
+    patch awarding_path(awarding), params: { awarding: build(:awarding).attributes }
     expect(response).to have_http_status(:redirect)
     expect(response.redirect_url).to match awarding_path(awarding)
   end
 
   it 'when not logged in, does not update awarding' do
     awarding = create(:awarding)
-    patch awarding_path(awarding), awarding: build(:awarding).attributes
+    patch awarding_path(awarding), params: { awarding: build(:awarding).attributes }
     expect(response).to have_http_status(:forbidden)
   end
 end

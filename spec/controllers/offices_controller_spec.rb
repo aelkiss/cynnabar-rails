@@ -30,7 +30,7 @@ RSpec.describe OfficesController, type: :controller do
   describe 'GET #index' do
     it 'assigns all offices as @offices' do
       office = create(:office)
-      get :index, {}, valid_session
+      get :index, params: {}, session: valid_session
       expect(assigns(:offices)).to eq([office])
     end
   end
@@ -38,14 +38,14 @@ RSpec.describe OfficesController, type: :controller do
   describe 'GET #show' do
     it 'assigns the requested office as @office' do
       office = create(:office)
-      get :show, { id: office.to_param }, valid_session
+      get :show, params: { id: office.to_param }, session: valid_session
       expect(assigns(:office)).to eq(office)
     end
   end
 
   describe 'GET #new' do
     it 'assigns a new office as @office' do
-      get :new, {}, valid_session
+      get :new, params: {}, session: valid_session
       expect(assigns(:office)).to be_a_new(Office)
     end
   end
@@ -53,7 +53,7 @@ RSpec.describe OfficesController, type: :controller do
   describe 'GET #edit' do
     it 'assigns the requested office as @office' do
       office = create(:office)
-      get :edit, { id: office.to_param }, valid_session
+      get :edit, params: { id: office.to_param }, session: valid_session
       expect(assigns(:office)).to eq(office)
     end
   end
@@ -62,30 +62,30 @@ RSpec.describe OfficesController, type: :controller do
     context 'with valid params' do
       it 'creates a new Office' do
         expect do
-          post :create, { office: build(:office).attributes }, valid_session
+          post :create, params: { office: build(:office).attributes }, session: valid_session
         end.to change(Office, :count).by(1)
       end
 
       it 'assigns a newly created office as @office' do
-        post :create, { office: build(:office).attributes }, valid_session
+        post :create, params: { office: build(:office).attributes }, session: valid_session
         expect(assigns(:office)).to be_a(Office)
         expect(assigns(:office)).to be_persisted
       end
 
       it 'redirects to the created office' do
-        post :create, { office: build(:office).attributes }, valid_session
+        post :create, params: { office: build(:office).attributes }, session: valid_session
         expect(response).to redirect_to(Office.last.page)
       end
     end
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved office as @office' do
-        post :create, { office: build(:office, name: nil).attributes }, valid_session
+        post :create, params: { office: build(:office, name: nil).attributes }, session: valid_session
         expect(assigns(:office)).to be_a_new(Office)
       end
 
       it "re-renders the 'new' template" do
-        post :create, { office: build(:office, name: nil).attributes }, valid_session
+        post :create, params: { office: build(:office, name: nil).attributes }, session: valid_session
         expect(response).to render_template('new')
       end
     end
@@ -96,7 +96,7 @@ RSpec.describe OfficesController, type: :controller do
       it 'updates the requested office' do
         office = create(:office)
         updates = attributes_for(:office)
-        put :update, { id: office.to_param, office: updates }, valid_session
+        put :update, params: { id: office.to_param, office: updates }, session: valid_session
         office.reload
 
         expect(office.name).to eq(updates[:name])
@@ -106,13 +106,13 @@ RSpec.describe OfficesController, type: :controller do
 
       it 'assigns the requested office as @office' do
         office = create(:office)
-        put :update, { id: office.to_param, office: attributes_for(:office) }, valid_session
+        put :update, params: { id: office.to_param, office: attributes_for(:office) }, session: valid_session
         expect(assigns(:office)).to eq(office)
       end
 
       it 'redirects to the office' do
         office = create(:office)
-        put :update, { id: office.to_param, office: attributes_for(:office) }, valid_session
+        put :update, params: { id: office.to_param, office: attributes_for(:office) }, session: valid_session
         expect(response).to redirect_to(office.page)
       end
     end
@@ -120,13 +120,13 @@ RSpec.describe OfficesController, type: :controller do
     context 'with invalid params' do
       it 'assigns the office as @office' do
         office = create(:office)
-        put :update, { id: office.to_param, office: build(:office, name: nil).attributes }, valid_session
+        put :update, params: { id: office.to_param, office: build(:office, name: nil).attributes }, session: valid_session
         expect(assigns(:office)).to eq(office)
       end
 
       it "re-renders the 'edit' template" do
         office = create(:office)
-        put :update, { id: office.to_param, office: build(:office, name: nil).attributes }, valid_session
+        put :update, params: { id: office.to_param, office: build(:office, name: nil).attributes }, session: valid_session
         expect(response).to render_template('edit')
       end
     end
@@ -136,13 +136,13 @@ RSpec.describe OfficesController, type: :controller do
     it 'destroys the requested office' do
       office = create(:office)
       expect do
-        delete :destroy, { id: office.to_param }, valid_session
+        delete :destroy, params: { id: office.to_param }, session: valid_session
       end.to change(Office, :count).by(-1)
     end
 
     it 'redirects to the offices list' do
       office = create(:office)
-      delete :destroy, { id: office.to_param }, valid_session
+      delete :destroy, params: { id: office.to_param }, session: valid_session
       expect(response).to redirect_to(offices_url)
     end
   end

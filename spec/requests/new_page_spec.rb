@@ -8,7 +8,7 @@ describe 'POST /pages' do
       sign_in(create(:user, :admin))
       page = attributes_for(:page)
 
-      post '/pages', page: page, commit: 'Save'
+      post '/pages', params: { page: page, commit: 'Save' }
 
       expect(response).to have_http_status(:redirect)
       expect(response.redirect_url).to include(page[:slug])
@@ -24,7 +24,7 @@ describe 'POST /pages' do
       page = attributes_for(:page)
       page[:user_id] = user.id
 
-      post '/pages', page: page, commit: 'Save'
+      post '/pages', params: { page: page, commit: 'Save' }
 
       saved_page = Page.find(page[:slug])
       expect(saved_page.user).to eq(user)
@@ -55,7 +55,7 @@ describe 'POST /pages' do
     sign_in(user) if user
 
     page = attributes_for(:page)
-    post '/pages', page: page, commit: commit
+    post '/pages', params: { page: page, commit: commit }
 
     expect(response).to have_http_status(:forbidden)
   end
