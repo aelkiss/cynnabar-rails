@@ -42,4 +42,6 @@ Rails.application.configure do
 
   # Run jobs inline for testing purposes (needed for mailer feature tests)
   config.active_job.queue_adapter = :inline
+
+  config.time_zone = "Eastern Time (US & Canada)"
 end

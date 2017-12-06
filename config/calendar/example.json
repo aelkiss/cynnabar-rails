@@ -1,7 +1,21 @@
-{ "events": 
-[{"description":"Come learn French, Italian and European dances from the Renaissance with live music from the Peascod Gatherers and friends!\n\nParking available in the Palmer Commons garage or on the street.\n\nMore information: http://www.cynnabar.org/eurodance ","end":"2016-02-03T21:00:00.000-05:00","html_link":"https://calendar.google.com/calendar/event?eid=cWo2c2NtYWYzc2d0MDJ1M2o5b2FrbWFrZ2dfMjAxNjAyMDRUMDAwMDAwWiA4cjE3cDBybWFjMmVydGFtMGxnZ2FkMTFnc0Bn","location":"Michigan League, North University Avenue, Ann Arbor, MI, United States (Koessler Room)","start":"2016-02-03T19:00:00.000-05:00","summary":"European Dance Practice"},
-  {"description":"Come learn French, Italian and European dances from the Renaissance with live music from the Peascod Gatherers and friends!\n\nParking is available in the Palmer Commons garage or on the street.\n\nMore information: http://www.cynnabar.org/eurodance ","end":"2016-02-17T21:00:00.000-05:00","html_link":"https://calendar.google.com/calendar/event?eid=bWlrNGFxaWNxYW51aDRydmtlMzgxcm81cTBfMjAxNjAyMThUMDAwMDAwWiA4cjE3cDBybWFjMmVydGFtMGxnZ2FkMTFnc0Bn","location":"Michigan League, North University Avenue, Ann Arbor, MI, United States (Koessler Room)","start":"2016-02-17T19:00:00.000-05:00","summary":"European Dance Practice"}
+{
+  "events": [
+    {
+      "description": "Come learn French, Italian and European dances from the Renaissance with live music from the Peascod Gatherers and friends!\n\nParking available in the Palmer Commons garage or on the street.\n\nMore information: http://www.cynnabar.org/eurodance ",
+      "end": "2016-02-03T21:00:00.000-05:00",
+      "html_link": "https://calendar.google.com/calendar/event?eid=cWo2c2NtYWYzc2d0MDJ1M2o5b2FrbWFrZ2dfMjAxNjAyMDRUMDAwMDAwWiA4cjE3cDBybWFjMmVydGFtMGxnZ2FkMTFnc0Bn",
+      "location": "Michigan League, North University Avenue, Ann Arbor, MI, United States (Koessler Room)",
+      "start": "2016-02-03T19:00:00.000-05:00",
+      "summary": "European Dance Practice"
+    },
+    {
+      "description": "Come learn French, Italian and European dances from the Renaissance with live music from the Peascod Gatherers and friends!\n\nParking is available in the Palmer Commons garage or on the street.\n\nMore information: http://www.cynnabar.org/eurodance ",
+      "end": "2016-02-17T21:00:00.000-05:00",
+      "html_link": "https://calendar.google.com/calendar/event?eid=bWlrNGFxaWNxYW51aDRydmtlMzgxcm81cTBfMjAxNjAyMThUMDAwMDAwWiA4cjE3cDBybWFjMmVydGFtMGxnZ2FkMTFnc0Bn",
+      "location": "Michigan League, North University Avenue, Ann Arbor, MI, United States (Koessler Room)",
+      "start": "2016-02-17T19:00:00.000-05:00",
+      "summary": "European Dance Practice"
+    }
   ],
-  "link":"http://calendar.google.com"
+  "link": "http://calendar.google.com"
 }
-
