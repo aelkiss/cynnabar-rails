@@ -42,6 +42,7 @@ class ContactController < ApplicationController
                                   params[:feedback]).deliver_later
     else
       flash.alert = "Not sending email - feedback must be present"
+      render 'new'
     end
   end
 end

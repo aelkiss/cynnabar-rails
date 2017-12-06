@@ -39,10 +39,40 @@ RSpec.feature 'Contact email' do
     office
   end
 
-  scenario 'does not send an empty email' do
-    setup_office_contact
-    expect { send_mail('') }.not_to change(ActionMailer::Base.deliveries, :count)
+  context 'when submitting empty feedback' do
+    let(:message) { '' }
+
+    before(:each) do 
+      setup_office_contact
+    end
+
+    it 'does not send the mail' do
+      expect { send_mail(message) }.not_to change(ActionMailer::Base.deliveries, :count)
+    end
+
+    it 'shows an error' do
+      send_mail(message)
+      expect(page.body).to have_content('Not sending email')
+    end
+
+    it 'does not say the mail was sent' do
+      send_mail(message)
+      expect(page.body).not_to have_content('feedback has been sent')
+    end
+
+    it 'stays on the same page' do
+      contact_page = page.current_path
+      send_mail(message)
+      expect(page.current_path).to eq(contact_page)
+    end
+
+    it 'shows the contact form' do
+      contact_page = page.current_path
+      send_mail(message)
+      expect(page.body).to have_selector("#feedback")
+    end
   end
+
 
   scenario 'sends email to officer' do
     office = setup_office_contact
