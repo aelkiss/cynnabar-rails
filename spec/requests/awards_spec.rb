@@ -48,13 +48,13 @@ end
 describe 'POST /awards' do
   it 'as an admin, allows creating award' do
     sign_in(create(:user, :admin))
-    expect { post awards_path, award: attributes_for(:award) }.to change { Award.count }.by(1)
+    expect { post awards_path, params: { award: attributes_for(:award) }}.to change { Award.count }.by(1)
     expect(response).to have_http_status(:redirect)
   end
 
   it 'as a normal user, does not allow creating award' do
     sign_in(create(:user))
-    expect { post awards_path, award: attributes_for(:award) }.to change { Award.count }.by(0)
+    expect { post awards_path, params: { award: attributes_for(:award) }}.to change { Award.count }.by(0)
     expect(response).to have_http_status(:forbidden)
   end
 end

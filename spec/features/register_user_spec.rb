@@ -11,7 +11,6 @@ feature 'User registration', js: true do
 
   scenario 'can create an unconfirmed user' do
     visit '/users/sign_up'
-    binding.pry
     fill_in_user_details
 
     recipient = create(:recipient)

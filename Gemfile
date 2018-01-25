@@ -39,7 +39,7 @@ gem 'google-api-client'
 
 gem 'rinku'
 
-gem 'paperclip', '~> 4.3'
+gem 'paperclip'
 gem 'recaptcha', require: 'recaptcha/rails'
 
 # Use Capistrano for deployment
