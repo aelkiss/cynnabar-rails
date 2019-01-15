@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 class ApplicationMailer < ActionMailer::Base
-  default from: 'webminister@cynnabar.org'
+  default from: 'no-reply@cynnabar.org'
   layout 'mailer'
 end
