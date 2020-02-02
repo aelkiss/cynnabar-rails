@@ -37,6 +37,10 @@ class PagesController < ApplicationController
     @page&.logo || super
   end
 
+  def menu
+    @page&.menu || super
+  end
+
   private
 
   def check_set_owner
@@ -57,10 +61,10 @@ class PagesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def page_params
-    [:calendar_details, :calendar_title, :calendar, :user_id, :logo].each do |param|
+    [:calendar_details, :calendar_title, :calendar, :user_id, :logo, :menu].each do |param|
       params[:page][param] = nil if params[:page][param] && params[:page][param].empty?
     end
-    params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title, :user_id, :logo)
+    params.require(:page).permit(:slug, :title, :body, :calendar, :calendar_details, :calendar_title, :user_id, :logo, :menu)
   end
 
   def save_page_or_preview(template, &block)

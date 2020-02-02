@@ -18,4 +18,9 @@ RSpec.describe 'pages/edit', type: :view do
     render
     assert_select "input[name='page[logo]']"
   end
+
+  it 'has an option for adding a custom menu' do
+    render
+    assert_select "input[name='page[menu]']"
+  end
 end
