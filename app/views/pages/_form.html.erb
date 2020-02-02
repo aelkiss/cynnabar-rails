@@ -24,6 +24,10 @@
     <%= f.label :slug %>
     <%= f.text_field :slug %>
   </div>
+  <div class="field">
+    <%= f.label :logo %>
+    <%= f.text_field :logo %>
+  </div>
 
   <% if can? :set_owner, @page %>
     <%= f.label 'Owner' %>
