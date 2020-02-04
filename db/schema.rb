@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623004233) do
+ActiveRecord::Schema.define(version: 20200202180543) do
 
   create_table "awardings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci" do |t|
     t.integer  "award_id"
@@ -71,6 +71,8 @@ ActiveRecord::Schema.define(version: 20160623004233) do
     t.string   "calendar"
     t.string   "calendar_title"
     t.boolean  "calendar_details"
+    t.string   "logo"
+    t.string   "menu"
     t.index ["slug"], name: "index_pages_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_pages_on_user_id", using: :btree
   end

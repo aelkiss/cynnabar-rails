@@ -51,6 +51,24 @@ describe 'PATCH /:slug' do
       edited_page = Page.find(page.slug)
       expect(edited_page.user).to eq(user2)
     end
+
+    it 'can change the logo' do
+      page = create(:page)
+
+      patch "/#{page.slug}", params: { page: { logo: 'aardvark.gif' }, commit: 'Save' }
+
+      edited_page = Page.find(page.slug)
+      expect(edited_page.logo).to eq('aardvark.gif')
+    end
+
+    it 'can change the menu' do
+      page = create(:page)
+      patch "/#{page.slug}", params: { page: { menu: 'aardvark_menu' }, commit: 'Save' }
+
+      edited_page = Page.find(page.slug)
+      expect(edited_page.menu).to eq('aardvark_menu')
+    end
+
   end
 
   context 'when logged in as a regular user' do

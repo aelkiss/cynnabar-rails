@@ -24,6 +24,24 @@ describe 'GET /:slug' do
     end
   end
 
+  it 'shows the cynnabar logo by default' do
+    page = create(:page)
+    get page_path(page)
+    expect(response.body).to include('cynnabar_logo.gif')
+  end
+
+  it 'can show a custom logo' do 
+    page = create(:page, logo: 'other_logo.gif')
+    get page_path(page)
+    expect(response.body).to include('other_logo.gif')
+  end
+
+  it 'can show the terpsichore menu' do
+    page = create(:page, menu: 'layouts/terpsichore_menu')
+    get page_path(page)
+    expect(response.body).to include('Schedule')
+  end
+
   # TODO: move to view tests?
   context 'when logged in as a regular user' do
     it 'shows an edit link for pages owned by that user' do
