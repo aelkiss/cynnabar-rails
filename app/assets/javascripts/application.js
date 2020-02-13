@@ -11,14 +11,12 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery-ui/widgets/accordion
 //= require jquery-ui/widgets/datepicker
 //= require jquery-ui/widgets/autocomplete
 //= require autocomplete-rails-uncompressed
 //= require ckeditor/init
-//= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
 

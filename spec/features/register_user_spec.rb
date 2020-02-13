@@ -17,7 +17,6 @@ feature 'User registration', js: true do
     fill_in 'user_name', with: recipient.to_s
     choose_autocomplete_result recipient.to_s, 'user_name'
 
-    binding.pry
     click_on 'Sign up'
     expect(page).to have_content('signed up successfully')
     user = User.find_by_email(DEFAULT_USER_EMAIL)
@@ -31,7 +30,6 @@ feature 'User registration', js: true do
     fill_in_user_details
     fill_in 'user_name', with: 'Asdf Ghjkl'
 
-    binding.pry
     click_on 'Sign up'
     expect(page).to have_content('signed up successfully')
 
@@ -53,7 +51,6 @@ feature 'User approval', js: true do
   scenario 'can approve an unapproved user' do
     user = create(:user, approved: false)
     admin = create(:user, :admin)
-    binding.pry
     sign_in(admin)
 
     visit '/users'
