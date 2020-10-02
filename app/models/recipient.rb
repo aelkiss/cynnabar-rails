@@ -55,8 +55,8 @@ class Recipient < ApplicationRecord
   validates :sca_name, presence: true, if: :is_group
   validates :mundane_name, absence: true, if: :is_group
 
-  validates :sca_name, presence: true, if: 'mundane_name.blank?'
-  validates :mundane_name, presence: true, if: 'sca_name.blank?'
+  validates :sca_name, presence: true, if: -> { mundane_name.blank? }
+  validates :mundane_name, presence: true, if: -> { sca_name.blank? }
 
   private
 

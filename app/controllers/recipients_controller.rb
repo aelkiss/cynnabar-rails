@@ -23,7 +23,7 @@ class RecipientsController < ApplicationController
   # GET /recipients
   # GET /recipients.json
   def index
-    order = 'coalesce(sca_name,mundane_name) ASC'
+    order = Arel.sql('coalesce(sca_name,mundane_name) ASC')
     @search = params[:search]
     @recipients = if @search
                     search_recipients(@search).order(order)

@@ -13,7 +13,6 @@ class Award < ApplicationRecord
 
   validates :precedence, presence: true
 
-  has_many :awardings
   has_many :awards, through: :awardings
 
   def to_s
