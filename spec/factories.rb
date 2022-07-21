@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+FactoryBot.use_parent_strategy = false
+
 FactoryBot.define do
   factory :office do
     sequence(:email) { |n| "office#{n}@example.com" }

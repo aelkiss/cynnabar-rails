@@ -16,7 +16,6 @@
 //= require jquery-ui/widgets/datepicker
 //= require jquery-ui/widgets/autocomplete
 //= require autocomplete-rails-uncompressed
-//= require ckeditor/init
 //= require bootstrap-sprockets
 //= require_tree .
 
