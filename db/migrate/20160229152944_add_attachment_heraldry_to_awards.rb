@@ -1,4 +1,4 @@
-class AddAttachmentHeraldryToAwards < ActiveRecord::Migration
+class AddAttachmentHeraldryToAwards < ActiveRecord::Migration[4.2]
   def self.up
     change_table :awards do |t|
       t.attachment :heraldry

@@ -1,4 +1,4 @@
-class CreatePrecedenceTables < ActiveRecord::Migration
+class CreatePrecedenceTables < ActiveRecord::Migration[4.2]
   def change
     create_table :awards do |t|
       t.string :name
