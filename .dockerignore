@@ -1,0 +1,6 @@
+log
+tmp
+db/*.log
+kube
+coverage
+vendor

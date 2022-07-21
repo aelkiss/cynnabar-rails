@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - gem_cache:/gems
+
+  mariadb-dev:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlroot
+      MYSQL_DATABASE: cynnabar_rails
+      MYSQL_USER: cynnabar
+      MYSQL_PASSWORD: cynnabar
+
+  mariadb-test:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlroot
+      MYSQL_DATABASE: cynnabar_rails
+      MYSQL_USER: cynnabar
+      MYSQL_PASSWORD: cynnabar
+
+volumes:
+  gem_cache:
