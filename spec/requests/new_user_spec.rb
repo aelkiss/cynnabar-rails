@@ -4,18 +4,13 @@ require 'pry'
 
 describe 'POST /users' do
   before(:each) do
-    Recaptcha.configuration.skip_verify_env.delete("test")
+    allow_any_instance_of(Users::RegistrationsController).to receive(:verify_recaptcha).and_return(false)
   end
 
   it 'does not create a user without recaptcha' do
-    Recaptcha.configuration.skip_verify_env.delete('test')
     user = attributes_for(:user)
     expect do
       post '/users', params: { user: user, commit: 'Save' }
     end.not_to change(User, :count)
-  end
-
-  after(:each) do
-    Recaptcha.configuration.skip_verify_env << "test"
   end
 end
