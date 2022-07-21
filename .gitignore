@@ -34,3 +34,4 @@ lib/tasks/awardload.rake
 lib/tasks/pageload.rake
 
 .rspec_status
+coverage
