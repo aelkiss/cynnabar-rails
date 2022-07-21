@@ -8,7 +8,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
-User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Default Admin User')
+admin = User.create(email: 'admin@example.com', password: 'password', role: :admin, name: 'Default Admin User')
+
+Page.create(slug: 'home', title: "Home Page", body: "<h1>Home Page</h1>", user: admin)
 
 Group.create(name: 'Barony of Cynnabar')
 Group.create(name: 'Middle Kingdom')
