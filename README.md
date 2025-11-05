@@ -1,3 +1,7 @@
+
+> [!WARNING]  
+> This application is not maintained; the site is migrating to Wordpress.
+
 # Barony of Cynnabar Rails Application
 
 This Rails application serves the web site for the Barony of Cynnabar at http://www.cynnabar.org.
